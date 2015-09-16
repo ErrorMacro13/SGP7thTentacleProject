@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D player;
 
+    public Vector3 startPosition;
 
     // Use this for initialization
     void Start()
     {
-
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
-        if(transform.rotation.z != 0)
+        if (transform.rotation.z != 0)
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
@@ -37,9 +38,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            if(isFacingLeft)
+            if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if(!isFacingLeft)
+            if (!isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -83,9 +84,36 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Ground")
+        switch (other.gameObject.tag)
         {
-            isGrounded = false;
+            case "Ground":
+                isGrounded = false;
+                break;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        switch(other.gameObject.tag)
+        {
+            case "Lethal":
+                Death();
+                break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        switch(other.tag)
+        {
+            case "Lethal":
+                Death();
+                break;
+        }
+    }
+
+    void Death()
+    {
+        transform.position = startPosition;
     }
 }
