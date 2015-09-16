@@ -17,4 +17,9 @@ public class ButtonScript : MonoBehaviour {
     {
         Application.LoadLevel(name);
     }
+
+    public void ChangeImages(string name)
+    {
+        SendMessageUpwards(name);
+    }
 }
