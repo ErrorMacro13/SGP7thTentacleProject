@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     bool isFacingLeft = false;
 
     public Rigidbody2D player;
+    public GameObject world;
 
     public Vector3 startPosition;
 
@@ -115,5 +116,13 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         transform.position = startPosition;
+        world.BroadcastMessage("ResetWorld");
+        world.BroadcastMessage("ResetTimer");
+        world.BroadcastMessage("StartTimer");
+        Invoke("ResumeTimer", 1);
+    }
+    void ResumeTimer()
+    {
+        
     }
 }
