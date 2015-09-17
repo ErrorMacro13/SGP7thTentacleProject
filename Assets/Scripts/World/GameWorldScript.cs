@@ -38,6 +38,8 @@ public class GameWorldScript : MonoBehaviour {
 	public Texture2D StopSpeedTexture;
 	public Texture2D NormalSpeedTexture;
 	public GUISkin MeterSkin;
+    public AudioSource TimeSlowAfx;
+    public AudioSource TimeSpeedAfx;
 	private float TimeGauge = 100;
 	private short GameTime = 0;
 	private short SlowSpeed = 0;
@@ -56,6 +58,7 @@ public class GameWorldScript : MonoBehaviour {
 			GameTime = 1;
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = .75f;
+            TimeSlowAfx.Play();
 		}
 		//slow speed to 1/4
 		else if (Input.GetKeyDown(KeyCode.Keypad1) && SlowSpeed == 1 && TimeGauge > 0) {
@@ -63,6 +66,7 @@ public class GameWorldScript : MonoBehaviour {
 			GameTime = 2;
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = .5f;
+            TimeSlowAfx.Play();
 		}
 		//stop speed
 		else if (Input.GetKeyDown(KeyCode.Keypad2) && TimeGauge > 0) {
@@ -70,10 +74,15 @@ public class GameWorldScript : MonoBehaviour {
 			GameTime = 3;
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = .1f;
+            TimeSlowAfx.Play();
 		}
 		//resume speed
 		else if (Input.GetKeyDown(KeyCode.Keypad3) || TimeGauge <= 0) {
-			SlowSpeed = 0;
+            if (GameTime != 0)
+            {
+                TimeSpeedAfx.Play();
+            }
+            SlowSpeed = 0;
 			GameTime = 0;
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
