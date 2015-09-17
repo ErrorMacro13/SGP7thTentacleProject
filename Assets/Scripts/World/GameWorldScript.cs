@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 /*
- * All mobile objects will need the following code!
+ * All MOBILE objects will need the following code!
  * 
     float CurrGameSpeed = 1.0f;
 	void SetTime(short GameSpeed){
@@ -23,6 +23,9 @@ using System.Xml.Serialization;
 			break;
 		}
 	}
+    //ALL RESETABLE OBJECTS will need this code
+    //This should take care of returning the object to its orignal status
+    void ResetOverWorld(){ }
 
    to use the prior code: All actions that affect SPEED will need to be multiplied by the CurrGameSpeed variable
  * 
@@ -40,12 +43,13 @@ public class GameWorldScript : MonoBehaviour {
 	public GUISkin MeterSkin;
     public AudioSource TimeSlowAfx;
     public AudioSource TimeSpeedAfx;
+    public float MAXMANA = 100;
 	private float TimeGauge = 100;
 	private short GameTime = 0;
 	private short SlowSpeed = 0;
     private float ElapsedTime = 0;
-    private bool ResetTime = false;
-
+    private bool ActiveTimer = true;
+    private float TimeOnTimer;
 	// Use this for initialization
 	void Start () {
 
@@ -109,7 +113,10 @@ public class GameWorldScript : MonoBehaviour {
 		}
 	}
 	void Refill(float amt){
+        print("refilling");
 		TimeGauge += amt;
+        if (TimeGauge > MAXMANA)
+            TimeGauge = MAXMANA;
 	}
 	void SetEnergy(float amt){
 		TimeGauge = amt;
@@ -121,7 +128,6 @@ public class GameWorldScript : MonoBehaviour {
     {
         return ElapsedTime;
     }
-    public float a;
 	void OnGUI(){
 		GUIStyle ManaBarStyle = new GUIStyle ();
 		ManaBarStyle.fontSize = 40;
@@ -151,14 +157,12 @@ public class GameWorldScript : MonoBehaviour {
 		}
 		float time = Time.time;
 		time = Mathf.Round (time * 10) / 10;
-        Rect Timer = new Rect(1820, 50, 40, 20);
-        Rect TimerLabel = new Rect(1560, 50, 100, 20);
+        Rect Timer = new Rect(Screen.width - 105, 50, 40, 20);
+        Rect TimerLabel = new Rect(Screen.width - 365, 50, 100, 20);
         ElapsedTime = time;
-        if (ResetTime) {
-            time = 0;
-            ResetTime = false;
-        }
-		GUI.Label (Timer, time.ToString(), ManaBarStyle);
+        if(ActiveTimer)
+            TimeOnTimer = time;
+		GUI.Label (Timer, TimeOnTimer.ToString(), ManaBarStyle);
 		GUI.Label (TimerLabel, "Elapsed Time: ", ManaBarStyle);
 	}
 	void ResetWorld(){
@@ -166,6 +170,11 @@ public class GameWorldScript : MonoBehaviour {
 	}
     void ResetTimer()
     {
-        ResetTime = true;
+        TimeOnTimer = 0;
+        ActiveTimer = false;
+    }
+    void StartTimer()
+    {
+        ActiveTimer = true;
     }
 }
