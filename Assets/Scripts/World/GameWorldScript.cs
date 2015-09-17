@@ -50,6 +50,7 @@ public class GameWorldScript : MonoBehaviour {
     private float ElapsedTime = 0;
     private bool ActiveTimer = true;
     private float TimeOnTimer;
+    private float TimeBeforeDeath;
 	// Use this for initialization
 	void Start () {
 
@@ -162,7 +163,7 @@ public class GameWorldScript : MonoBehaviour {
         ElapsedTime = time;
         if(ActiveTimer)
             TimeOnTimer = time;
-		GUI.Label (Timer, TimeOnTimer.ToString(), ManaBarStyle);
+		GUI.Label (Timer, (TimeOnTimer-TimeBeforeDeath).ToString(), ManaBarStyle);
 		GUI.Label (TimerLabel, "Elapsed Time: ", ManaBarStyle);
 	}
 	void ResetWorld(){
@@ -170,6 +171,7 @@ public class GameWorldScript : MonoBehaviour {
 	}
     void ResetTimer()
     {
+        TimeBeforeDeath = Time.time;
         TimeOnTimer = 0;
         ActiveTimer = false;
     }

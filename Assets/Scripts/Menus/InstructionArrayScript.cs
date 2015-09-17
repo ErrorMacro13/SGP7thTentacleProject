@@ -92,7 +92,7 @@ public class InstructionArrayScript : MonoBehaviour
         ButtonPrev = GameObject.Find("Prev");
         GUI.DrawTexture(new Rect(ButtonPrev.GetComponent<Transform>().position.x - 550, Screen.height * 0.5f - 275, 550, 275), CurrLImg);
         GUI.DrawTexture(new Rect(ButtonNext.GetComponent<Transform>().position.x - 20, Screen.height * 0.5f - 275, 550, 275), CurrRImg);
-        GUI.Label(new Rect(550,300,50,50), pagenum + "/14", PageTxt);
+        GUI.Label(new Rect(ButtonNext.GetComponent<Transform>().position.x - 170, Screen.height * 0.5f, 50, 50), pagenum + "/14", PageTxt);
     }
     void Next()
     {

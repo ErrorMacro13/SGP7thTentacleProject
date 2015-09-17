@@ -118,10 +118,11 @@ public class PlayerController : MonoBehaviour
         transform.position = startPosition;
         world.BroadcastMessage("ResetWorld");
         world.BroadcastMessage("ResetTimer");
+        world.BroadcastMessage("StartTimer");
         Invoke("ResumeTimer", 1);
     }
     void ResumeTimer()
     {
-        world.BroadcastMessage("StartTimer");
+        
     }
 }
