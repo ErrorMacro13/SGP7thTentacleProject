@@ -6,20 +6,20 @@ using System.Xml.Serialization;
 /*
  * All mobile objects will need the following code!
  * 
-    float CurrGameSpeed = 1.0;
+    float CurrGameSpeed = 1.0f;
 	void SetTime(short GameSpeed){
 		switch (GameSpeed) {
 		case 1:
-			CurrGameSpeed = 0.5;
+			CurrGameSpeed = 0.5f;
 			break;
 		case 2:
-			CurrGameSpeed = 0.25;
+			CurrGameSpeed = 0.25f;
 			break;
 		case 3:
-			CurrGameSpeed = 0.0;
+			CurrGameSpeed = 0.0f;
 			break;
 		default:
-			CurrGameSpeed = 1.0;
+			CurrGameSpeed = 1.0f;
 			break;
 		}
 	}

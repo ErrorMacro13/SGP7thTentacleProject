@@ -36,7 +36,7 @@ public class ButtonScript : MonoBehaviour
         Application.Quit();
     }
 
-    void OnMouseEnter()
+    public void OnMouseEnter()
     {
         SoundManager.SendMessage("Hovered");
     }
