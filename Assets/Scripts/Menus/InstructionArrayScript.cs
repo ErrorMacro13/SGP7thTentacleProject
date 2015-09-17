@@ -82,12 +82,17 @@ public class InstructionArrayScript : MonoBehaviour
     {
 
     }
+    public Quaternion a;
+    private GameObject ButtonNext;
+    private GameObject ButtonPrev;
     void OnGUI()
     {
         PageTxt.fontSize = 40;
-        GUI.DrawTexture(new Rect(0, 40, 550, 275), CurrLImg);
-        GUI.DrawTexture(new Rect(650, 40, 550, 275), CurrRImg);
-        GUI.Label(new Rect(550,300,50,50), pagenum + "/14", PageTxt);
+        ButtonNext = GameObject.Find("Next");
+        ButtonPrev = GameObject.Find("Prev");
+        GUI.DrawTexture(new Rect(ButtonPrev.GetComponent<Transform>().position.x - 550, Screen.height * 0.5f - 275, 550, 275), CurrLImg);
+        GUI.DrawTexture(new Rect(ButtonNext.GetComponent<Transform>().position.x - 20, Screen.height * 0.5f - 275, 550, 275), CurrRImg);
+        GUI.Label(new Rect(ButtonNext.GetComponent<Transform>().position.x - 170, Screen.height * 0.5f, 50, 50), pagenum + "/14", PageTxt);
     }
     void Next()
     {
