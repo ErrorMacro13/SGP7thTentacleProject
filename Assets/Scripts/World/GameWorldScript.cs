@@ -38,7 +38,9 @@ public class GameWorldScript : MonoBehaviour {
 	public Texture2D StopSpeedTexture;
 	public Texture2D NormalSpeedTexture;
 	public GUISkin MeterSkin;
-	private float TimeGauge = 0;
+    public AudioSource TimeSlowAfx;
+    public AudioSource TimeSpeedAfx;
+	private float TimeGauge = 100;
 	private short GameTime = 0;
 	private short SlowSpeed = 0;
     private float ElapsedTime = 0;
@@ -55,24 +57,35 @@ public class GameWorldScript : MonoBehaviour {
 			SlowSpeed++;
 			GameTime = 1;
 			BroadcastMessage ("SetTime", GameTime);
+            CameraOne.GetComponent<AudioSource>().pitch = .75f;
+            TimeSlowAfx.Play();
 		}
 		//slow speed to 1/4
 		else if (Input.GetKeyDown(KeyCode.Keypad1) && SlowSpeed == 1 && TimeGauge > 0) {
 			SlowSpeed++;
 			GameTime = 2;
 			BroadcastMessage ("SetTime", GameTime);
+            CameraOne.GetComponent<AudioSource>().pitch = .5f;
+            TimeSlowAfx.Play();
 		}
 		//stop speed
 		else if (Input.GetKeyDown(KeyCode.Keypad2) && TimeGauge > 0) {
 			SlowSpeed = 0;
 			GameTime = 3;
 			BroadcastMessage ("SetTime", GameTime);
+            CameraOne.GetComponent<AudioSource>().pitch = .1f;
+            TimeSlowAfx.Play();
 		}
 		//resume speed
 		else if (Input.GetKeyDown(KeyCode.Keypad3) || TimeGauge <= 0) {
-			SlowSpeed = 0;
+            if (GameTime != 0)
+            {
+                TimeSpeedAfx.Play();
+            }
+            SlowSpeed = 0;
 			GameTime = 0;
 			BroadcastMessage ("SetTime", GameTime);
+            CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
 		}
 		if (GameTime != 0)
 			Drain (Time.deltaTime);
@@ -82,13 +95,13 @@ public class GameWorldScript : MonoBehaviour {
 	void Drain(float dt){
 		switch (GameTime) {
 		case 1:
-			TimeGauge -= 10;
+			TimeGauge -= 10 * dt;
 			break;
 		case 2:
-			TimeGauge -= 20;
+			TimeGauge -= 20 * dt;
 			break;
 		case 3:
-			TimeGauge -= 30;
+			TimeGauge -= 30 * dt;
 			break;
 		default:
 			TimeGauge -= 0;
@@ -108,17 +121,18 @@ public class GameWorldScript : MonoBehaviour {
     {
         return ElapsedTime;
     }
+    public float a;
 	void OnGUI(){
 		GUIStyle ManaBarStyle = new GUIStyle ();
 		ManaBarStyle.fontSize = 40;
         Rect PercentBar = new Rect(50, 50, TimeGauge * 2 + 60, 45);
         Rect TimeSymbol = new Rect(10, 50, 40, 40);
-        Rect AboveHeadBar = new Rect(420, 210, TimeGauge + 5, 5);
+        //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
 		float mana = Mathf.Round (TimeGauge);
 		GUI.skin = MeterSkin;
 		GUI.Box (PercentBar, "");
-		if(TimeGauge > 0.0f)
-			GUI.Box (AboveHeadBar, "");
+		//if(TimeGauge > 0.0f)
+			//GUI.Box (AboveHeadBar, "");
 		GUI.skin = null;
 		GUI.Box (PercentBar, mana.ToString() + "%", ManaBarStyle);
 		switch (GameTime) {
