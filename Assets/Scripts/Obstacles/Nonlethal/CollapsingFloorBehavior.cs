@@ -26,10 +26,13 @@ public class CollapsingFloorBehavior : MonoBehaviour {
 
     bool active = false;
     public float TimeBeforeFall = 1.0f;
+    public Sprite Crumble;
+
+    Transform Originalpos;
 
     // Use this for initialization
     void Start () {
-	
+        Originalpos = GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -40,16 +43,31 @@ public class CollapsingFloorBehavior : MonoBehaviour {
         }
         if(TimeBeforeFall <= 0.0f)
         {
+            if (GetComponent<Rigidbody2D>().isKinematic != false)
+                Invoke("Shrink", 0.5f);
             GetComponent<Rigidbody2D>().isKinematic = false;
         }
-	}
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player" && CurrGameSpeed != 0.0f)
         {
-            print("hit!");
             active = true;
+            GetComponent<SpriteRenderer>().sprite = Crumble;
         }
+    }
+
+    void Shrink()
+    {
+        print("shrink");
+        GetComponent<Transform>().localScale -= GetComponent<Transform>().localScale;
+    }
+
+    void ResetOverWorld()
+    {
+        GetComponent<Transform>().position = Originalpos.position;
+        GetComponent<Transform>().lossyScale.Set(Originalpos.lossyScale.x, Originalpos.lossyScale.y, Originalpos.lossyScale.z);
+        GetComponent<Transform>().rotation = Originalpos.rotation;
     }
 }
