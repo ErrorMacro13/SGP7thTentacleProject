@@ -31,10 +31,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
-        if (transform.rotation.z != 0)
-        {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-        }
+        GetComponent<Rigidbody2D>().freezeRotation = true;
     }
 
     void FixedUpdate()
