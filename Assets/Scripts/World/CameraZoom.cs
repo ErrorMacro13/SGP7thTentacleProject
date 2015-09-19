@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraZoom : MonoBehaviour {
+public class CameraZoom : MonoBehaviour
+{
 
     GameObject Cam;
     public float newZoom;
@@ -10,16 +11,18 @@ public class CameraZoom : MonoBehaviour {
     public bool PlayerLocked;
     public bool VertLocked;
     bool zooming = false;
-   public  Vector3 Offset;
+    public Vector3 Offset;
     bool update = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         Cam = GameObject.Find("Main Camera");
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
 
         if (zooming)
         {
@@ -58,14 +61,14 @@ public class CameraZoom : MonoBehaviour {
                         Offset.x = XOffset;
                 }
 
-                if (Offset.y > YOffset && !VertLocked)
+                if (Offset.y > YOffset)
                 {
                     update = true;
                     Offset.y -= .05f;
                     if (Offset.y < YOffset)
                         Offset.y = YOffset;
                 }
-                else if (Offset.y < YOffset && !VertLocked)
+                else if (Offset.y < YOffset)
                 {
                     update = true;
                     Offset.y += .05f;
@@ -83,9 +86,16 @@ public class CameraZoom : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            Offset = Cam.transform.position - GameObject.Find("Player").transform.position ;
+            Offset.x = Cam.transform.position.x - GameObject.Find("Player").transform.position.x;
+            Offset.z = -20;
+            if (VertLocked)
+                Offset.y = Cam.transform.position.y;// - GameObject.Find("Player").transform.position.y;
+            else
+                Offset.y = Cam.transform.position.y - GameObject.Find("Player").transform.position.y;
+
+            Cam.SendMessage("VertLock", VertLocked);
             zooming = true;
         }
     }
