@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
     }
 
     // Update is called once per frame
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        switch(other.gameObject.tag)
+        switch (other.gameObject.tag)
         {
             case "Lethal":
                 Death();
@@ -105,10 +107,24 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        switch(other.tag)
+        switch (other.tag)
         {
             case "Lethal":
                 Death();
+                break;
+            case "CheckPoint":
+                startPosition = other.transform.position;
+                SendMessageUpwards("ResetTimer");
+                break;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "CheckPoint":
+                SendMessageUpwards("StartTimer");
                 break;
         }
     }
@@ -116,13 +132,13 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         transform.position = startPosition;
+        world.BroadcastMessage("SetEnergy", 0.0f);
+        world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
-        world.BroadcastMessage("ResetTimer");
-        world.BroadcastMessage("StartTimer");
-        Invoke("ResumeTimer", 1);
     }
+
     void ResumeTimer()
     {
-        
+
     }
 }

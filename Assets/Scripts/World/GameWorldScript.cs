@@ -171,12 +171,17 @@ public class GameWorldScript : MonoBehaviour {
 	}
     void ResetTimer()
     {
-        TimeBeforeDeath = Time.time;
-        TimeOnTimer = 0;
         ActiveTimer = false;
     }
     void StartTimer()
     {
+        TimeBeforeDeath = Time.time;
         ActiveTimer = true;
+    }
+    void ZeroTimer()
+    {
+        float time = Time.time;
+        time = Mathf.Round(time * 10) / 10;
+        TimeBeforeDeath = time;
     }
 }
