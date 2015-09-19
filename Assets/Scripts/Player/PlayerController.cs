@@ -121,6 +121,17 @@ public class PlayerController : MonoBehaviour
         world.BroadcastMessage("StartTimer");
         Invoke("ResumeTimer", 1);
     }
+    void Die(string DeathCase)
+    {
+        if (DeathCase == "Crushed" && isGrounded)
+        {
+            transform.position = startPosition;
+            world.BroadcastMessage("ResetWorld");
+            world.BroadcastMessage("ResetTimer");
+            world.BroadcastMessage("StartTimer");
+            Invoke("ResumeTimer", 1);
+        }
+    }
     void ResumeTimer()
     {
         

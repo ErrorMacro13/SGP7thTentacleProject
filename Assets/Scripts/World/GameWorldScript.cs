@@ -6,7 +6,10 @@ using System.Xml.Serialization;
 /*
  * All MOBILE objects will need the following code!
  * 
-    float CurrGameSpeed = 1.0f;
+
+    private Vector3 StartLoc;
+
+    private float CurrGameSpeed = 1.0f;
 	void SetTime(short GameSpeed){
 		switch (GameSpeed) {
 		case 1:
@@ -23,9 +26,10 @@ using System.Xml.Serialization;
 			break;
 		}
 	}
-    //ALL RESETABLE OBJECTS will need this code
-    //This should take care of returning the object to its orignal status
-    void ResetOverWorld(){ }
+    
+    void ResetOverWorld(){
+
+    }
 
    to use the prior code: All actions that affect SPEED will need to be multiplied by the CurrGameSpeed variable
  * 
@@ -34,6 +38,7 @@ using System.Xml.Serialization;
 
 
 public class GameWorldScript : MonoBehaviour {
+    public bool DisableDrain = true;
 	public GameObject Player;
 	public GameObject CameraOne;
 	public Texture2D HalfSpeedTexture;
@@ -92,7 +97,7 @@ public class GameWorldScript : MonoBehaviour {
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
 		}
-		if (GameTime != 0)
+		if (GameTime != 0 && !DisableDrain)
 			Drain (Time.deltaTime);
 		if (TimeGauge < 0)
 			TimeGauge = 0;
