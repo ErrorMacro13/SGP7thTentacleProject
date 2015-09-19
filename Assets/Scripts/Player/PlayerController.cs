@@ -142,11 +142,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-<<<<<<< HEAD
-        switch (other.gameObject.tag)
-=======
-        switch(other.tag)
->>>>>>> dfcf61c8d0c8079fad5085d05ad185a8efbb2130
+        switch (other.tag)
         {
             case "Lethal":
                 Death();
@@ -187,9 +183,7 @@ public class PlayerController : MonoBehaviour
         world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
     }
-<<<<<<< HEAD
 
-=======
     void Die(string DeathCase)
     {
         if (DeathCase == "Crushed" && isGrounded)
@@ -201,7 +195,6 @@ public class PlayerController : MonoBehaviour
             Invoke("ResumeTimer", 1);
         }
     }
->>>>>>> dfcf61c8d0c8079fad5085d05ad185a8efbb2130
     void ResumeTimer()
     {
 
