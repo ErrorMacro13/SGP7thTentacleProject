@@ -166,7 +166,8 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        switch (other.tag)
+
+        switch(other.tag)
         {
             case "Lethal":
                 Death();
@@ -215,6 +216,7 @@ public class PlayerController : MonoBehaviour
             Death();
         }
     }
+
     void ResumeTimer()
     {
 
