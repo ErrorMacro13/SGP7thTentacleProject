@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     public bool isJumping = false;
     bool isFacingLeft = false;
+    bool isSlow = false;
+    bool timeCharge = false;
 
     public Rigidbody2D player;
     public GameObject world;
@@ -31,9 +33,16 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
-        if (transform.rotation.z != 0)
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        if (isSlow)
+            maxSpeed = 1.5f;
+        else
+            maxSpeed = 5.0f;
+
+        if (timeCharge)
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            world.SendMessage("Refill", 0.5f);
         }
     }
 
@@ -75,11 +84,39 @@ public class PlayerController : MonoBehaviour
         player.AddForce(new Vector2(0f, jumpForce));
     }
 
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "Lethal":
+                Death();
+                break;
+            case "SlowPlayer":
+                isSlow = true;
+                break;
+            case "ChargeTimelock":
+                timeCharge = true;
+                break;
+        }
+    }
+
     void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Ground")
+        switch (other.gameObject.tag)
         {
-            isGrounded = true;
+            case "Ground":
+
+                isGrounded = true;
+                break;
+            case "Lethal":
+                Death();
+                break;
+            case "SlowPlayer":
+                isSlow = true;
+                break;
+            case "ChargeTimelock":
+                timeCharge = true;
+                break;
         }
     }
 
@@ -90,18 +127,16 @@ public class PlayerController : MonoBehaviour
             case "Ground":
                 isGrounded = false;
                 break;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        switch(other.gameObject.tag)
-        {
-            case "Lethal":
-                Death();
+            case "SlowPlayer":
+                isSlow = false;
+                break;
+            case "ChargeTimelock":
+                timeCharge = false;
                 break;
         }
     }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -113,8 +148,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "Lethal":
+                Death();
+                break;
+        }
+    }
+
     void Death()
     {
+        isSlow = false;
+        timeCharge = false;
         transform.position = startPosition;
         world.BroadcastMessage("ResetWorld");
         world.BroadcastMessage("ResetTimer");

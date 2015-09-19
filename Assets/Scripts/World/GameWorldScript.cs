@@ -63,7 +63,7 @@ public class GameWorldScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//slow speed to 1/2
-		if (Input.GetKeyDown(KeyCode.Keypad1) && SlowSpeed == 0 && TimeGauge > 0) {
+		if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 0 && TimeGauge > 0) {
 			SlowSpeed++;
 			GameTime = 1;
 			BroadcastMessage ("SetTime", GameTime);
@@ -71,7 +71,7 @@ public class GameWorldScript : MonoBehaviour {
             TimeSlowAfx.Play();
 		}
 		//slow speed to 1/4
-		else if (Input.GetKeyDown(KeyCode.Keypad1) && SlowSpeed == 1 && TimeGauge > 0) {
+		else if ((Input.GetKeyDown(KeyCode.Keypad1)|| Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 1 && TimeGauge > 0) {
 			SlowSpeed++;
 			GameTime = 2;
 			BroadcastMessage ("SetTime", GameTime);
@@ -79,7 +79,7 @@ public class GameWorldScript : MonoBehaviour {
             TimeSlowAfx.Play();
 		}
 		//stop speed
-		else if (Input.GetKeyDown(KeyCode.Keypad2) && TimeGauge > 0) {
+		else if ((Input.GetKeyDown(KeyCode.Keypad2)|| Input.GetKeyDown(KeyCode.DownArrow)) && TimeGauge > 0) {
 			SlowSpeed = 0;
 			GameTime = 3;
 			BroadcastMessage ("SetTime", GameTime);
@@ -87,7 +87,7 @@ public class GameWorldScript : MonoBehaviour {
             TimeSlowAfx.Play();
 		}
 		//resume speed
-		else if (Input.GetKeyDown(KeyCode.Keypad3) || TimeGauge <= 0) {
+		else if ((Input.GetKeyDown(KeyCode.Keypad3)|| Input.GetKeyDown(KeyCode.RightArrow)) || TimeGauge <= 0) {
             if (GameTime != 0)
             {
                 TimeSpeedAfx.Play();
@@ -97,7 +97,13 @@ public class GameWorldScript : MonoBehaviour {
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
 		}
+<<<<<<< HEAD
 		if (GameTime != 0 && !DisableDrain)
+=======
+
+        
+		if (GameTime != 0)
+>>>>>>> d080d39f07da7f163682fddc42250146d6045ae8
 			Drain (Time.deltaTime);
 		if (TimeGauge < 0)
 			TimeGauge = 0;
