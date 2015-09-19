@@ -10,13 +10,13 @@ public class CameraBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Player.transform.position.x + camPosition.x, camPosition.y, camPosition.z);
+        transform.position = new Vector3(Player.transform.position.x + camPosition.x, Player.transform.position.y + camPosition.y, camPosition.z);
     }
 
     void RePosition(Vector3 vec)
