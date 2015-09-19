@@ -97,13 +97,10 @@ public class GameWorldScript : MonoBehaviour {
 			BroadcastMessage ("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
 		}
-<<<<<<< HEAD
 		if (GameTime != 0 && !DisableDrain)
-=======
 
         
 		if (GameTime != 0)
->>>>>>> d080d39f07da7f163682fddc42250146d6045ae8
 			Drain (Time.deltaTime);
 		if (TimeGauge < 0)
 			TimeGauge = 0;
