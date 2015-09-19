@@ -7,9 +7,10 @@ public class CameraZoom : MonoBehaviour {
     public float newZoom;
     public float YOffset;
     public float XOffset;
-    public bool Locked;
+    public bool PlayerLocked;
+    public bool VertLocked;
     bool zooming = false;
-    Vector3 Offset;
+   public  Vector3 Offset;
     bool update = false;
 
 	// Use this for initialization
@@ -22,12 +23,13 @@ public class CameraZoom : MonoBehaviour {
 
         if (zooming)
         {
-            if (Locked)
+            if (PlayerLocked)
             {
                 Cam.SendMessage("RePosition", new Vector3(0, 0, -20));
             }
             else
             {
+
                 if (newZoom > Cam.gameObject.GetComponent<Camera>().orthographicSize)
                 {
                     Cam.gameObject.GetComponent<Camera>().orthographicSize += .1f;
@@ -56,14 +58,14 @@ public class CameraZoom : MonoBehaviour {
                         Offset.x = XOffset;
                 }
 
-                if (Offset.y > YOffset)
+                if (Offset.y > YOffset && !VertLocked)
                 {
                     update = true;
                     Offset.y -= .05f;
                     if (Offset.y < YOffset)
                         Offset.y = YOffset;
                 }
-                else if (Offset.y < YOffset)
+                else if (Offset.y < YOffset && !VertLocked)
                 {
                     update = true;
                     Offset.y += .05f;
@@ -83,7 +85,7 @@ public class CameraZoom : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            Offset = Cam.transform.position;
+            Offset = Cam.transform.position - GameObject.Find("Player").transform.position ;
             zooming = true;
         }
     }

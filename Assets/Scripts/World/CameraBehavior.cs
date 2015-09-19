@@ -6,11 +6,10 @@ public class CameraBehavior : MonoBehaviour
 
     public GameObject Player;
     Vector3 camPosition = new Vector3(3.75f, 3, -20);
-
     // Use this for initialization
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
