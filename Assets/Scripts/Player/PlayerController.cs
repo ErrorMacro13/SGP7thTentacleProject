@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
     }
 
     // Update is called once per frame
@@ -140,7 +142,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+<<<<<<< HEAD
+        switch (other.gameObject.tag)
+=======
         switch(other.tag)
+>>>>>>> dfcf61c8d0c8079fad5085d05ad185a8efbb2130
         {
             case "Lethal":
                 Death();
@@ -155,6 +161,20 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "CheckPoint":
+                startPosition = other.transform.position;
+                SendMessageUpwards("ResetTimer");
+                break;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "CheckPoint":
+                SendMessageUpwards("StartTimer");
+                break;
         }
     }
 
@@ -163,11 +183,13 @@ public class PlayerController : MonoBehaviour
         isSlow = false;
         timeCharge = false;
         transform.position = startPosition;
+        world.BroadcastMessage("SetEnergy", 0.0f);
+        world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
-        world.BroadcastMessage("ResetTimer");
-        world.BroadcastMessage("StartTimer");
-        Invoke("ResumeTimer", 1);
     }
+<<<<<<< HEAD
+
+=======
     void Die(string DeathCase)
     {
         if (DeathCase == "Crushed" && isGrounded)
@@ -179,8 +201,9 @@ public class PlayerController : MonoBehaviour
             Invoke("ResumeTimer", 1);
         }
     }
+>>>>>>> dfcf61c8d0c8079fad5085d05ad185a8efbb2130
     void ResumeTimer()
     {
-        
+
     }
 }

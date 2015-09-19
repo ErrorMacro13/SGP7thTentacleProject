@@ -18,4 +18,9 @@ public class CameraBehavior : MonoBehaviour
     {
         transform.position = new Vector3(Player.transform.position.x + camPosition.x, Player.transform.position.y + camPosition.y, camPosition.z);
     }
+
+    void RePosition(Vector3 vec)
+    {
+        camPosition = vec;
+    }
 }
