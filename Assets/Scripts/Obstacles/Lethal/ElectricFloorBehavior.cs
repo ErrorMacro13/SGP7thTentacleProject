@@ -10,12 +10,16 @@ public class ElectricFloorBehavior : MonoBehaviour
     public bool isDormant;
 
     public float timeBetweenStates = 3.0f;
-    public float timer = 3.0f;
+    float timer;
+
+    GameObject player;
 
     // Use this for initialization
     void Start()
     {
+        timer = timeBetweenStates;
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
+        GameObject.Find("Player");
 
     }
 
@@ -24,8 +28,7 @@ public class ElectricFloorBehavior : MonoBehaviour
     {
 
 
-        timeBetweenStates -= (Time.deltaTime * CurrGameSpeed);
-        timer = timeBetweenStates;
+        timer -= (Time.deltaTime * CurrGameSpeed);
 
 
 
@@ -47,7 +50,7 @@ public class ElectricFloorBehavior : MonoBehaviour
                 isActive = false;
                 isDormant = true;
             }
-            timeBetweenStates = 3.0f;
+            timer = timeBetweenStates;
         }
 
 
@@ -66,7 +69,6 @@ public class ElectricFloorBehavior : MonoBehaviour
         else if (isCharging)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorChargingPH", typeof(Sprite)) as Sprite;
-            gameObject.tag = "ChargeTimelock";
         }
         else if (isDormant)
         {
@@ -91,6 +93,14 @@ public class ElectricFloorBehavior : MonoBehaviour
             default:
                 CurrGameSpeed = 1.0f;
                 break;
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if(isCharging && other.gameObject.tag == "Player")
+        {
+            SendMessageUpwards("Refill", 0.2);
         }
     }
 

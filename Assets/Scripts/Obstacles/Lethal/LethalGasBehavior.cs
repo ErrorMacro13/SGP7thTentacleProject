@@ -6,7 +6,6 @@ public class LethalGasBehavior : MonoBehaviour
     float killTime = 5.0f;
 
     bool isColliding = false;
-    bool isLethal = false;
 
 
     // Use this for initialization
