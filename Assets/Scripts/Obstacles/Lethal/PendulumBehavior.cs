@@ -1,34 +1,135 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PendulumBehavior : MonoBehaviour {
+public class PendulumBehavior : MonoBehaviour
+{
+    BoxCollider2D pendulumCollider;
+    public Rigidbody2D player;
+
+    public float motorSpeed = 100f;
+    float CurrGameSpeed = 1.0f;
+    bool nonlethal;
+    bool isCatapult;
+    bool collision;
+    Vector2 direction;
 
     public HingeJoint2D hinge;
     JointMotor2D motor;
     bool swingingLeft;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         hinge = gameObject.GetComponent<HingeJoint2D>();
-        motor = hinge.motor;
+        //motor = hinge.motor;
         motor.maxMotorTorque = 100000;
         motor.motorSpeed = 100;
         swingingLeft = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (hinge.jointAngle >= 179.0f && swingingLeft)
+        direction = new Vector2(50, 0);
+        pendulumCollider = GetComponent<BoxCollider2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if ((hinge.jointAngle >= hinge.limits.max && swingingLeft) || (hinge.jointAngle <= hinge.limits.min && !swingingLeft))
         {
-            swingingLeft = false;
-            motor.motorSpeed = -motor.motorSpeed;
-            hinge.motor = motor;
+            swingingLeft = !swingingLeft;
+            motorSpeed = -motorSpeed;
         }
 
-        if (hinge.jointAngle <= 1.0f && !swingingLeft)
+        if (nonlethal)
         {
-            swingingLeft = true;
-            motor.motorSpeed = -motor.motorSpeed;
-            hinge.motor = motor;
+            pendulumCollider.isTrigger = false;
+            tag = "Ground";
+            //if(hinge.jointAngle >= hinge.limit)
+            //{
+
+            //}
         }
-	}
+       
+        if (!collision && CurrGameSpeed > 0.25f && !nonlethal)
+        {
+            pendulumCollider.isTrigger = true;
+            tag = "Lethal";
+        }
+
+        if (collision && CurrGameSpeed > 0.25)
+        {
+            isCatapult = true;
+        }
+        else
+        {
+            isCatapult = false;
+        }
+        //if (hinge.jointAngle <= hinge.limits.min && !swingingLeft)
+        //{
+        //    swingingLeft = true;
+        //    motorSpeed = -motorSpeed;
+        //}
+
+
+        motor.motorSpeed = motorSpeed * CurrGameSpeed;
+        hinge.motor = motor;
+
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            collision = true;
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            collision = true;
+            player = other.gameObject.GetComponent<Rigidbody2D>();
+
+            if(isCatapult)
+            {
+                player.AddForce(direction);
+            }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            collision = false;
+            //nonlethal = false;
+
+            if (isCatapult)
+            {
+                player.AddForce(direction);
+            }
+        }
+    }
+
+    void SetTime(short GameSpeed)
+    {
+        switch (GameSpeed)
+        {
+            case 1:
+                CurrGameSpeed = 0.5f;
+                
+                break;
+            case 2:
+                CurrGameSpeed = 0.25f;
+                nonlethal = true;
+                break;
+            case 3:
+                CurrGameSpeed = 0.0f;
+                nonlethal = true;
+                break;
+            default:
+                CurrGameSpeed = 1.0f;
+                
+                break;
+        }
+    }
 }
