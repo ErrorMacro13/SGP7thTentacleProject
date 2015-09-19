@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded = false;
     public bool isJumping = false;
+
+    public float speed = 0f;
+    public float CurrJumpPenalty = 1f;
+    public float OriginalJumpPenalty = .05f;
+    bool JumpHeld = false;
+
     bool isFacingLeft = false;
     bool isSlow = false;
     bool timeCharge = false;
@@ -28,9 +34,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isGrounded)
+            CurrJumpPenalty = 1.0f;
+        else
+            CurrJumpPenalty = OriginalJumpPenalty;
 
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && isGrounded)
         {
+            JumpHeld = true;
             isJumping = true;
             isGrounded = false;
         }
@@ -52,25 +63,39 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
+            if (speed <= 0)
+                speed = 1;
+            if (speed > 0 && speed < maxSpeed)
+                speed += .5f * CurrJumpPenalty;
+            if (speed > maxSpeed)
+                speed = maxSpeed;
+
             if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-
-            player.velocity = new Vector2(maxSpeed, player.velocity.y);
+            player.velocity = new Vector2(speed, player.velocity.y);
         }
         else if (Input.GetKey(KeyCode.A))
         {
+            if (speed >= 0)
+                speed = -1;
+            if (speed < 0 && speed > -maxSpeed)
+                speed -= .5f * CurrJumpPenalty;
+            if (speed > maxSpeed)
+                speed = -maxSpeed;
+
             if (!isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-            player.velocity = new Vector2(maxSpeed * -1, player.velocity.y);
+            player.velocity = new Vector2(speed, player.velocity.y);
         }
         else
         {
+            speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
         }
 
@@ -107,7 +132,6 @@ public class PlayerController : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Ground":
-
                 isGrounded = true;
                 break;
             case "Lethal":
