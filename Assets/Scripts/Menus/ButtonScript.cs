@@ -40,4 +40,8 @@ public class ButtonScript : MonoBehaviour
     {
         SoundManager.SendMessage("Hovered");
     }
+    public void ToggleFS()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
 }

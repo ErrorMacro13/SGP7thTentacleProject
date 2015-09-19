@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
         if (timeCharge)
         {
             world.SendMessage("Refill", 0.5f);
-        }    }
+        }   
+    }
 
     void FixedUpdate()
     {
@@ -166,6 +167,17 @@ public class PlayerController : MonoBehaviour
         world.BroadcastMessage("ResetTimer");
         world.BroadcastMessage("StartTimer");
         Invoke("ResumeTimer", 1);
+    }
+    void Die(string DeathCase)
+    {
+        if (DeathCase == "Crushed" && isGrounded)
+        {
+            transform.position = startPosition;
+            world.BroadcastMessage("ResetWorld");
+            world.BroadcastMessage("ResetTimer");
+            world.BroadcastMessage("StartTimer");
+            Invoke("ResumeTimer", 1);
+        }
     }
     void ResumeTimer()
     {
