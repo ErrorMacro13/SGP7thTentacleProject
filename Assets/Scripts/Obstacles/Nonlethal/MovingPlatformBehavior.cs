@@ -56,40 +56,62 @@ public class MovingPlatformBehavior : MonoBehaviour
     }
     void MoveDownUp(float dt)
     {
-        if (gameObject.transform.position.y >= StartLoc.y - MovementRange && !ChangeDirection)
+        if (gameObject.transform.position.y >= StartLoc.y - MovementRange && !ChangeDirection && !Halt)
         {
             gameObject.transform.position += new Vector3(0, -Speed * dt * CurrGameSpeed, 0);
             if (gameObject.transform.position.y <= StartLoc.y - MovementRange)
             {
+                Halt = true;
                 ChangeDirection = true;
             }
         }
-        if (gameObject.transform.position.y <= StartLoc.y && ChangeDirection)
+        if (gameObject.transform.position.y <= StartLoc.y && ChangeDirection && !Halt)
         {
             gameObject.transform.position += new Vector3(0, Speed * dt * CurrGameSpeed, 0);
             if (gameObject.transform.position.y >= StartLoc.y)
             {
                 StayTime = TimeStay;
+                Halt = true;
                 ChangeDirection = false;
+            }
+        }
+        if (Halt)
+        {
+            TimeStay -= dt;
+            if (TimeStay <= 0)
+            {
+                TimeStay = StayTime;
+                Halt = false;
             }
         }
     }
     void MoveLeftRight(float dt)
     {
-        if (gameObject.transform.position.x >= StartLoc.x - MovementRange && !ChangeDirection)
+        if (gameObject.transform.position.x >= StartLoc.x - MovementRange && !ChangeDirection && !Halt)
         {
             gameObject.transform.position += new Vector3(-Speed * dt * CurrGameSpeed, 0, 0);
             if (gameObject.transform.position.x <= StartLoc.x - MovementRange)
             {
                 ChangeDirection = true;
+                Halt = true;
             }
         }
-        else if (gameObject.transform.position.x <= StartLoc.x && ChangeDirection)
+        else if (gameObject.transform.position.x <= StartLoc.x && ChangeDirection && !Halt)
         {
             gameObject.transform.position += new Vector3(Speed * dt * CurrGameSpeed, 0, 0);
             if (gameObject.transform.position.x >= StartLoc.x)
             {
                 ChangeDirection = false;
+                Halt = true;
+            }
+        }
+        if (Halt)
+        {
+            TimeStay -= dt;
+            if (TimeStay <= 0)
+            {
+                TimeStay = StayTime;
+                Halt = false;
             }
         }
     }
