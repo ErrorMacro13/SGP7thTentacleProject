@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArcadeScores>
+    <ArcadeScore Name="BoB" Score="92697" />
+    <ArcadeScore Name="BoB" Score="82057" />
+    <ArcadeScore Name="BoB" Score="58262" />
+    <ArcadeScore Name="BoB" Score="54560" />
+    <ArcadeScore Name="BoB" Score="48500" />
+    <ArcadeScore Name="BoB" Score="40420" />
+    <ArcadeScore Name="BoB" Score="24068" />
+    <ArcadeScore Name="BoB" Score="21151" />
+    <ArcadeScore Name="BoB" Score="11576" />
+    <ArcadeScore Name="BoB" Score="9978" />
+  </ArcadeScores>
+  <FreePlayTimes>
+    <FreePlayTimes Name="Jill" Time="55" />
+    <FreePlayTimes Name="Jill" Time="67" />
+    <FreePlayTimes Name="Jill" Time="74" />
+    <FreePlayTimes Name="Jill" Time="91" />
+    <FreePlayTimes Name="Jill" Time="91" />
+    <FreePlayTimes Name="Jill" Time="116" />
+    <FreePlayTimes Name="Jill" Time="121" />
+    <FreePlayTimes Name="Jill" Time="178" />
+    <FreePlayTimes Name="Jill" Time="184" />
+    <FreePlayTimes Name="Jill" Time="191" />
+  </FreePlayTimes>
+</Level>
