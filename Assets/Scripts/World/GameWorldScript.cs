@@ -103,41 +103,11 @@ public class GameWorldScript : MonoBehaviour
             GameTime = 0;
             BroadcastMessage("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
-<<<<<<< HEAD
-		}
-		if (GameTime != 0 && !DisableDrain)
-
-        
-		if (GameTime != 0)
-			Drain (Time.deltaTime);
-		if (TimeGauge < 0)
-			TimeGauge = 0;
-	}
-	void Drain(float dt){
-		switch (GameTime) {
-		case 1:
-			TimeGauge -= 10 * dt;
-			break;
-		case 2:
-			TimeGauge -= 20 * dt;
-			break;
-		case 3:
-			TimeGauge -= 30 * dt;
-			break;
-		default:
-			TimeGauge -= 0;
-			break;
-		}
-	}
-	void Refill(float amt){
-=======
         }
-        
-        if (GameTime != 0)
+        if (GameTime != 0 && !DisableDrain)
             Drain(Time.deltaTime);
         if (TimeGauge < 0)
             TimeGauge = 0;
-
     }
     void Drain(float dt)
     {
@@ -159,7 +129,6 @@ public class GameWorldScript : MonoBehaviour
     }
     void Refill(float amt)
     {
->>>>>>> 5825a0bffd1a261a62bdc707b93c4c4232bd68ae
         print("refilling");
         TimeGauge += amt;
         if (TimeGauge > MAXMANA)

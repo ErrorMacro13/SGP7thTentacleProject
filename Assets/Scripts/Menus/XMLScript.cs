@@ -109,7 +109,7 @@ public class XMLScript : MonoBehaviour
     {
         Settings set = new Settings();
         set = LoadSettingsData(path);
-        if (Application.loadedLevelName == "Options" && BGS != null && AFXS != null && FS != null)
+        if (Application.loadedLevelName == "Options" && BGS != null && AFXS != null && FS != null && MS != null)
         {
             print("Setting Slider Data...");
             MS.value = set.Mastervol;
@@ -120,8 +120,8 @@ public class XMLScript : MonoBehaviour
         else if (Application.loadedLevelName == "MainMenu")
             ToggleFullScreen(set.FullScreen);
         BGMusicSource.ignoreListenerVolume = true;
-        AudioListener.volume = set.AFXvol / 100;
-        BGMusicSource.volume = set.BGvol / 100;
+        AudioListener.volume = (set.AFXvol / 100) * (set.Mastervol / 100);
+        BGMusicSource.volume = (set.BGvol / 100) * (set.Mastervol / 100);
     }
     public void ToggleFullScreen(bool toggle)
     {
