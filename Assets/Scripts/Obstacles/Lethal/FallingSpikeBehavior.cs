@@ -6,7 +6,7 @@ public class FallingSpikeBehavior : MonoBehaviour
     private bool drop = false;
     public bool UseRigidPhysics = false;
     public float dropSpeed = 3;
-    public float DropDistance = 0;
+    public float DropDistance = 2;
     float CurrGameSpeed = 1.0f;
     private Transform trans;
     public GameObject Player;
