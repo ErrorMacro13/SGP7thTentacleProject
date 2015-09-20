@@ -103,41 +103,11 @@ public class GameWorldScript : MonoBehaviour
             GameTime = 0;
             BroadcastMessage("SetTime", GameTime);
             CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
-<<<<<<< HEAD
-		}
-		if (GameTime != 0 && !DisableDrain)
-
-        
-		if (GameTime != 0)
-			Drain (Time.deltaTime);
-		if (TimeGauge < 0)
-			TimeGauge = 0;
-	}
-	void Drain(float dt){
-		switch (GameTime) {
-		case 1:
-			TimeGauge -= 10 * dt;
-			break;
-		case 2:
-			TimeGauge -= 20 * dt;
-			break;
-		case 3:
-			TimeGauge -= 30 * dt;
-			break;
-		default:
-			TimeGauge -= 0;
-			break;
-		}
-	}
-	void Refill(float amt){
-=======
         }
-        
-        if (GameTime != 0)
+        if (GameTime != 0 && !DisableDrain)
             Drain(Time.deltaTime);
         if (TimeGauge < 0)
             TimeGauge = 0;
-
     }
     void Drain(float dt)
     {
@@ -157,82 +127,81 @@ public class GameWorldScript : MonoBehaviour
                 break;
         }
     }
-    void Refill(float amt)
+
+void Refill(float amt)
+{
+    TimeGauge += amt;
+    if (TimeGauge > MAXMANA)
+        TimeGauge = MAXMANA;
+}
+void SetEnergy(float amt)
+{
+    TimeGauge = amt;
+}
+float GetEnergy()
+{
+    return TimeGauge;
+}
+float GetTime()
+{
+    return ElapsedTime;
+}
+void OnGUI()
+{
+    GUIStyle ManaBarStyle = new GUIStyle();
+    ManaBarStyle.fontSize = 40;
+    Rect PercentBar = new Rect(50, 50, TimeGauge * 2 + 60, 45);
+    Rect TimeSymbol = new Rect(10, 50, 40, 40);
+    //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
+    float mana = Mathf.Round(TimeGauge);
+    GUI.skin = MeterSkin;
+    GUI.Box(PercentBar, "");
+    //if(TimeGauge > 0.0f)
+    //GUI.Box (AboveHeadBar, "");
+    GUI.skin = null;
+    GUI.Box(PercentBar, mana.ToString() + "%", ManaBarStyle);
+    switch (GameTime)
     {
->>>>>>> 5825a0bffd1a261a62bdc707b93c4c4232bd68ae
-        print("refilling");
-        TimeGauge += amt;
-        if (TimeGauge > MAXMANA)
-            TimeGauge = MAXMANA;
+        case 1:
+            GUI.DrawTexture(TimeSymbol, HalfSpeedTexture);
+            break;
+        case 2:
+            GUI.DrawTexture(TimeSymbol, QuarterSpeedTexture);
+            break;
+        case 3:
+            GUI.DrawTexture(TimeSymbol, StopSpeedTexture);
+            break;
+        default:
+            GUI.DrawTexture(TimeSymbol, NormalSpeedTexture);
+            break;
     }
-    void SetEnergy(float amt)
-    {
-        TimeGauge = amt;
-    }
-    float GetEnergy()
-    {
-        return TimeGauge;
-    }
-    float GetTime()
-    {
-        return ElapsedTime;
-    }
-    void OnGUI()
-    {
-        GUIStyle ManaBarStyle = new GUIStyle();
-        ManaBarStyle.fontSize = 40;
-        Rect PercentBar = new Rect(50, 50, TimeGauge * 2 + 60, 45);
-        Rect TimeSymbol = new Rect(10, 50, 40, 40);
-        //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
-        float mana = Mathf.Round(TimeGauge);
-        GUI.skin = MeterSkin;
-        GUI.Box(PercentBar, "");
-        //if(TimeGauge > 0.0f)
-        //GUI.Box (AboveHeadBar, "");
-        GUI.skin = null;
-        GUI.Box(PercentBar, mana.ToString() + "%", ManaBarStyle);
-        switch (GameTime)
-        {
-            case 1:
-                GUI.DrawTexture(TimeSymbol, HalfSpeedTexture);
-                break;
-            case 2:
-                GUI.DrawTexture(TimeSymbol, QuarterSpeedTexture);
-                break;
-            case 3:
-                GUI.DrawTexture(TimeSymbol, StopSpeedTexture);
-                break;
-            default:
-                GUI.DrawTexture(TimeSymbol, NormalSpeedTexture);
-                break;
-        }
-        float time = Time.time;
-        time = Mathf.Round(time * 10) / 10;
-        Rect Timer = new Rect(Screen.width - 105, 50, 40, 20);
-        Rect TimerLabel = new Rect(Screen.width - 365, 50, 100, 20);
-        ElapsedTime = time;
-        if (ActiveTimer)
-            TimeOnTimer = time;
-        GUI.Label(Timer, (TimeOnTimer - TimeBeforeDeath).ToString(), ManaBarStyle);
-        GUI.Label(TimerLabel, "Elapsed Time: ", ManaBarStyle);
-    }
-    void ResetWorld()
-    {
-        BroadcastMessage("ResetOverWorld");
-    }
-    void ResetTimer()
-    {
-        ActiveTimer = false;
-    }
-    void StartTimer()
-    {
-        TimeBeforeDeath = Time.time;
-        ActiveTimer = true;
-    }
-    void ZeroTimer()
-    {
-        float time = Time.time;
-        time = Mathf.Round(time * 10) / 10;
-        TimeBeforeDeath = time;
-    }
+    float time = Time.time;
+    time = Mathf.Round(time * 10) / 10;
+    Rect Timer = new Rect(Screen.width - 105, 50, 40, 20);
+    Rect TimerLabel = new Rect(Screen.width - 365, 50, 100, 20);
+    ElapsedTime = time;
+    if (ActiveTimer)
+        TimeOnTimer = time;
+    GUI.Label(Timer, (TimeOnTimer - TimeBeforeDeath).ToString(), ManaBarStyle);
+    GUI.Label(TimerLabel, "Elapsed Time: ", ManaBarStyle);
+}
+void ResetWorld()
+{
+    BroadcastMessage("ResetOverWorld");
+}
+void ResetTimer()
+{
+    ActiveTimer = false;
+}
+void StartTimer()
+{
+    TimeBeforeDeath = Time.time;
+    ActiveTimer = true;
+}
+void ZeroTimer()
+{
+    float time = Time.time;
+    time = Mathf.Round(time * 10) / 10;
+    TimeBeforeDeath = time;
+}
 }
