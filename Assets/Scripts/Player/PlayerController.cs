@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded = false;
     public bool isJumping = false;
+
+    public float speed = 0f;
+    public float CurrJumpPenalty = 1f;
+    public float OriginalJumpPenalty = .05f;
+    bool JumpHeld = false;
+
     bool isFacingLeft = false;
     bool isSlow = false;
     bool timeCharge = false;
@@ -21,14 +27,21 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
+        GetComponent<Rigidbody2D>().freezeRotation = true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isGrounded)
+            CurrJumpPenalty = 1.0f;
+        else
+            CurrJumpPenalty = OriginalJumpPenalty;
 
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && isGrounded)
         {
+            JumpHeld = true;
             isJumping = true;
             isGrounded = false;
         }
@@ -43,32 +56,46 @@ public class PlayerController : MonoBehaviour
         if (timeCharge)
         {
             world.SendMessage("Refill", 0.5f);
-        }
+        }   
     }
 
     void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.D))
         {
+            if (speed <= 0)
+                speed = 1;
+            if (speed > 0 && speed < maxSpeed)
+                speed += .5f * CurrJumpPenalty;
+            if (speed > maxSpeed)
+                speed = maxSpeed;
+
             if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-
-            player.velocity = new Vector2(maxSpeed, player.velocity.y);
+            player.velocity = new Vector2(speed, player.velocity.y);
         }
         else if (Input.GetKey(KeyCode.A))
         {
+            if (speed >= 0)
+                speed = -1;
+            if (speed < 0 && speed > -maxSpeed)
+                speed -= .5f * CurrJumpPenalty;
+            if (speed > maxSpeed)
+                speed = -maxSpeed;
+
             if (!isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-            player.velocity = new Vector2(maxSpeed * -1, player.velocity.y);
+            player.velocity = new Vector2(speed, player.velocity.y);
         }
         else
         {
+            speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
         }
 
@@ -105,7 +132,6 @@ public class PlayerController : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Ground":
-
                 isGrounded = true;
                 break;
             case "Lethal":
@@ -140,6 +166,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         switch(other.tag)
         {
             case "Lethal":
@@ -155,6 +182,20 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "CheckPoint":
+                startPosition = other.transform.position;
+                SendMessageUpwards("ResetTimer");
+                break;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "CheckPoint":
+                SendMessageUpwards("StartTimer");
+                break;
         }
     }
 
@@ -163,13 +204,21 @@ public class PlayerController : MonoBehaviour
         isSlow = false;
         timeCharge = false;
         transform.position = startPosition;
+        world.BroadcastMessage("SetEnergy", 0.0f);
+        world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
-        world.BroadcastMessage("ResetTimer");
-        world.BroadcastMessage("StartTimer");
-        Invoke("ResumeTimer", 1);
     }
+
+    void Die(string DeathCase)
+    {
+        if (DeathCase == "Crushed" && isGrounded)
+        {
+            Death();
+        }
+    }
+
     void ResumeTimer()
     {
-        
+
     }
 }
