@@ -21,11 +21,13 @@ public class ButtonScript : MonoBehaviour
     public void ArcadeMode()
     {
         SoundManager.SendMessage("ArcadeState");
+        Destroy(GameObject.Find("LevelScroll"));
     }
 
     public void FreePlay()
     {
         SoundManager.SendMessage("FreePlayState");
+        Destroy(GameObject.Find("LevelScroll"));
     }
 
     public void ButtonClick(string name)
@@ -53,5 +55,22 @@ public class ButtonScript : MonoBehaviour
     public void ToggleFS()
     {
         Screen.fullScreen = !Screen.fullScreen;
+    }
+
+    public void SettingsCanvasOff()
+    {
+        
+        GameObject.Find("GameOverWorld").SendMessage("SwitchSettings");        
+    }
+
+    public void InstructionsCanvasOff()
+    {
+        GameObject.Find("GameOverWorld").SendMessage("SwitchInstructions");        
+
+    }
+
+    public void Unpause()
+    {
+        GameObject.Find("GameOverWorld").SendMessage("Unpause");
     }
 }

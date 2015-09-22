@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SawbladeBehavior : MonoBehaviour
-{
+public class PushScript : MonoBehaviour {
 
     private float CurrGameSpeed = 1.0f;
-    public float Speed = 1;
+    public float Speed = 1f;
     public Transform[] Waypoints;
     int currWaypoint;
     bool XPass = false;
     bool YPass = false;
-
     // Use this for initialization
     void Start()
     {
@@ -20,7 +18,6 @@ public class SawbladeBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (transform.position.x > Waypoints[currWaypoint].position.x && !XPass)
         {
             transform.position -= new Vector3(Speed * CurrGameSpeed * Time.deltaTime, 0, 0);
