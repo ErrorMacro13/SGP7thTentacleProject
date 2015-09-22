@@ -109,7 +109,7 @@ public class XMLScript : MonoBehaviour
     {
         Settings set = new Settings();
         set = LoadSettingsData(path);
-        if (Application.loadedLevelName == "Options" && BGS != null && AFXS != null && FS != null && MS != null)
+        if ( BGS != null && AFXS != null && FS != null && MS != null)
         {
             print("Setting Slider Data...");
             MS.value = set.Mastervol;
