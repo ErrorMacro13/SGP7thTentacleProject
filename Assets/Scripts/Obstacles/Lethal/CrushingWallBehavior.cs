@@ -12,6 +12,7 @@ public class CrushingWallBehavior : MonoBehaviour
     private bool Crush = false;
 
     private float CurrGameSpeed = 1.0f;
+    private float DisabledDuration;
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
@@ -46,10 +47,13 @@ public class CrushingWallBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Crush)
+        if (Crush && DisabledDuration <= 0)
         {
+            print(DisabledDuration);
             MoveDownUp(Time.deltaTime);
         }
+        else if (DisabledDuration > 0)
+            DisabledDuration -= Time.deltaTime;
     }
     void MoveDownUp(float dt)
     {
@@ -79,5 +83,15 @@ public class CrushingWallBehavior : MonoBehaviour
     void Activate()
     {
         Crush = true;
+    }
+
+    void RedTrigger(float duration)
+    {
+        Activate();
+    }
+    void GreenTrigger(float duration)
+    {
+        print(duration);
+        DisabledDuration = duration;
     }
 }

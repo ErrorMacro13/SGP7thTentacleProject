@@ -1,0 +1,42 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class RedPlateScript : MonoBehaviour {
+    public GameObject[] targets;
+    public Sprite ActivatedImg;
+    public Sprite NonactiveImg;
+    public float duration = 5;
+    private float tempduration;
+    private Vector3 size;
+    // Use this for initialization
+    void Start()
+    {
+        tempduration = duration;
+        size = transform.lossyScale;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (tempduration <= 0)
+        {
+            GetComponent<SpriteRenderer>().sprite = NonactiveImg;
+            tempduration = duration;
+        }
+        else tempduration -= Time.deltaTime;
+    }
+
+    void OnTriggerEnter2D(Collider2D ent)
+    {
+        for (int i = 0; i < targets.Length; i++)
+        {
+            targets[i].BroadcastMessage("RedTrigger", duration);
+        }
+        GetComponent<SpriteRenderer>().sprite = ActivatedImg;
+        transform.localScale = new Vector3(1.0f, .5f, 1.0f);
+    }
+    void OnTriggerExit2D(Collider2D ent)
+    {
+        transform.localScale = size;
+    }
+}
