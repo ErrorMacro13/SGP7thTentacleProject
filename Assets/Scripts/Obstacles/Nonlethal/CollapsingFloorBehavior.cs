@@ -29,22 +29,19 @@ public class CollapsingFloorBehavior : MonoBehaviour
     public float TimeBeforeFall = 1.0f;
     public float TimeBeforeBreak = 1.0f;
 
+    Transform TransOriginal;
+
     float TBBOriginal;
     float TBFOriginal;
     Sprite SpriteOrignial;
 
     public Sprite Crumble;
 
-    Vector3 Originalpos;
-    Vector3 OriginalScl;
-    Quaternion OriginalRot;
 
     // Use this for initialization
     void Start()
     {
-        Originalpos = transform.position;
-        OriginalRot = transform.rotation;
-        OriginalScl = transform.lossyScale;
+        Transform TransOriginal = transform;
         TBBOriginal = TimeBeforeBreak;
         TBFOriginal = TimeBeforeFall;
         SpriteOrignial = GetComponent<SpriteRenderer>().sprite;
@@ -60,25 +57,11 @@ public class CollapsingFloorBehavior : MonoBehaviour
         if (TimeBeforeFall <= 0.0f && CurrGameSpeed != 0.0f)
         {
             TimeBeforeBreak -= Time.deltaTime * CurrGameSpeed;
-            GetComponent<Rigidbody2D>().isKinematic = false;
-        }
-        if (TimeBeforeBreak <= 0.0f && active)
-        {
             Shrink();
         }
+
     }
 
-    void FixedUpdate()
-    {
-        GetComponent<Rigidbody2D>().gravityScale = CurrGameSpeed;
-        if (CurrGameSpeed == 0.0f)
-        {
-            GetComponent<Rigidbody2D>().isKinematic = true;
-        }
-
-        if (GetComponent<Rigidbody2D>().velocity == new Vector2(0, 0))
-            print("Stopped");
-    }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player" && CurrGameSpeed != 0.0f)
@@ -90,15 +73,14 @@ public class CollapsingFloorBehavior : MonoBehaviour
 
     void Shrink()
     {
-        print("shrink");
         GetComponent<Transform>().localScale -= GetComponent<Transform>().localScale;
     }
 
     void ResetOverWorld()
     {
-        transform.position = Originalpos;
-        transform.rotation = OriginalRot;
-        transform.localScale = OriginalScl;
+        transform.position = TransOriginal.position;
+        transform.localScale.Set(TransOriginal.lossyScale.x, TransOriginal.lossyScale.y, TransOriginal.lossyScale.z);
+
         GetComponent<Rigidbody2D>().isKinematic = true;
         active = false;
         TimeBeforeBreak = TBBOriginal;
