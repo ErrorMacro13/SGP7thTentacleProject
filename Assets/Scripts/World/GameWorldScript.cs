@@ -66,7 +66,7 @@ public class GameWorldScript : MonoBehaviour
     void Update()
     {
         //slow speed to 1/2
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 0 && TimeGauge > 0)
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 0 && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed++;
             GameTime = 1;
@@ -75,7 +75,7 @@ public class GameWorldScript : MonoBehaviour
             TimeSlowAfx.Play();
         }
         //slow speed to 1/4
-        else if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 1 && TimeGauge > 0)
+        else if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 1 && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed++;
             GameTime = 2;
@@ -84,7 +84,7 @@ public class GameWorldScript : MonoBehaviour
             TimeSlowAfx.Play();
         }
         //stop speed
-        else if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.DownArrow)) && TimeGauge > 0)
+        else if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.DownArrow)) && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed = 0;
             GameTime = 3;
@@ -93,16 +93,17 @@ public class GameWorldScript : MonoBehaviour
             TimeSlowAfx.Play();
         }
         //resume speed
-        else if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.RightArrow)) || TimeGauge <= 0)
+        else if (((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.RightArrow)) || TimeGauge <= 0) && Time.timeScale > 0.0f)
         {
-            if (GameTime != 0)
-            {
-                TimeSpeedAfx.Play();
-            }
-            SlowSpeed = 0;
-            GameTime = 0;
-            BroadcastMessage("SetTime", GameTime);
-            CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
+                if (GameTime != 0)
+                {
+                    TimeSpeedAfx.Play();
+                }
+                SlowSpeed = 0;
+                GameTime = 0;
+                BroadcastMessage("SetTime", GameTime);
+                CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
+            
         }
         if (GameTime != 0 && !DisableDrain)
             Drain(Time.deltaTime);
