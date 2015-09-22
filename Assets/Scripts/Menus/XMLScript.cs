@@ -41,6 +41,12 @@ public class LevelData
     public ArcadeScores[] ArcadeScores = new ArcadeScores[10];
     public FreePlayTimes[] FreePlayTimes = new FreePlayTimes[10];
 }
+public class CurrentPlayerLevel
+{
+    public CurrentPlayerLevel() { }
+    public int level;
+    public int score;
+}
 public class XMLScript : MonoBehaviour
 {
     public Slider BGS = null;
@@ -135,8 +141,8 @@ public class XMLScript : MonoBehaviour
             LevelData MyLevel = new LevelData();
             for (int i = 0; i < 10; i++)
             {
-                MyLevel.ArcadeScores[i] = new ArcadeScores("BoB", (int)Random.Range(0,99999));
-                MyLevel.FreePlayTimes[i] = new FreePlayTimes("Jill", Random.Range(0,200));
+                MyLevel.ArcadeScores[i] = new ArcadeScores("BoB", (int)Random.Range(0, 99999));
+                MyLevel.FreePlayTimes[i] = new FreePlayTimes("Jill", Random.Range(0, 200));
                 print("populated level");
             }
             string pathname = "XML\\Levels\\LevelData" + j;
@@ -175,7 +181,7 @@ public class XMLScript : MonoBehaviour
                 times.Sort((l1, l2) => (int)(l1.time - l2.time));
                 level.FreePlayTimes = times.ToArray();
                 level.ArcadeScores = scores.ToArray();
-                    SaveLevelData(pathname, level);
+                SaveLevelData(pathname, level);
             }
             return new LevelData();
         }
@@ -191,10 +197,69 @@ public class XMLScript : MonoBehaviour
                 times.Add(level.FreePlayTimes[j]);
                 scores.Add(level.ArcadeScores[j]);
             }
-            scores.Sort((l1, l2) => (int)(l1.score - l2.score));
+            scores.Sort((l1, l2) => (int)(l2.score - l1.score));
             times.Sort((l1, l2) => (int)(l1.time - l2.time));
             SaveLevelData(pathname, level);
             return new LevelData();
+        }
+    }
+
+    public void SavePlayersCurrentLevelAndScore(CurrentPlayerLevel CPL)
+    {
+        string pathname = "XML\\Levels\\PlayersCurrentLevel";
+        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
+        using (var stream = new FileStream(pathname, FileMode.Create))
+        {
+            serializer.Serialize(stream, CPL);
+            stream.Close();
+        }
+    }
+    public CurrentPlayerLevel LoadPlayersCurrentLevelAndScore()
+    {
+        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
+        using (var stream = new FileStream("XML\\Levels\\PlayersCurrentLevel", FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as CurrentPlayerLevel;
+        }
+    }
+    public void SavePlayersData(PlayersData data)
+    {
+        print("saving data in mode: " + data.mode);
+        switch (data.mode)
+        {
+            case 1: //Arcade Score
+                {
+                    LevelData tempData = LoadLevelData("XML\\Levels\\LevelData" + data.levelNumber);
+                    List<ArcadeScores> scores = new List<ArcadeScores>();
+                    scores.Add(new ArcadeScores(data.name, data.score));
+                    for (int i = 0; i < 10; i++)
+                    {
+                        scores.Add(tempData.ArcadeScores[i]);
+                    }
+                    scores.Sort((l1, l2) => (int)(l2.score - l1.score));
+                    scores.RemoveAt(scores.Count - 1);
+                    tempData.ArcadeScores = scores.ToArray();
+                    SaveLevelData("XML\\Levels\\LevelData" + data.levelNumber, tempData);
+                    break;
+                }
+            case 2: //Free Play Time
+                {
+                    print("saving time...");
+                    LevelData tempData = LoadLevelData("XML\\Levels\\LevelData" + data.levelNumber);
+                    List<FreePlayTimes> times = new List<FreePlayTimes>();
+                    times.Add(new FreePlayTimes(data.name, data.time));
+                    for (int i = 0; i < 10; i++)
+                    {
+                        times.Add(tempData.FreePlayTimes[i]);
+                    }
+                    times.Sort((l1, l2) => (int)(l1.time - l2.time));
+                    times.RemoveAt(times.Count - 1);
+                    tempData.FreePlayTimes = times.ToArray();
+                    SaveLevelData("XML\\Levels\\LevelData" + data.levelNumber, tempData);
+                    break;
+                }
+            default:
+                break;
         }
     }
 }

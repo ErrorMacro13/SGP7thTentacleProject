@@ -57,10 +57,11 @@ public class GameWorldScript : MonoBehaviour
     private bool ActiveTimer = true;
     private float TimeOnTimer;
     private float TimeBeforeDeath;
+    private GameObject saver;
     // Use this for initialization
     void Start()
     {
-
+        saver = GameObject.Find("SaveDataLoader");
     }
     // Update is called once per frame
     void Update()
@@ -144,7 +145,7 @@ public class GameWorldScript : MonoBehaviour
     }
     float GetTime()
     {
-        return ElapsedTime;
+        return TimeOnTimer - TimeBeforeDeath;
     }
     void OnGUI()
     {
@@ -203,5 +204,23 @@ public class GameWorldScript : MonoBehaviour
         float time = Time.time;
         time = Mathf.Round(time * 10) / 10;
         TimeBeforeDeath = time;
+    }
+    int CalcScore()
+    {
+        return (int)((GetTime() * 64) / 3.2f);
+    }
+    void SavePlayersData(PlayersData data)
+    {
+        print("adding time and score");
+        data.time = GetTime();
+        data.score = CalcScore();
+        saver.SendMessage("SavePlayersData", data);
+    }
+    void SavePlayersCurrentLevelAndScore(int num)
+    {
+        CurrentPlayerLevel CPL = new CurrentPlayerLevel();
+        CPL.level = num;
+        CPL.score = CalcScore();
+        saver.SendMessage("SavePlayersCurrentLevelAndScore", CPL);
     }
 }
