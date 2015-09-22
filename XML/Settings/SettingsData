@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <BGvol>8</BGvol>
-  <AFXvol>51</AFXvol>
-  <Mastervol>100</Mastervol>
+  <BGvol>100</BGvol>
+  <AFXvol>100</AFXvol>
+  <Mastervol>0</Mastervol>
   <FullScreen>true</FullScreen>
 </Settings>

@@ -208,7 +208,7 @@ public class GameWorldScript : MonoBehaviour
     }
     int CalcScore()
     {
-        return (int)((GetTime() * 64) / 3.2f);
+        return (int)(64000 / (1/GetTime()));
     }
     void SavePlayersData(PlayersData data)
     {
