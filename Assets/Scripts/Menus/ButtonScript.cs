@@ -18,6 +18,16 @@ public class ButtonScript : MonoBehaviour
 
     }
 
+    public void ArcadeMode()
+    {
+        SoundManager.SendMessage("ArcadeState");
+    }
+
+    public void FreePlay()
+    {
+        SoundManager.SendMessage("FreePlayState");
+    }
+
     public void ButtonClick(string name)
     {
         if (name != "Back")
