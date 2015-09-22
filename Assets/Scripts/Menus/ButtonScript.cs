@@ -21,11 +21,13 @@ public class ButtonScript : MonoBehaviour
     public void ArcadeMode()
     {
         SoundManager.SendMessage("ArcadeState");
+        Destroy(GameObject.Find("LevelScroll"));
     }
 
     public void FreePlay()
     {
         SoundManager.SendMessage("FreePlayState");
+        Destroy(GameObject.Find("LevelScroll"));
     }
 
     public void ButtonClick(string name)

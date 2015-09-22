@@ -38,18 +38,22 @@ public class BulletBehavior : MonoBehaviour
             case 1:
                 CurrGameSpeed = 0.5f;
                 gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
                 break;
             case 2:
                 CurrGameSpeed = 0.25f;
                 gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
                 break;
             case 3:
                 CurrGameSpeed = 0.0f;
                 gameObject.tag = "Ground";
+                GetComponent<Rigidbody2D>().isKinematic = true;
                 break;
             default:
                 CurrGameSpeed = 1.0f;
                 gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
                 break;
         }
     }

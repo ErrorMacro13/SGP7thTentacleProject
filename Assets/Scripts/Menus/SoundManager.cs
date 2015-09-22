@@ -7,21 +7,19 @@ public class SoundManager : MonoBehaviour {
     public AudioSource click;
     public AudioSource back;
     public int GameState = 0;
-    public static SoundManager ths;
+    public static SoundManager Instance { get; private set; }
 
     void Awake()
     {
-        if (ths == null)
+        if (Instance != null && Instance != this)
         {
-            DontDestroyOnLoad(this);
-            ths = this;
+            Destroy(this.gameObject);
+            return;
         }
-        else if(ths != this)
-        {
-            Destroy(this);
-        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
-
+  
     // Use this for initialization
     void Start () {
     }
