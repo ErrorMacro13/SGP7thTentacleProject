@@ -7,12 +7,9 @@ public class SoundManager : MonoBehaviour {
     public AudioSource click;
     public AudioSource back;
     public int GameState = 0;
-<<<<<<< HEAD
     public static SoundManager ths;
     public string PlayerName = "Name";
-=======
     public static SoundManager Instance { get; private set; }
->>>>>>> 16bea22ce13366d021390002487720638d5afe49
 
     void Awake()
     {
