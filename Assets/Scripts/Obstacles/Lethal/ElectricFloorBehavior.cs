@@ -4,7 +4,7 @@ using System.Collections;
 public class ElectricFloorBehavior : MonoBehaviour
 {
     float CurrGameSpeed = 1.0f;
-
+    
     public bool isActive;
     public bool isCharging;
     public bool isDormant;

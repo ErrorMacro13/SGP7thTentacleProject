@@ -71,7 +71,7 @@ public class GameWorldScript : MonoBehaviour
             SlowSpeed++;
             GameTime = 1;
             BroadcastMessage("SetTime", GameTime);
-            CameraOne.GetComponent<AudioSource>().pitch = .75f;
+            //CameraOne.GetComponent<AudioSource>().pitch = .75f;
             TimeSlowAfx.Play();
         }
         //slow speed to 1/4
@@ -80,7 +80,7 @@ public class GameWorldScript : MonoBehaviour
             SlowSpeed++;
             GameTime = 2;
             BroadcastMessage("SetTime", GameTime);
-            CameraOne.GetComponent<AudioSource>().pitch = .5f;
+            //CameraOne.GetComponent<AudioSource>().pitch = .5f;
             TimeSlowAfx.Play();
         }
         //stop speed
@@ -89,7 +89,7 @@ public class GameWorldScript : MonoBehaviour
             SlowSpeed = 0;
             GameTime = 3;
             BroadcastMessage("SetTime", GameTime);
-            CameraOne.GetComponent<AudioSource>().pitch = .1f;
+            //CameraOne.GetComponent<AudioSource>().pitch = .1f;
             TimeSlowAfx.Play();
         }
         //resume speed
@@ -102,7 +102,7 @@ public class GameWorldScript : MonoBehaviour
             SlowSpeed = 0;
             GameTime = 0;
             BroadcastMessage("SetTime", GameTime);
-            CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
+            //CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
         }
         if (GameTime != 0 && !DisableDrain)
             Drain(Time.deltaTime);
