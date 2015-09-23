@@ -1,15 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletBehavior : MonoBehaviour {
+public class BulletBehavior : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    float CurrGameSpeed = 1.0f;
+
+    // Use this for initialization
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        print("entered");
+        if (gameObject.tag == "Lethal")
+            Destroy(gameObject);
+    }
+
+    void OnCollisionStay2D(Collision2D other)
+    {
+        print("entered");
+        if (gameObject.tag == "Lethal")
+            Destroy(gameObject);
+    }
+
+    void SetTime(int GameSpeed)
+    {
+        switch (GameSpeed)
+        {
+            case 1:
+                CurrGameSpeed = 0.5f;
+                gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
+                break;
+            case 2:
+                CurrGameSpeed = 0.25f;
+                gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
+                break;
+            case 3:
+                CurrGameSpeed = 0.0f;
+                gameObject.tag = "Ground";
+                GetComponent<Rigidbody2D>().isKinematic = true;
+                break;
+            default:
+                CurrGameSpeed = 1.0f;
+                gameObject.tag = "Lethal";
+                GetComponent<Rigidbody2D>().isKinematic = false;
+                break;
+        }
+    }
 }

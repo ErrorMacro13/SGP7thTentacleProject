@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
-    <ArcadeScore Name="BoB" Score="99982" />
-    <ArcadeScore Name="BoB" Score="89139" />
-    <ArcadeScore Name="BoB" Score="83561" />
-    <ArcadeScore Name="BoB" Score="75927" />
-    <ArcadeScore Name="BoB" Score="60039" />
-    <ArcadeScore Name="BoB" Score="49529" />
-    <ArcadeScore Name="BoB" Score="49526" />
-    <ArcadeScore Name="BoB" Score="46078" />
-    <ArcadeScore Name="BoB" Score="43106" />
-    <ArcadeScore Name="BoB" Score="29098" />
+    <ArcadeScore Name="BoB" Score="69213" />
+    <ArcadeScore Name="BoB" Score="66448" />
+    <ArcadeScore Name="BoB" Score="65626" />
+    <ArcadeScore Name="BoB" Score="62604" />
+    <ArcadeScore Name="BoB" Score="60239" />
+    <ArcadeScore Name="BoB" Score="54738" />
+    <ArcadeScore Name="BoB" Score="27422" />
+    <ArcadeScore Name="BoB" Score="27215" />
+    <ArcadeScore Name="BoB" Score="21788" />
+    <ArcadeScore Name="BoB" Score="5999" />
   </ArcadeScores>
   <FreePlayTimes>
-    <FreePlayTimes Name="Jill" Time="16" />
+    <FreePlayTimes Name="Jill" Time="10" />
     <FreePlayTimes Name="Jill" Time="20" />
-    <FreePlayTimes Name="Jill" Time="23" />
-    <FreePlayTimes Name="Jill" Time="28" />
-    <FreePlayTimes Name="Jill" Time="52" />
-    <FreePlayTimes Name="Jill" Time="60" />
-    <FreePlayTimes Name="Jill" Time="70" />
-    <FreePlayTimes Name="Jill" Time="82" />
-    <FreePlayTimes Name="Jill" Time="148" />
-    <FreePlayTimes Name="Jill" Time="160" />
+    <FreePlayTimes Name="Jill" Time="29" />
+    <FreePlayTimes Name="Jill" Time="66" />
+    <FreePlayTimes Name="Jill" Time="71" />
+    <FreePlayTimes Name="Jill" Time="74" />
+    <FreePlayTimes Name="Jill" Time="86" />
+    <FreePlayTimes Name="Jill" Time="100" />
+    <FreePlayTimes Name="Jill" Time="137" />
+    <FreePlayTimes Name="Jill" Time="159" />
   </FreePlayTimes>
 </Level>

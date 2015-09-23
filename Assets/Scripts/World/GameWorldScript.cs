@@ -57,52 +57,54 @@ public class GameWorldScript : MonoBehaviour
     private bool ActiveTimer = true;
     private float TimeOnTimer;
     private float TimeBeforeDeath;
+    private GameObject saver;
     // Use this for initialization
     void Start()
     {
-
+        saver = GameObject.Find("SaveDataLoader");
     }
     // Update is called once per frame
     void Update()
     {
         //slow speed to 1/2
-        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 0 && TimeGauge > 0)
+        if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 0 && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed++;
             GameTime = 1;
             BroadcastMessage("SetTime", GameTime);
-            //CameraOne.GetComponent<AudioSource>().pitch = .75f;
+            CameraOne.GetComponent<AudioSource>().pitch = .75f;
             TimeSlowAfx.Play();
         }
         //slow speed to 1/4
-        else if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 1 && TimeGauge > 0)
+        else if ((Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.LeftArrow)) && SlowSpeed == 1 && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed++;
             GameTime = 2;
             BroadcastMessage("SetTime", GameTime);
-            //CameraOne.GetComponent<AudioSource>().pitch = .5f;
+            CameraOne.GetComponent<AudioSource>().pitch = .5f;
             TimeSlowAfx.Play();
         }
         //stop speed
-        else if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.DownArrow)) && TimeGauge > 0)
+        else if ((Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.DownArrow)) && TimeGauge > 0 && Time.timeScale > 0.0f)
         {
             SlowSpeed = 0;
             GameTime = 3;
             BroadcastMessage("SetTime", GameTime);
-            //CameraOne.GetComponent<AudioSource>().pitch = .1f;
+            CameraOne.GetComponent<AudioSource>().pitch = .1f;
             TimeSlowAfx.Play();
         }
         //resume speed
-        else if ((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.RightArrow)) || TimeGauge <= 0)
+        else if (((Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.RightArrow)) || TimeGauge <= 0) && Time.timeScale > 0.0f)
         {
-            if (GameTime != 0)
-            {
-                TimeSpeedAfx.Play();
-            }
-            SlowSpeed = 0;
-            GameTime = 0;
-            BroadcastMessage("SetTime", GameTime);
-            //CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
+                if (GameTime != 0)
+                {
+                    TimeSpeedAfx.Play();
+                }
+                SlowSpeed = 0;
+                GameTime = 0;
+                BroadcastMessage("SetTime", GameTime);
+                CameraOne.GetComponent<AudioSource>().pitch = 1.0f;
+            
         }
         if (GameTime != 0 && !DisableDrain)
             Drain(Time.deltaTime);
@@ -144,7 +146,7 @@ public class GameWorldScript : MonoBehaviour
     }
     float GetTime()
     {
-        return ElapsedTime;
+        return TimeOnTimer - TimeBeforeDeath;
     }
     void OnGUI()
     {
@@ -203,5 +205,23 @@ public class GameWorldScript : MonoBehaviour
         float time = Time.time;
         time = Mathf.Round(time * 10) / 10;
         TimeBeforeDeath = time;
+    }
+    int CalcScore()
+    {
+        return (int)(64000 / (1/GetTime()));
+    }
+    void SavePlayersData(PlayersData data)
+    {
+        print("adding time and score");
+        data.time = GetTime();
+        data.score = CalcScore();
+        saver.SendMessage("SavePlayersData", data);
+    }
+    void SavePlayersCurrentLevelAndScore(int num)
+    {
+        CurrentPlayerLevel CPL = new CurrentPlayerLevel();
+        CPL.level = num;
+        CPL.score = CalcScore();
+        saver.SendMessage("SavePlayersCurrentLevelAndScore", CPL);
     }
 }
