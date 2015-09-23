@@ -14,7 +14,7 @@ public class BulletBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
+        transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
     }
 
     void OnCollisionEnter2D(Collision2D other)
