@@ -31,6 +31,7 @@ public class LevelScrollScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("update");
         if (waypoints[CurrPoint].transform.position.x != Cam.transform.position.x || waypoints[CurrPoint].transform.position.y != Cam.transform.position.y)
         {
             if (waypoints[CurrPoint].transform.position.x < Cam.transform.position.x)
@@ -64,5 +65,10 @@ public class LevelScrollScript : MonoBehaviour
             if (CurrPoint >= waypoints.Length)
                 CurrPoint = 0;
         }
+    }
+
+    void FixedUpdate()
+    {
+        Cam = GameObject.Find("Main Camera");
     }
 }

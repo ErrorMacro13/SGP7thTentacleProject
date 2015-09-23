@@ -7,6 +7,8 @@ public class SoundManager : MonoBehaviour {
     public AudioSource click;
     public AudioSource back;
     public int GameState = 0;
+    public static SoundManager ths;
+    public string PlayerName = "Cody";
     public static SoundManager Instance { get; private set; }
 
     void Awake()
@@ -54,5 +56,12 @@ public class SoundManager : MonoBehaviour {
     void Hovered()
     {
         hover.Play();
+    }
+    void SavePlayersData(PlayersData data)
+    {
+        print("adding name and mode");
+        data.name = PlayerName;
+        data.mode = GameState;
+        data.bounceBack.SendMessage("SavePlayersData", data);
     }
 }

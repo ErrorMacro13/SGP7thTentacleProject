@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
-    <ArcadeScore Name="BoB" Score="88262" />
-    <ArcadeScore Name="BoB" Score="80186" />
-    <ArcadeScore Name="BoB" Score="77101" />
-    <ArcadeScore Name="BoB" Score="76215" />
-    <ArcadeScore Name="BoB" Score="74907" />
-    <ArcadeScore Name="BoB" Score="63781" />
-    <ArcadeScore Name="BoB" Score="57831" />
-    <ArcadeScore Name="BoB" Score="43320" />
-    <ArcadeScore Name="BoB" Score="22068" />
-    <ArcadeScore Name="BoB" Score="3197" />
+    <ArcadeScore Name="BoB" Score="98070" />
+    <ArcadeScore Name="BoB" Score="73617" />
+    <ArcadeScore Name="BoB" Score="68134" />
+    <ArcadeScore Name="BoB" Score="59535" />
+    <ArcadeScore Name="BoB" Score="58858" />
+    <ArcadeScore Name="BoB" Score="49191" />
+    <ArcadeScore Name="BoB" Score="38965" />
+    <ArcadeScore Name="BoB" Score="36166" />
+    <ArcadeScore Name="BoB" Score="28835" />
+    <ArcadeScore Name="BoB" Score="12153" />
   </ArcadeScores>
   <FreePlayTimes>
-    <FreePlayTimes Name="Jill" Time="8" />
-    <FreePlayTimes Name="Jill" Time="17" />
-    <FreePlayTimes Name="Jill" Time="22" />
-    <FreePlayTimes Name="Jill" Time="28" />
-    <FreePlayTimes Name="Jill" Time="34" />
-    <FreePlayTimes Name="Jill" Time="49" />
-    <FreePlayTimes Name="Jill" Time="78" />
-    <FreePlayTimes Name="Jill" Time="125" />
-    <FreePlayTimes Name="Jill" Time="152" />
-    <FreePlayTimes Name="Jill" Time="193" />
+    <FreePlayTimes Name="Jill" Time="42" />
+    <FreePlayTimes Name="Jill" Time="45" />
+    <FreePlayTimes Name="Jill" Time="48" />
+    <FreePlayTimes Name="Jill" Time="75" />
+    <FreePlayTimes Name="Jill" Time="86" />
+    <FreePlayTimes Name="Jill" Time="115" />
+    <FreePlayTimes Name="Jill" Time="120" />
+    <FreePlayTimes Name="Jill" Time="159" />
+    <FreePlayTimes Name="Jill" Time="164" />
+    <FreePlayTimes Name="Jill" Time="171" />
   </FreePlayTimes>
 </Level>

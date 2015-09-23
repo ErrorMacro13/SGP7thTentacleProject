@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
-    <ArcadeScore Name="BoB" Score="78927" />
-    <ArcadeScore Name="BoB" Score="77716" />
-    <ArcadeScore Name="BoB" Score="67067" />
-    <ArcadeScore Name="BoB" Score="60921" />
-    <ArcadeScore Name="BoB" Score="60249" />
-    <ArcadeScore Name="BoB" Score="53635" />
-    <ArcadeScore Name="BoB" Score="49137" />
-    <ArcadeScore Name="BoB" Score="42492" />
-    <ArcadeScore Name="BoB" Score="16081" />
-    <ArcadeScore Name="BoB" Score="3968" />
+    <ArcadeScore Name="BoB" Score="86726" />
+    <ArcadeScore Name="BoB" Score="72007" />
+    <ArcadeScore Name="BoB" Score="70898" />
+    <ArcadeScore Name="BoB" Score="60188" />
+    <ArcadeScore Name="BoB" Score="52991" />
+    <ArcadeScore Name="BoB" Score="47299" />
+    <ArcadeScore Name="BoB" Score="40127" />
+    <ArcadeScore Name="BoB" Score="25846" />
+    <ArcadeScore Name="BoB" Score="18930" />
+    <ArcadeScore Name="BoB" Score="2105" />
   </ArcadeScores>
   <FreePlayTimes>
-    <FreePlayTimes Name="Jill" Time="12" />
-    <FreePlayTimes Name="Jill" Time="37" />
-    <FreePlayTimes Name="Jill" Time="42" />
-    <FreePlayTimes Name="Jill" Time="44" />
-    <FreePlayTimes Name="Jill" Time="66" />
-    <FreePlayTimes Name="Jill" Time="113" />
-    <FreePlayTimes Name="Jill" Time="124" />
-    <FreePlayTimes Name="Jill" Time="174" />
-    <FreePlayTimes Name="Jill" Time="174" />
-    <FreePlayTimes Name="Jill" Time="184" />
+    <FreePlayTimes Name="Jill" Time="22" />
+    <FreePlayTimes Name="Jill" Time="101" />
+    <FreePlayTimes Name="Jill" Time="102" />
+    <FreePlayTimes Name="Jill" Time="104" />
+    <FreePlayTimes Name="Jill" Time="105" />
+    <FreePlayTimes Name="Jill" Time="142" />
+    <FreePlayTimes Name="Jill" Time="152" />
+    <FreePlayTimes Name="Jill" Time="158" />
+    <FreePlayTimes Name="Jill" Time="189" />
+    <FreePlayTimes Name="Jill" Time="193" />
   </FreePlayTimes>
 </Level>
