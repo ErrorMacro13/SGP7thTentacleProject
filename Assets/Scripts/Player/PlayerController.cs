@@ -1,36 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float maxSpeed = 5f;
     public float jumpForce = 350f;
-
     public bool isGrounded = false;
     public bool isJumping = false;
-
+    private LevelData highscores = new LevelData();
     public float speed = 0f;
     public float CurrJumpPenalty = 1f;
     public float OriginalJumpPenalty = .05f;
     bool JumpHeld = false;
-
+    public Text YS;
+    public Text YT;
+    public Text HS;
+    public Text HT;
+    public Text YST;
+    public Text YTT;
+    public Text HST;
+    public Text HTT;
     bool isFacingLeft = false;
     bool isSlow = false;
     bool timeCharge = false;
-
+    public int score = 0;
     public Rigidbody2D player;
     public GameObject world;
-
+    public GameObject saver;
     public Vector3 startPosition;
+    public GameObject StartCheckPoint;
+    private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
 
     // Use this for initialization
     void Start()
     {
-        startPosition = transform.position;
+        saver = GameObject.Find("SaveDataLoader");
+        CPL = saver.GetComponent<XMLScript>().LoadPlayersCurrentLevelAndScore();
+        score = CPL.score;
+        StartCheckPoint = GameObject.Find("CheckPoint" + (CPL.level));
+        startPosition = StartCheckPoint.transform.position;
+        transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
-
     }
-
+    public int GetScore()
+    {
+        return score;
+    }
+    public int GetCurrentLevel()
+    {
+        return CPL.level - 1;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -137,6 +157,9 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "Acid":
+                Death();
+                break;
             case "SlowPlayer":
                 isSlow = true;
                 break;
@@ -172,6 +195,9 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "Acid":
+                Death();
+                break;
         }
     }
 
@@ -182,9 +208,35 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "Acid":
+                Death();
+                break;
             case "CheckPoint":
                 startPosition = other.transform.position;
                 SendMessageUpwards("ResetTimer");
+                if (other.GetComponent<CheckPointScript>().EndOfLevelCheckPoint)
+                {
+                    highscores = saver.GetComponent<XMLScript>().LoadLevelData("XML\\Levels\\LevelData" + other.GetComponent<CheckPointScript>().CheckpointNumber);
+                    YS.text = world.GetComponent<GameWorldScript>().CalcScore().ToString();
+                    YT.text = world.GetComponent<GameWorldScript>().GetTime().ToString();
+                    HS.text = highscores.ArcadeScores[0].score.ToString();
+                    HT.text = highscores.FreePlayTimes[0].time.ToString();
+                    YST.text = "Your Score: ";
+                    YTT.text = "Your Time: ";
+                    HST.text = "Best Score: ";
+                    HTT.text = "Best Time: ";
+                }
+                else
+                {
+                    YST.text = "";
+                    YTT.text = "";
+                    HST.text = "";
+                    HTT.text = "";
+                    YS.text = "";
+                    YT.text = "";
+                    HS.text = "";
+                    HT.text = "";
+                }
                 break;
         }
     }
@@ -221,4 +273,5 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+    
 }

@@ -18,5 +18,9 @@ public class TriggerScript : MonoBehaviour {
         {
             SendMessageUpwards("Activate");
         }
+        if (ent.tag == "Acid")
+        {
+            SendMessageUpwards("ResetOverWorld");
+        }
     }
 }
