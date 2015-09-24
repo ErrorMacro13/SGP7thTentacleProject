@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     bool isFacingLeft = false;
     bool isSlow = false;
+    bool isSlippery = false;
     bool timeCharge = false;
 
     public Rigidbody2D player;
@@ -63,13 +64,20 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            if (speed <= 0)
-                speed = 1;
-            if (speed > 0 && speed < maxSpeed)
-                speed += .5f * CurrJumpPenalty;
-            if (speed > maxSpeed)
-                speed = maxSpeed;
-
+            if (!isSlippery)
+            {
+                if (speed <= 0)
+                    speed = 1;
+                if (speed > 0 && speed < maxSpeed)
+                    speed += .5f * CurrJumpPenalty;
+                if (speed > maxSpeed)
+                    speed = maxSpeed;
+            }
+            else
+            {
+                if (speed < maxSpeed)
+                    speed += 0.1f;
+            }
             if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
@@ -79,18 +87,33 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if (speed >= 0)
-                speed = -1;
-            if (speed < 0 && speed > -maxSpeed)
-                speed -= .5f * CurrJumpPenalty;
-            if (speed > maxSpeed)
-                speed = -maxSpeed;
-
+            if (!isSlippery)
+            {
+                if (speed >= 0)
+                    speed = -1;
+                if (speed < 0 && speed > -maxSpeed)
+                    speed -= .5f * CurrJumpPenalty;
+                if (speed > maxSpeed)
+                    speed = -maxSpeed;
+            }
+            else
+            {
+                if(speed > -maxSpeed)
+                    speed -= 0.1f;
+            }
             if (!isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
+            player.velocity = new Vector2(speed, player.velocity.y);
+        }
+        else if(isSlippery)
+        {
+            if (speed > 0.0f)
+                speed -= 0.05f;
+            else if (speed < 0.0f)
+                speed += 0.05f;
             player.velocity = new Vector2(speed, player.velocity.y);
         }
         else
@@ -121,6 +144,10 @@ public class PlayerController : MonoBehaviour
             case "SlowPlayer":
                 isSlow = true;
                 break;
+            case "Slippery":
+                isSlippery = true;
+                isGrounded = true;
+                break;
             case "ChargeTimelock":
                 timeCharge = true;
                 break;
@@ -136,6 +163,10 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Lethal":
                 Death();
+                break;
+            case "Slippery":
+                isSlippery = true;
+                isGrounded = true;
                 break;
             case "SlowPlayer":
                 isSlow = true;
@@ -155,6 +186,10 @@ public class PlayerController : MonoBehaviour
                 break;
             case "SlowPlayer":
                 isSlow = false;
+                break;
+            case "Slippery":
+                isSlippery = false;
+                isGrounded = false;
                 break;
             case "ChargeTimelock":
                 timeCharge = false;
