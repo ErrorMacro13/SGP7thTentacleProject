@@ -6,6 +6,8 @@ public class RetractingSpikeBehavior : MonoBehaviour
     public float RetractingSpeed;
     public float RetractDelay;
     public float EmergeDelay;
+    public float RDelay;
+    public float GDelay;
 
     public bool RetractingHorizontal;
     public bool RetractingVertical;
@@ -13,11 +15,12 @@ public class RetractingSpikeBehavior : MonoBehaviour
     private Vector3 StartLoc;
 
     private bool ChangeDirection = false;
+    bool enabled = false;
 
     private float DelayEmerge;
     private float DelayRetract;
+    public float InitialDelay;
     private float CurrGameSpeed = 1.0f;
-    float DisabledDuration = 0.0f;
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
@@ -51,60 +54,72 @@ public class RetractingSpikeBehavior : MonoBehaviour
     }
 
     // ChangeDirectiondate is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (DisabledDuration <= 0.0f)
+        if (enabled)
         {
-            if (RetractingVertical)
+            if (InitialDelay <= 0.0f)
             {
-                if (ChangeDirection)
+                if (RetractingVertical)
                 {
-                    DelayEmerge -= Time.deltaTime;
+                    if (ChangeDirection)
+                    {
+                        DelayEmerge -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        DelayRetract -= Time.deltaTime;
+                    }
+                    MoveDownUp(Time.deltaTime);
                 }
                 else
                 {
-                    DelayRetract -= Time.deltaTime;
+                    if (ChangeDirection)
+                    {
+                        DelayEmerge -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        DelayRetract -= Time.deltaTime;
+                    }
+                    MoveLeftRight(Time.deltaTime);
                 }
-                MoveDownUp(Time.deltaTime);
             }
             else
-            {
-                if (ChangeDirection)
-                {
-                    DelayEmerge -= Time.deltaTime;
-                }
-                else
-                {
-                    DelayRetract -= Time.deltaTime;
-                }
-                MoveLeftRight(Time.deltaTime);
-            }
-        }
-        else
-        {
-            DisabledDuration -= Time.deltaTime;
+                InitialDelay -= Time.deltaTime;
         }
     }
     void MoveDownUp(float dt)
     {
-        if (gameObject.transform.position.y >= StartLoc.y - gameObject.transform.lossyScale.y && !ChangeDirection && DelayRetract <= 0)
+        if (RDelay <= 0)
         {
-            gameObject.transform.position += new Vector3(0, -RetractingSpeed * dt * CurrGameSpeed, 0);
-            if (gameObject.transform.position.y <= StartLoc.y - gameObject.transform.lossyScale.y)
+            if (gameObject.transform.position.y >= StartLoc.y - gameObject.transform.lossyScale.y && !ChangeDirection && DelayRetract <= 0)
             {
-                ChangeDirection = true;
-                DelayRetract = RetractDelay;
+                gameObject.transform.position += new Vector3(0, -RetractingSpeed * dt * CurrGameSpeed, 0);
+                if (gameObject.transform.position.y <= StartLoc.y - gameObject.transform.lossyScale.y)
+                {
+                    ChangeDirection = true;
+                    DelayRetract = RetractDelay;
+                }
             }
         }
-        else if (gameObject.transform.position.y <= StartLoc.y && ChangeDirection && DelayEmerge <= 0)
+        else
+            RDelay -= Time.deltaTime;
+
+        if (GDelay <= 0)
         {
-            gameObject.transform.position += new Vector3(0, RetractingSpeed * dt * CurrGameSpeed, 0);
-            if (gameObject.transform.position.y >= StartLoc.y)
+            if (gameObject.transform.position.y <= StartLoc.y && ChangeDirection && DelayEmerge <= 0)
             {
-                ChangeDirection = false;
-                DelayEmerge = EmergeDelay;
+                gameObject.transform.position += new Vector3(0, RetractingSpeed * dt * CurrGameSpeed, 0);
+                if (gameObject.transform.position.y >= StartLoc.y)
+                {
+                    ChangeDirection = false;
+                    DelayEmerge = EmergeDelay;
+                }
             }
         }
+        else
+            GDelay -= Time.deltaTime;
     }
     void MoveLeftRight(float dt)
     {
@@ -128,12 +143,23 @@ public class RetractingSpikeBehavior : MonoBehaviour
         }
     }
 
+    void RedTrigger(float duration)
+    {
+        RDelay = duration;
+    }
+
     void GreenTrigger(float duration)
     {
-        print(duration);
-        
-        DisabledDuration = duration;
+        GDelay = duration;
 
-       
+
+    }
+
+    void ToggleActive(bool isActive)
+    {
+        if (isActive)
+            enabled = true;
+        else
+            enabled = false;
     }
 }

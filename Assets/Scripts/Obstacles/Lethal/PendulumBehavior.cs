@@ -16,6 +16,7 @@ public class PendulumBehavior : MonoBehaviour
     public HingeJoint2D hinge;
     JointMotor2D motor;
     bool swingingLeft;
+    bool enabled = false;
     // Use this for initialization
     void Start()
     {
@@ -31,48 +32,51 @@ public class PendulumBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+     
+           
+            if ((hinge.jointAngle >= hinge.limits.max && swingingLeft) || (hinge.jointAngle <= hinge.limits.min && !swingingLeft))
+            {
+                swingingLeft = !swingingLeft;
+                motorSpeed = -motorSpeed;
+            }
 
-        if ((hinge.jointAngle >= hinge.limits.max && swingingLeft) || (hinge.jointAngle <= hinge.limits.min && !swingingLeft))
-        {
-            swingingLeft = !swingingLeft;
-            motorSpeed = -motorSpeed;
-        }
 
-    
 
-        if (nonlethal)
-        {
-            pendulumCollider.isTrigger = false;
-            tag = "Ground";
-            //if(hinge.jointAngle >= hinge.limit)
+            if (nonlethal)
+            {
+                pendulumCollider.isTrigger = false;
+                tag = "Ground";
+                //if(hinge.jointAngle >= hinge.limit)
+                //{
+
+                //}
+            }
+
+            if (!collision && CurrGameSpeed > 0.25f && !nonlethal)
+            {
+                pendulumCollider.isTrigger = true;
+                tag = "Lethal";
+            }
+
+            if (collision && CurrGameSpeed > 0.25)
+            {
+                isCatapult = true;
+            }
+            else
+            {
+                isCatapult = false;
+            }
+            //if (hinge.jointAngle <= hinge.limits.min && !swingingLeft)
             //{
-
+            //    swingingLeft = true;
+            //    motorSpeed = -motorSpeed;
             //}
-        }
-       
-        if (!collision && CurrGameSpeed > 0.25f && !nonlethal)
-        {
-            pendulumCollider.isTrigger = true;
-            tag = "Lethal";
-        }
-
-        if (collision && CurrGameSpeed > 0.25)
-        {
-            isCatapult = true;
-        }
-        else
-        {
-            isCatapult = false;
-        }
-        //if (hinge.jointAngle <= hinge.limits.min && !swingingLeft)
-        //{
-        //    swingingLeft = true;
-        //    motorSpeed = -motorSpeed;
-        //}
 
 
-        motor.motorSpeed = motorSpeed * CurrGameSpeed;
-        hinge.motor = motor;
+            motor.motorSpeed = motorSpeed * CurrGameSpeed;
+            hinge.motor = motor;
+        
+
 
     }
 
@@ -110,6 +114,14 @@ public class PendulumBehavior : MonoBehaviour
                 player.AddForce(direction);
             }
         }
+    }
+
+    void ToggleActive(bool isActive)
+    {
+        if (isActive)
+            hinge.useMotor = true;
+        else
+            hinge.useMotor = false;
     }
 
     void SetTime(short GameSpeed)
