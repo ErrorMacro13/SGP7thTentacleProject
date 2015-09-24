@@ -24,6 +24,8 @@ public class CheckPointScript : MonoBehaviour
     private GameObject SM;
     private GameObject Player;
     private PlayersData data = new PlayersData();
+    public GameObject[] levelObjects;
+    public bool levelActive = false;
 
     // Use this for initialization
     void Start()
@@ -37,7 +39,7 @@ public class CheckPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -55,6 +57,23 @@ public class CheckPointScript : MonoBehaviour
                     data.levelNumber = CheckpointNumber - 1;
                     data.bounceBack = this.gameObject;
                     SM.SendMessage("SavePlayersData", data);
+                }
+            }
+
+            if (levelActive)
+            {
+                print("active");
+                for (int i = 0; i < levelObjects.Length; i++)
+                {
+                    levelObjects[i].SendMessage("ToggleActive", true);
+                }
+            }
+            else
+            {
+                print("deactive");
+                for (int i = 0; i < levelObjects.Length; i++)
+                {
+                    levelObjects[i].SendMessage("ToggleActive", false);
                 }
             }
         }
