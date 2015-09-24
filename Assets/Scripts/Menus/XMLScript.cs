@@ -262,4 +262,29 @@ public class XMLScript : MonoBehaviour
                 break;
         }
     }
+
+    public void DefaultPlayersCurrentLevelAndScore()
+    {
+        CurrentPlayerLevel def = new CurrentPlayerLevel();
+        def.score = 0; def.level = 0;
+        string pathname = "XML\\Levels\\PlayersCurrentLevel";
+        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
+        using (var stream = new FileStream(pathname, FileMode.Create))
+        {
+            serializer.Serialize(stream, def);
+            stream.Close();
+        }
+    }
+    public void ChangePlayersCurrentLevel(int level)
+    {
+        CurrentPlayerLevel def = new CurrentPlayerLevel();
+        def.score = 0; def.level = level;
+        string pathname = "XML\\Levels\\PlayersCurrentLevel";
+        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
+        using (var stream = new FileStream(pathname, FileMode.Create))
+        {
+            serializer.Serialize(stream, def);
+            stream.Close();
+        }
+    }
 }

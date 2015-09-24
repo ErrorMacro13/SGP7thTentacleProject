@@ -144,7 +144,7 @@ public class GameWorldScript : MonoBehaviour
     {
         return TimeGauge;
     }
-    float GetTime()
+    public float GetTime()
     {
         return TimeOnTimer - TimeBeforeDeath;
     }
@@ -206,9 +206,9 @@ public class GameWorldScript : MonoBehaviour
         time = Mathf.Round(time * 10) / 10;
         TimeBeforeDeath = time;
     }
-    int CalcScore()
+    public int CalcScore()
     {
-        return (int)(64000 / (1/GetTime()));
+        return ((int)(64000 / (1/GetTime())) + Player.GetComponent<PlayerController>().GetScore());
     }
     void SavePlayersData(PlayersData data)
     {
