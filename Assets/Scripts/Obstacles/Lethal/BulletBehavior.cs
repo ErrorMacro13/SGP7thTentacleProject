@@ -12,7 +12,7 @@ public class BulletBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
     }

@@ -16,6 +16,12 @@ public class CameraBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FollowPlayer();
+        
+    }
+
+    void FollowPlayer()
+    {
         if (!VertLocked)
             transform.position = new Vector3(Player.transform.position.x + camPosition.x, Player.transform.position.y + camPosition.y, camPosition.z);
         else
@@ -30,5 +36,11 @@ public class CameraBehavior : MonoBehaviour
     void VertLock(bool var)
     {
         VertLocked = var;
+    }
+
+    void ResetOverWorld()
+    {
+        VertLocked = true;
+        RePosition(new Vector3(3.75f, Player.transform.position.y + 3, -20));
     }
 }
