@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         if (isSlow)
             maxSpeed = 1.5f;
+        else if (maxSpeed < 5.0f)
+            maxSpeed += 1.0f * Time.deltaTime;
         else
             maxSpeed = 5.0f;
 
