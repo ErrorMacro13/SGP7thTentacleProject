@@ -19,7 +19,6 @@ public class BulletBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        print("entered");
         if (gameObject.tag == "Lethal")
             Destroy(gameObject);
     }
