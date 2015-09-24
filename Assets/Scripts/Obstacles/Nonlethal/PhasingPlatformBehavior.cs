@@ -10,6 +10,7 @@ public class PhasingPlatformBehavior : MonoBehaviour {
     private float DelayPhazeOut = 0.0f;
     private bool PhazeOut = true;
     private bool PhazeIn = false;
+    private Transform origTrans;
     private float CurrGameSpeed = 1.0f;
     void SetTime(short GameSpeed)
     {
@@ -29,8 +30,18 @@ public class PhasingPlatformBehavior : MonoBehaviour {
                 break;
         }
     }
+    void ResetOverWorld()
+    {
+        transform.position = origTrans.position;
+        Color newcolor = gameObject.GetComponent<Renderer>().material.color;
+        newcolor.a = 1.0f;
+        gameObject.GetComponent<Renderer>().material.SetColor("_Color", newcolor);
+        DelayPhazeIn = PhazeInDelay;
+        DelayPhazeOut = PhazeOutDelay;
+    }
 	// Use this for initialization
 	void Start () {
+        origTrans = transform;
         DelayPhazeIn = PhazeInDelay;
         DelayPhazeOut = PhazeOutDelay;
 	}

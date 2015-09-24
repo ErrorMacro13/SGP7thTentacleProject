@@ -3,17 +3,17 @@ using System.Collections;
 
 public class LethalGasBehavior : MonoBehaviour
 {
-    float killTime = 5.0f;
-
+    public float killTime = 5.0f;
+    
     bool isColliding = false;
 
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
-
+    
     // Update is called once per frame
     void Update()
     {

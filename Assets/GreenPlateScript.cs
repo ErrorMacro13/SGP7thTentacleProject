@@ -8,12 +8,20 @@ public class GreenPlateScript : MonoBehaviour {
     public float duration = 5;
     private float tempduration;
     private Vector3 size;
+    private Transform origTrans;
 	// Use this for initialization
 	void Start () {
+        origTrans = transform;
         tempduration = duration;
         size = transform.lossyScale;
 	}
-	
+    void ResetOverWorld()
+    {
+        transform.position = origTrans.position;
+        transform.localScale = origTrans.localScale;
+        tempduration = duration;
+        GetComponent<SpriteRenderer>().sprite = NonactiveImg;
+    }
 	// Update is called once per frame
 	void Update () {
         if (tempduration <= 0)
