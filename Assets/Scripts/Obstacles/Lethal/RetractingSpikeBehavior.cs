@@ -17,6 +17,7 @@ public class RetractingSpikeBehavior : MonoBehaviour
     private float DelayEmerge;
     private float DelayRetract;
     private float CurrGameSpeed = 1.0f;
+    float DisabledDuration = 0.0f;
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
@@ -52,29 +53,36 @@ public class RetractingSpikeBehavior : MonoBehaviour
     // ChangeDirectiondate is called once per frame
     void Update()
     {
-        if (RetractingVertical)
+        if (DisabledDuration <= 0.0f)
         {
-            if (ChangeDirection)
+            if (RetractingVertical)
             {
-                DelayEmerge -= Time.deltaTime;
+                if (ChangeDirection)
+                {
+                    DelayEmerge -= Time.deltaTime;
+                }
+                else
+                {
+                    DelayRetract -= Time.deltaTime;
+                }
+                MoveDownUp(Time.deltaTime);
             }
             else
             {
-                DelayRetract -= Time.deltaTime;
+                if (ChangeDirection)
+                {
+                    DelayEmerge -= Time.deltaTime;
+                }
+                else
+                {
+                    DelayRetract -= Time.deltaTime;
+                }
+                MoveLeftRight(Time.deltaTime);
             }
-            MoveDownUp(Time.deltaTime);
         }
         else
         {
-            if (ChangeDirection)
-            {
-                DelayEmerge -= Time.deltaTime;
-            }
-            else
-            {
-                DelayRetract -= Time.deltaTime;
-            }
-            MoveLeftRight(Time.deltaTime);
+            DisabledDuration -= Time.deltaTime;
         }
     }
     void MoveDownUp(float dt)
@@ -118,5 +126,14 @@ public class RetractingSpikeBehavior : MonoBehaviour
                 DelayEmerge = EmergeDelay;
             }
         }
+    }
+
+    void GreenTrigger(float duration)
+    {
+        print(duration);
+        
+        DisabledDuration = duration;
+
+       
     }
 }

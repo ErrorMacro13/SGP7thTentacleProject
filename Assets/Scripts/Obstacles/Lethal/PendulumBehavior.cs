@@ -6,7 +6,7 @@ public class PendulumBehavior : MonoBehaviour
     BoxCollider2D pendulumCollider;
     public Rigidbody2D player;
 
-    public float motorSpeed = 100f;
+    public float motorSpeed = 120f;
     float CurrGameSpeed = 1.0f;
     bool nonlethal;
     bool isCatapult;
@@ -21,8 +21,8 @@ public class PendulumBehavior : MonoBehaviour
     {
         hinge = gameObject.GetComponent<HingeJoint2D>();
         //motor = hinge.motor;
-        motor.maxMotorTorque = 100000;
-        motor.motorSpeed = 100;
+        motor.maxMotorTorque = 5000;
+        motor.motorSpeed = 120;
         swingingLeft = true;
         direction = new Vector2(50, 0);
         pendulumCollider = GetComponent<BoxCollider2D>();
@@ -37,6 +37,8 @@ public class PendulumBehavior : MonoBehaviour
             swingingLeft = !swingingLeft;
             motorSpeed = -motorSpeed;
         }
+
+    
 
         if (nonlethal)
         {
@@ -101,7 +103,7 @@ public class PendulumBehavior : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             collision = false;
-            //nonlethal = false;
+            nonlethal = false;
 
             if (isCatapult)
             {
