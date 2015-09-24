@@ -3,6 +3,7 @@
   <ArcadeScores>
     <ArcadeScore Name="Name" Score="428799" />
     <ArcadeScore Name="Name" Score="230399" />
+    <ArcadeScore Name="Cody" Score="211199" />
     <ArcadeScore Name="BoB" Score="99110" />
     <ArcadeScore Name="BoB" Score="88298" />
     <ArcadeScore Name="BoB" Score="84484" />
@@ -10,18 +11,17 @@
     <ArcadeScore Name="BoB" Score="48753" />
     <ArcadeScore Name="BoB" Score="43171" />
     <ArcadeScore Name="BoB" Score="24929" />
-    <ArcadeScore Name="Name" Score="23296" />
   </ArcadeScores>
   <FreePlayTimes>
-    <FreePlayTimes Name="Name" Time="4.7" />
-    <FreePlayTimes Name="Name" Time="4.8" />
+    <FreePlayTimes Name="Cody" Time="3.1" />
     <FreePlayTimes Name="Name" Time="4.3" />
+    <FreePlayTimes Name="Name" Time="4.8" />
+    <FreePlayTimes Name="Cody" Time="4" />
+    <FreePlayTimes Name="Name" Time="4.7" />
     <FreePlayTimes Name="Jill" Time="7" />
+    <FreePlayTimes Name="Cody" Time="6.5" />
     <FreePlayTimes Name="Name" Time="10" />
     <FreePlayTimes Name="Name" Time="21.8" />
     <FreePlayTimes Name="Jill" Time="36" />
-    <FreePlayTimes Name="Jill" Time="36" />
-    <FreePlayTimes Name="Jill" Time="46" />
-    <FreePlayTimes Name="Jill" Time="60" />
   </FreePlayTimes>
 </Level>
