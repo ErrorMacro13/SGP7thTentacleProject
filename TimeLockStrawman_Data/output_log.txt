@@ -15,12 +15,7 @@ Loading C:\Users\Ben\Desktop\SGPTimeLockProject\SGP7thTentacleProject\TimeLockSt
 Platform assembly: C:\Users\Ben\Desktop\SGPTimeLockProject\SGP7thTentacleProject\TimeLockStrawman_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Ben\Desktop\SGPTimeLockProject\SGP7thTentacleProject\TimeLockStrawman_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Ben\Desktop\SGPTimeLockProject\SGP7thTentacleProject\TimeLockStrawman_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.044 seconds
+- Completed reload, in  0.142 seconds
 desktop: 1920x1200 59Hz; virtual: 3840x1200 at -1920,0
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-Platform assembly: C:\Users\Ben\Desktop\SGPTimeLockProject\SGP7thTentacleProject\TimeLockStrawman_Data\Managed\System.dll (this message is harmless)
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2710 -> priority: 1 
-  Thread -> id: 2908 -> priority: 1 
