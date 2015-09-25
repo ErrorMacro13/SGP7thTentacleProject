@@ -17,7 +17,10 @@ public class FireBallScript : MonoBehaviour
     {
         BOrigin = Bouncyness;
     }
-
+    void ResetOverWorld()
+    {
+        Destroy(this);
+    }
     // Update is called once per frame
     void Update()
     {

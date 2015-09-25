@@ -39,7 +39,10 @@ public class MovingPlatformBehavior : MonoBehaviour
 
     void ResetOverWorld()
     {
+        Halt = false;
+        ChangeDirection = false;
         transform.position = StartLoc;
+        TimeStay = StayTime;
     }
     // Use this for initialization
     void Start()

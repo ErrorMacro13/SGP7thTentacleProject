@@ -13,6 +13,9 @@
     <ArcadeScore Name="BoB" Score="6995" />
   </ArcadeScores>
   <FreePlayTimes>
+    <FreePlayTimes Name="Cody" Time="0" />
+    <FreePlayTimes Name="Cody" Time="0" />
+    <FreePlayTimes Name="Cody" Time="0" />
     <FreePlayTimes Name="Jill" Time="6" />
     <FreePlayTimes Name="Jill" Time="21" />
     <FreePlayTimes Name="Jill" Time="36" />
@@ -20,8 +23,5 @@
     <FreePlayTimes Name="Jill" Time="52" />
     <FreePlayTimes Name="Jill" Time="109" />
     <FreePlayTimes Name="Jill" Time="113" />
-    <FreePlayTimes Name="Jill" Time="132" />
-    <FreePlayTimes Name="Jill" Time="142" />
-    <FreePlayTimes Name="Jill" Time="194" />
   </FreePlayTimes>
 </Level>

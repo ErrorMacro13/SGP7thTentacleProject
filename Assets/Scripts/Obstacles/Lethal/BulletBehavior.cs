@@ -5,10 +5,14 @@ public class BulletBehavior : MonoBehaviour
 {
 
     float CurrGameSpeed = 1.0f;
-
+    void ResetOverWorld()
+    {
+        Destroy(this);
+    }
     // Use this for initialization
     void Start()
     {
+
     }
 
     // Update is called once per frame
