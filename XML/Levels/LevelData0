@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
+    <ArcadeScore Name="Cody" Score="990720" />
+    <ArcadeScore Name="Cody" Score="990720" />
     <ArcadeScore Name="Name" Score="428799" />
     <ArcadeScore Name="Name" Score="230399" />
     <ArcadeScore Name="Cody" Score="211199" />
@@ -9,8 +11,6 @@
     <ArcadeScore Name="BoB" Score="84484" />
     <ArcadeScore Name="BoB" Score="69922" />
     <ArcadeScore Name="BoB" Score="48753" />
-    <ArcadeScore Name="BoB" Score="43171" />
-    <ArcadeScore Name="BoB" Score="24929" />
   </ArcadeScores>
   <FreePlayTimes>
     <FreePlayTimes Name="Cody" Time="0" />
