@@ -13,7 +13,7 @@ public class GunTurretBehavior : MonoBehaviour
     public float TimeBetweenShots;
     public float InitialDelay;
 
-    bool enabled;
+    public bool enabled;
     // Use this for initialization
     void Start()
     {
