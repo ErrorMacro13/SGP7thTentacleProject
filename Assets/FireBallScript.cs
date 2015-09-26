@@ -19,7 +19,7 @@ public class FireBallScript : MonoBehaviour
     }
     void ResetOverWorld()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
     // Update is called once per frame
     void Update()

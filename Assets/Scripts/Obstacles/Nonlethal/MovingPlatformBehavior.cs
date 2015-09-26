@@ -11,7 +11,7 @@ public class MovingPlatformBehavior : MonoBehaviour
 
     private bool ChangeDirection = false;
     private bool Halt = false;
-    bool enabled;
+    public bool enabled;
 
     private Vector3 StartLoc;
 

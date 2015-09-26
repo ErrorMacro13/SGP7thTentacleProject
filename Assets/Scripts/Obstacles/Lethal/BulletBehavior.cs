@@ -7,7 +7,7 @@ public class BulletBehavior : MonoBehaviour
     float CurrGameSpeed = 1.0f;
     void ResetOverWorld()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
     // Use this for initialization
     void Start()

@@ -9,7 +9,6 @@ public class FallingSpikeBehavior : MonoBehaviour
     public float DropDistance = 2;
     float CurrGameSpeed = 1.0f;
     private Transform trans;
-    public GameObject Player;
     private Vector3 startLoc;
     void SetTime(short GameSpeed)
     {
