@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <BGvol>100</BGvol>
-  <AFXvol>74</AFXvol>
-  <Mastervol>49</Mastervol>
+  <BGvol>45</BGvol>
+  <AFXvol>59</AFXvol>
+  <Mastervol>100</Mastervol>
   <FullScreen>true</FullScreen>
 </Settings>

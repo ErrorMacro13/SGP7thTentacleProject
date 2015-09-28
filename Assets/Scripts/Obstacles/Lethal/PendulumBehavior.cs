@@ -101,7 +101,7 @@ public class PendulumBehavior : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             collision = false;
-            //nonlethal = false;
+            nonlethal = false;
 
             if (isCatapult)
             {

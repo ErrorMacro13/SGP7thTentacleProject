@@ -3,13 +3,13 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxSpeed = 5f;
-    public float jumpForce = 350f;
+    public float maxSpeed;
+    public float jumpForce;
 
     public bool isGrounded = false;
     public bool isJumping = false;
 
-    public float speed = 0f;
+    public float speed = 2f;
     public float CurrJumpPenalty = 1f;
     public float OriginalJumpPenalty = .05f;
     bool JumpHeld = false;
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            speed = 0.0f;
+            speed = 2.0f;
             player.velocity = new Vector2(0, player.velocity.y);
         }
 
