@@ -5,21 +5,24 @@ public class BulletBehavior : MonoBehaviour
 {
 
     float CurrGameSpeed = 1.0f;
-
+    void ResetOverWorld()
+    {
+        Destroy(this.gameObject);
+    }
     // Use this for initialization
     void Start()
     {
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        print("entered");
         if (gameObject.tag == "Lethal")
             Destroy(gameObject);
     }

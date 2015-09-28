@@ -1,36 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxSpeed;
-    public float jumpForce;
-
+    public float maxSpeed = 5f;
+    public float jumpForce = 350f;
     public bool isGrounded = false;
     public bool isJumping = false;
-
-    public float speed = 2f;
+    private LevelData highscores = new LevelData();
+    public float speed = 0f;
     public float CurrJumpPenalty = 1f;
     public float OriginalJumpPenalty = .05f;
     bool JumpHeld = false;
-
+    public Text YS;
+    public Text YT;
+    public Text HS;
+    public Text HT;
+    public Text YST;
+    public Text YTT;
+    public Text HST;
+    public Text HTT;
     bool isFacingLeft = false;
     bool isSlow = false;
+    bool isSlippery = false;
     bool timeCharge = false;
-
+    public int score = 0;
     public Rigidbody2D player;
     public GameObject world;
-
+    public GameObject saver;
     public Vector3 startPosition;
+    public GameObject StartCheckPoint;
+    private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
 
     // Use this for initialization
     void Start()
     {
-        startPosition = transform.position;
+        saver = GameObject.Find("SaveDataLoader");
+        CPL = saver.GetComponent<XMLScript>().LoadPlayersCurrentLevelAndScore();
+        score = CPL.score;
+        StartCheckPoint = GameObject.Find("CheckPoint" + (CPL.level));
+        startPosition = StartCheckPoint.transform.position;
+        transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
-
     }
-
+    public int GetScore()
+    {
+        return score;
+    }
+    public int GetCurrentLevel()
+    {
+        return CPL.level - 1;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -50,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         if (isSlow)
             maxSpeed = 1.5f;
+        else if (maxSpeed < 5.0f)
+            maxSpeed += 1.0f * Time.deltaTime;
         else
             maxSpeed = 5.0f;
 
@@ -63,13 +86,20 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            if (speed <= 0)
-                speed = 1;
-            if (speed > 0 && speed < maxSpeed)
-                speed += .5f * CurrJumpPenalty;
-            if (speed > maxSpeed)
-                speed = maxSpeed;
-
+            if (!isSlippery)
+            {
+                if (speed <= 0)
+                    speed = 1;
+                if (speed > 0 && speed < maxSpeed)
+                    speed += .5f * CurrJumpPenalty;
+                if (speed > maxSpeed)
+                    speed = maxSpeed;
+            }
+            else
+            {
+                if (speed < maxSpeed)
+                    speed += 0.1f;
+            }
             if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
@@ -79,13 +109,20 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if (speed >= 0)
-                speed = -1;
-            if (speed < 0 && speed > -maxSpeed)
-                speed -= .5f * CurrJumpPenalty;
-            if (speed > maxSpeed)
-                speed = -maxSpeed;
-
+            if (!isSlippery)
+            {
+                if (speed >= 0)
+                    speed = -1;
+                if (speed < 0 && speed > -maxSpeed)
+                    speed -= .5f * CurrJumpPenalty;
+                if (speed > maxSpeed)
+                    speed = -maxSpeed;
+            }
+            else
+            {
+                if(speed > -maxSpeed)
+                    speed -= 0.1f;
+            }
             if (!isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
@@ -93,9 +130,17 @@ public class PlayerController : MonoBehaviour
             }
             player.velocity = new Vector2(speed, player.velocity.y);
         }
+        else if(isSlippery)
+        {
+            if (speed > 0.0f)
+                speed -= 0.05f;
+            else if (speed < 0.0f)
+                speed += 0.05f;
+            player.velocity = new Vector2(speed, player.velocity.y);
+        }
         else
         {
-            speed = 2.0f;
+            speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
         }
 
@@ -121,6 +166,10 @@ public class PlayerController : MonoBehaviour
             case "SlowPlayer":
                 isSlow = true;
                 break;
+            case "Slippery":
+                isSlippery = true;
+                isGrounded = true;
+                break;
             case "ChargeTimelock":
                 timeCharge = true;
                 break;
@@ -136,6 +185,10 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Lethal":
                 Death();
+                break;
+            case "Slippery":
+                isSlippery = true;
+                isGrounded = true;
                 break;
             case "SlowPlayer":
                 isSlow = true;
@@ -156,6 +209,10 @@ public class PlayerController : MonoBehaviour
             case "SlowPlayer":
                 isSlow = false;
                 break;
+            case "Slippery":
+                isSlippery = false;
+                isGrounded = false;
+                break;
             case "ChargeTimelock":
                 timeCharge = false;
                 break;
@@ -172,6 +229,9 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "Acid":
+                Death();
+                break;
         }
     }
 
@@ -182,9 +242,35 @@ public class PlayerController : MonoBehaviour
             case "Lethal":
                 Death();
                 break;
+            case "Acid":
+                Death();
+                break;
             case "CheckPoint":
                 startPosition = other.transform.position;
                 SendMessageUpwards("ResetTimer");
+                if (other.GetComponent<CheckPointScript>().EndOfLevelCheckPoint)
+                {
+                    highscores = saver.GetComponent<XMLScript>().LoadLevelData("XML\\Levels\\LevelData" + other.GetComponent<CheckPointScript>().CheckpointNumber);
+                    YS.text = world.GetComponent<GameWorldScript>().CalcScore().ToString();
+                    YT.text = world.GetComponent<GameWorldScript>().GetTime().ToString();
+                    HS.text = highscores.ArcadeScores[0].score.ToString();
+                    HT.text = highscores.FreePlayTimes[0].time.ToString();
+                    YST.text = "Your Score: ";
+                    YTT.text = "Your Time: ";
+                    HST.text = "Best Score: ";
+                    HTT.text = "Best Time: ";
+                }
+                else
+                {
+                    YST.text = "";
+                    YTT.text = "";
+                    HST.text = "";
+                    HTT.text = "";
+                    YS.text = "";
+                    YT.text = "";
+                    HS.text = "";
+                    HT.text = "";
+                }
                 break;
         }
     }
@@ -221,4 +307,5 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+    
 }

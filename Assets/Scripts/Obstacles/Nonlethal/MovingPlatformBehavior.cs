@@ -11,11 +11,13 @@ public class MovingPlatformBehavior : MonoBehaviour
 
     private bool ChangeDirection = false;
     private bool Halt = false;
+    public bool enabled;
 
     private Vector3 StartLoc;
 
     private float TimeStay;
     private float CurrGameSpeed = 1.0f;
+
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
@@ -37,7 +39,10 @@ public class MovingPlatformBehavior : MonoBehaviour
 
     void ResetOverWorld()
     {
+        Halt = false;
+        ChangeDirection = false;
         transform.position = StartLoc;
+        TimeStay = StayTime;
     }
     // Use this for initialization
     void Start()
@@ -49,10 +54,13 @@ public class MovingPlatformBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (VerticalMovement)
-            MoveDownUp(Time.deltaTime);
-        else
-            MoveLeftRight(Time.deltaTime);
+        if (enabled)
+        {
+            if (VerticalMovement)
+                MoveDownUp(Time.deltaTime);
+            else
+                MoveLeftRight(Time.deltaTime);
+        }
     }
     void MoveDownUp(float dt)
     {
@@ -115,6 +123,14 @@ public class MovingPlatformBehavior : MonoBehaviour
             }
         }
     }
+    void ToggleActive(bool isActive)
+    {
+        if (isActive)
+            enabled = true;
+        else
+            enabled = false;
+    }
+
     void OnTriggerEnter2D(Collider2D ent)
     {
         if (ent.tag == "Player")

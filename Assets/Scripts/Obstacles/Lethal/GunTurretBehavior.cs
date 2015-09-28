@@ -12,6 +12,8 @@ public class GunTurretBehavior : MonoBehaviour
 
     public float TimeBetweenShots;
     public float InitialDelay;
+
+    public bool enabled;
     // Use this for initialization
     void Start()
     {
@@ -26,12 +28,17 @@ public class GunTurretBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        InitialDelay -= Time.deltaTime * CurrGameSpeed;
-        if (InitialDelay <= 0.0f)
+        if (enabled)
         {
-            Fire();
-            InitialDelay = TimeBetweenShots;
+            InitialDelay -= Time.deltaTime * CurrGameSpeed;
+            if (InitialDelay <= 0.0f)
+            {
+                Fire();
+                InitialDelay = TimeBetweenShots;
+            }
         }
+        else
+            return;
     }
 
     void Fire()
@@ -62,6 +69,15 @@ public class GunTurretBehavior : MonoBehaviour
                 }
         }
     }
+
+    void ToggleActive(bool isActive)
+    {
+        if (isActive)
+            enabled = true;
+        else
+            enabled = false;
+    }
+
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
