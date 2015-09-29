@@ -10,6 +10,8 @@ public class PauseScript : MonoBehaviour
     
     public Canvas settingsCanvas;
     public Canvas instructionsCanvas;
+    public Texture pauseOverlay;
+
 
     // Use this for initialization
     void Start()
@@ -62,6 +64,7 @@ public class PauseScript : MonoBehaviour
         Rect pause = new Rect(new Vector2((Screen.width / 2) - 40, (Screen.height / 2) - 120), new Vector2(20, 20));
         //GUIContent PauseHeader;
 
+        Rect overlayRect = new Rect(new Vector3(0, 0, 20), new Vector2(Screen.width, Screen.height));
        
         //GUIContent ResumeButton;
         Rect resume = new Rect(pause.x + 20, pause.y+50, 80, 40);
@@ -75,6 +78,7 @@ public class PauseScript : MonoBehaviour
         Rect exit = new Rect(mainmenu.x, mainmenu.y + 50, 80, 40);
         if (paused)
         {
+            GUI.DrawTexture(overlayRect, pauseOverlay);
             if (mainPause)
             {
                 settingsCanvas.enabled = false;
