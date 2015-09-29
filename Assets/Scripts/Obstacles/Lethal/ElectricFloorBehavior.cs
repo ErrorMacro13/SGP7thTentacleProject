@@ -9,24 +9,30 @@ public class ElectricFloorBehavior : MonoBehaviour
     public bool isCharging;
     public bool isDormant;
 
+    bool ia;
+    bool ic;
+    bool id;
+
     public float timeBetweenStates = 3.0f;
     float timer;
 
     GameObject player;
     void ResetOverWorld()
     {
-        isDormant = true;
-        isCharging = false;
-        isActive = false;
+        isDormant = id;
+        isCharging = ic;
+        isActive = ia;
         timer = timeBetweenStates;
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
     }
     // Use this for initialization
     void Start()
     {
+        ia = isActive;
+        ic = isCharging;
+        id = isDormant;
         timer = timeBetweenStates;
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
-        GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -35,9 +41,6 @@ public class ElectricFloorBehavior : MonoBehaviour
 
 
         timer -= (Time.deltaTime * CurrGameSpeed);
-
-
-
 
         if (timer <= 0.0f)
         {

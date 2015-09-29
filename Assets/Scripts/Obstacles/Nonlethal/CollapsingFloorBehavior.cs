@@ -26,16 +26,17 @@ public class CollapsingFloorBehavior : MonoBehaviour
     }
 
     bool active = false;
-    public float TimeBeforeFall = 1.0f;
     public float TimeBeforeBreak = 1.0f;
-
+    public float PercentDone;
     Transform TransOriginal;
 
     float TBBOriginal;
-    float TBFOriginal;
     Sprite SpriteOrignial;
 
-    public Sprite Crumble;
+    public Sprite Crumble1;
+    public Sprite Crumble2;
+    public Sprite Crumble3;
+    public Sprite Crumble4;
 
 
     // Use this for initialization
@@ -43,23 +44,34 @@ public class CollapsingFloorBehavior : MonoBehaviour
     {
         Transform TransOriginal = transform;
         TBBOriginal = TimeBeforeBreak;
-        TBFOriginal = TimeBeforeFall;
         SpriteOrignial = GetComponent<SpriteRenderer>().sprite;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (active && TimeBeforeFall > 0.0f)
-        {
-            TimeBeforeFall -= Time.deltaTime * CurrGameSpeed;
-        }
-        if (TimeBeforeFall <= 0.0f && CurrGameSpeed != 0.0f)
+        if (active && TimeBeforeBreak > 0.0f)
         {
             TimeBeforeBreak -= Time.deltaTime * CurrGameSpeed;
+        }
+        if (TimeBeforeBreak <= 0.0f && CurrGameSpeed != 0.0f)
+        {
             Shrink();
         }
 
+    }
+
+    void FixedUpdate()
+    {
+        PercentDone = (TBBOriginal - TimeBeforeBreak) / TBBOriginal;
+        if (PercentDone > 0.0f && PercentDone < 0.25f)
+            GetComponent<SpriteRenderer>().sprite = Crumble1;
+        else if (PercentDone >= 0.25f && PercentDone < 0.50f)
+            GetComponent<SpriteRenderer>().sprite = Crumble2;
+        else if (PercentDone >= 0.50f && PercentDone < 0.75f)
+            GetComponent<SpriteRenderer>().sprite = Crumble3;
+        else if (PercentDone >= 0.75f)
+            GetComponent<SpriteRenderer>().sprite = Crumble4;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -67,13 +79,13 @@ public class CollapsingFloorBehavior : MonoBehaviour
         if (other.gameObject.tag == "Player" && CurrGameSpeed != 0.0f)
         {
             active = true;
-            GetComponent<SpriteRenderer>().sprite = Crumble;
+            GetComponent<SpriteRenderer>().sprite = Crumble1;
         }
     }
 
     void Shrink()
     {
-        GetComponent<Transform>().localScale -= GetComponent<Transform>().localScale;
+        transform.localScale -= transform.localScale;
     }
 
     void ResetOverWorld()
@@ -81,10 +93,8 @@ public class CollapsingFloorBehavior : MonoBehaviour
         transform.position = TransOriginal.position;
         transform.localScale.Set(TransOriginal.lossyScale.x, TransOriginal.lossyScale.y, TransOriginal.lossyScale.z);
 
-        GetComponent<Rigidbody2D>().isKinematic = true;
         active = false;
         TimeBeforeBreak = TBBOriginal;
-        TimeBeforeFall = TBFOriginal;
         GetComponent<SpriteRenderer>().sprite = SpriteOrignial;
     }
 }
