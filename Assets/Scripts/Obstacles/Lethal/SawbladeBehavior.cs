@@ -3,23 +3,33 @@ using System.Collections;
 
 public class SawbladeBehavior : MonoBehaviour
 {
-
+    Vector3 SLock;
     private float CurrGameSpeed = 1.0f;
     public float Speed = 1;
     public Transform[] Waypoints;
     int currWaypoint;
     bool XPass = false;
     bool YPass = false;
+    public float spin = 5000;
 
     // Use this for initialization
     void Start()
     {
-
+        SLock = transform.position;
     }
-
+    
+    void ResetOverWorld()
+    {
+        currWaypoint = 0;
+        transform.position = SLock;
+        XPass = false;
+        YPass = false;
+    }
     // Update is called once per frame
     void Update()
     {
+        //Rotation
+        transform.Rotate(Vector3.back * Time.deltaTime * CurrGameSpeed * spin);
 
         if (transform.position.x > Waypoints[currWaypoint].position.x && !XPass)
         {

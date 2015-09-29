@@ -5,7 +5,6 @@ public class DrippingAcidBehavior : MonoBehaviour {
     private Vector3 StartLoc;
     public float dripSpeed = 0.2f;
     public float FallSpeed = 2;
-    private Vector3 Size;
     private float CurrGameSpeed = 1.0f;
     public GameObject endSpot;
     bool grow = true;
@@ -34,7 +33,6 @@ public class DrippingAcidBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    StartLoc = transform.position;
-        Size = transform.lossyScale;
         transform.localScale -= transform.localScale;
 	}
 	
