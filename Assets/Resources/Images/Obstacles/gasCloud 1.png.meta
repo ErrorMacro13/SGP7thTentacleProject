@@ -1,0 +1,390 @@
+fileFormatVersion: 2
+guid: 9056e703bd3d76c43b195abd6075e3ce
+timeCreated: 1443552844
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: gasCloud 1_0
+    21300002: gasCloud 1_1
+    21300004: gasCloud 1_2
+    21300006: gasCloud 1_3
+    21300008: gasCloud 1_4
+    21300010: gasCloud 1_5
+    21300012: gasCloud 1_6
+    21300014: gasCloud 1_7
+    21300016: gasCloud 1_12
+    21300018: gasCloud 1_13
+    21300020: gasCloud 1_14
+    21300022: gasCloud 1_15
+    21300024: gasCloud 1_16
+    21300026: gasCloud 1_17
+    21300028: gasCloud 1_18
+    21300030: gasCloud 1_19
+    21300032: gasCloud 1_28
+    21300034: gasCloud 1_29
+    21300036: gasCloud 1_30
+    21300038: gasCloud 1_31
+    21300040: gasCloud 1_32
+    21300042: gasCloud 1_33
+    21300044: gasCloud 1_34
+    21300046: gasCloud 1_35
+    21300048: gasCloud 1_44
+    21300050: gasCloud 1_45
+    21300052: gasCloud 1_46
+    21300054: gasCloud 1_47
+    21300056: gasCloud 1_48
+    21300058: gasCloud 1_49
+    21300060: gasCloud 1_50
+    21300062: gasCloud 1_51
+    21300064: gasCloud 1_60
+    21300066: gasCloud 1_61
+    21300068: gasCloud 1_62
+    21300070: gasCloud 1_63
+    21300072: gasCloud 1_64
+    21300074: gasCloud 1_65
+    21300076: gasCloud 1_66
+    21300078: gasCloud 1_67
+    21300080: gasCloud 1_76
+    21300082: gasCloud 1_77
+    21300084: gasCloud 1_78
+    21300086: gasCloud 1_79
+    21300088: gasCloud 1_80
+    21300090: gasCloud 1_81
+    21300092: gasCloud 1_82
+    21300094: gasCloud 1_83
+    21300096: gasCloud 1_92
+    21300098: gasCloud 1_93
+    21300100: gasCloud 1_94
+    21300102: gasCloud 1_95
+    21300104: gasCloud 1_96
+    21300106: gasCloud 1_97
+    21300108: gasCloud 1_98
+    21300110: gasCloud 1_99
+    21300112: gasCloud 1_108
+    21300114: gasCloud 1_109
+    21300116: gasCloud 1_110
+    21300118: gasCloud 1_111
+    21300120: gasCloud 1_112
+    21300122: gasCloud 1_113
+    21300124: gasCloud 1_114
+    21300126: gasCloud 1_115
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: gasCloud 1_19
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 780
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_29
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_30
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_31
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_32
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_33
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_34
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_35
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 652
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_45
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_46
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_47
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_48
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_49
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_50
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_51
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 524
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_61
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_62
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_63
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_64
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_65
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_66
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_67
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 396
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_76
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 268
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: gasCloud 1_77
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 268
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

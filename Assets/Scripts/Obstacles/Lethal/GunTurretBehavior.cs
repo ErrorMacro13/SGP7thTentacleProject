@@ -5,19 +5,30 @@ public class GunTurretBehavior : MonoBehaviour
 {
 
     float CurrGameSpeed = 1.0f;
-    short SpeedCase = 0;
+    int SpeedCase = 0;
 
+    GameObject Barrel;
+    Vector3 BarrelLocPos;
     public GameObject Bullet;
     GameObject TempBullet;
+    public float Percent;
 
     public float TimeBetweenShots;
     public float InitialDelay;
+    float ID;
 
     public bool enabled;
     // Use this for initialization
+    void ResetOverWorld()
+    {
+        InitialDelay = ID;
+    }
     void Start()
     {
-
+        ID = InitialDelay;
+        Barrel = transform.Find("Barrel").gameObject;
+        BarrelLocPos = Barrel.transform.localPosition;
+        Barrel.transform.localPosition -= new Vector3(1.6f, 0, 0);
     }
 
     // Update is called once per frame
@@ -30,12 +41,17 @@ public class GunTurretBehavior : MonoBehaviour
     {
         if (enabled)
         {
+            Percent = InitialDelay / TimeBetweenShots;
             InitialDelay -= Time.deltaTime * CurrGameSpeed;
             if (InitialDelay <= 0.0f)
             {
                 Fire();
                 InitialDelay = TimeBetweenShots;
             }
+            else if (Percent > 0.75f)
+                Barrel.transform.localPosition = new Vector3(BarrelLocPos.x - 7f * (1 - Percent), BarrelLocPos.y, 0);
+            else
+                Barrel.transform.localPosition = new Vector3(BarrelLocPos.x - 2.5f * Percent, BarrelLocPos.y, 0);
         }
         else
             return;
@@ -43,7 +59,7 @@ public class GunTurretBehavior : MonoBehaviour
 
     void Fire()
     {
-        TempBullet = Instantiate(Bullet, transform.Find("Barrel").transform.position, transform.rotation) as GameObject;
+        TempBullet = Instantiate(Bullet, Barrel.transform.position, transform.rotation) as GameObject;
         TempBullet.transform.parent = transform;
         switch (SpeedCase)
         {
