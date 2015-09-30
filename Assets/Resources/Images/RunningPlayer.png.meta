@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6d54b32dc0c937e40866969229b686f8
-timeCreated: 1443496532
+timeCreated: 1443634720
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -65,8 +65,8 @@ TextureImporter:
         y: 2
         width: 54
         height: 126
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_1
       rect:
@@ -75,8 +75,8 @@ TextureImporter:
         y: 2
         width: 49
         height: 125
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_2
       rect:
@@ -85,8 +85,8 @@ TextureImporter:
         y: 2
         width: 39
         height: 126
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_3
       rect:
@@ -95,8 +95,8 @@ TextureImporter:
         y: 2
         width: 49
         height: 126
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_4
       rect:
@@ -105,8 +105,8 @@ TextureImporter:
         y: 2
         width: 57
         height: 125
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_5
       rect:
@@ -115,8 +115,8 @@ TextureImporter:
         y: 2
         width: 53
         height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_6
       rect:
@@ -125,8 +125,8 @@ TextureImporter:
         y: 2
         width: 39
         height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: RunningPlayer_7
       rect:
@@ -135,8 +135,8 @@ TextureImporter:
         y: 1
         width: 46
         height: 125
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
