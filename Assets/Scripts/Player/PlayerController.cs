@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public GameObject StartCheckPoint;
     private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
 
+    Animator anim;
+
     // Use this for initialization
     void Start()
     {
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        anim = GetComponent<Animator>();
     }
     public int GetScore()
     {
@@ -84,6 +88,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        float move = Input.GetAxis("Horizontal");
+
+        anim.SetFloat("animSpeed", Mathf.Abs(move));
+
         if (Input.GetKey(KeyCode.D))
         {
             if (!isSlippery)
@@ -149,6 +157,7 @@ public class PlayerController : MonoBehaviour
             Jump();
             isJumping = false;
         }
+
     }
 
     void Jump()
