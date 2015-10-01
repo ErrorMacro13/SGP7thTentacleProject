@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Text YTT;
     public Text HST;
     public Text HTT;
+    public Image[] Lives;
     bool isFacingLeft = false;
     bool isSlow = false;
     bool isSlippery = false;
@@ -31,25 +32,37 @@ public class PlayerController : MonoBehaviour
     public GameObject saver;
     public Vector3 startPosition;
     public GameObject StartCheckPoint;
-
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
-    private float health = 3;
+    private int life = 3;
 
     Animator anim;
-
     // Use this for initialization
     void Start()
     {
         saver = GameObject.Find("SaveDataLoader");
         CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
         score = CPS.score;
-        //health = CPS.health;
+        //life = CPS.life;
         StartCheckPoint = GameObject.Find("CheckPoint" + (CPS.level));
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
-
+        for (int i = 0; i < 10; i++)
+        {
+            Lives[i].enabled = false;
+        }
+        for (int i = 0; i < life; i++)
+        {
+            Lives[i].enabled = true;
+        }
         anim = GetComponent<Animator>();
+    }
+    public void SpawnPlayerAt(int CheckPointNumber = 0)
+    {
+        DefaultLife(3);
+        StartCheckPoint = GameObject.Find("CheckPoint" + CheckPointNumber);
+        startPosition = StartCheckPoint.transform.position;
+        transform.position = startPosition;
     }
     public float GetScore()
     {
@@ -58,6 +71,24 @@ public class PlayerController : MonoBehaviour
     public float GetCurrentLevel()
     {
         return CPS.level - 1;
+    }
+    public void DefaultLife(int amount = 1)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            life++;
+            Lives[i].enabled = true;
+        }
+    }
+    public void AddLife()
+    {
+        life++;
+        Lives[life].enabled = true;
+    }
+    public void LoseLife()
+    {
+        life--;
+        Lives[life].enabled = false;
     }
     // Update is called once per frame
     void Update()
@@ -86,7 +117,7 @@ public class PlayerController : MonoBehaviour
         if (timeCharge)
         {
             world.SendMessage("Refill", 0.5f);
-        }   
+        }
     }
 
     void FixedUpdate()
@@ -131,7 +162,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if(speed > -maxSpeed)
+                if (speed > -maxSpeed)
                     speed -= 0.1f;
             }
             if (!isFacingLeft)
@@ -141,7 +172,7 @@ public class PlayerController : MonoBehaviour
             }
             player.velocity = new Vector2(speed, player.velocity.y);
         }
-        else if(isSlippery)
+        else if (isSlippery)
         {
             if (speed > 0.0f)
                 speed -= 0.05f;
@@ -239,8 +270,8 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
                 break;
             case "SlowPlayer":
-                isSlow = false;
                 GetComponent<ParticleSystem>().Stop();
+                isSlow = false;
                 break;
             case "Slippery":
                 isSlippery = false;
@@ -257,7 +288,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
 
-        switch(other.tag)
+        switch (other.tag)
         {
             case "Lethal":
                 Death();
@@ -320,9 +351,31 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
+        LoseLife();
         isSlow = false;
         timeCharge = false;
-        transform.position = startPosition;
+        if (life == 0)
+        {
+            switch (Application.loadedLevelName)
+            {
+                case "TutorialLevels":
+                    SpawnPlayerAt(0);
+                    break;
+                case "AdvancedTestingLevels":
+                    SpawnPlayerAt(6);
+                    break;
+                case "BoilerRoomLevels":
+                    SpawnPlayerAt(12);
+                    break;
+                case "R&DLevels":
+                    SpawnPlayerAt(18);
+                    break;
+                case "VentilationLevels":
+                    SpawnPlayerAt(24);
+                    break;
+            }
+        }
+        else transform.position = startPosition;
         world.BroadcastMessage("SetEnergy", 0.0f);
         world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
@@ -340,5 +393,5 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-    
+
 }

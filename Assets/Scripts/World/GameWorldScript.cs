@@ -196,6 +196,11 @@ public class GameWorldScript : MonoBehaviour
         GUI.Label(Timer, (TimeOnTimer - TimeBeforeDeath).ToString(), ManaBarStyle);
         GUI.Label(TimerLabel, "Elapsed Time: ", ManaBarStyle);
     }
+    public void IsLifeAdded(float time)
+    {
+        if (GetTime() < time) Player.GetComponent<PlayerController>().AddLife();
+        else return;
+    }
     void ResetWorld()
     {
         BroadcastMessage("ResetOverWorld");
@@ -233,6 +238,6 @@ public class GameWorldScript : MonoBehaviour
         CurrentPlayerStats CPL = new CurrentPlayerStats();
         CPL.level = num;
         CPL.score = CalcScore();
-        saver.SendMessage("SavePlayersCurrentLevelAndScore", CPL);
+        saver.SendMessage("SavePlayersStats", CPL);
     }
 }
