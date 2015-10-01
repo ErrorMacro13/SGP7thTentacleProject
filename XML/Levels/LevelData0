@@ -2,6 +2,7 @@
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
     <ArcadeScore Name="Cody" Score="1404159" />
+    <ArcadeScore Name="Cody" Score="1128959" />
     <ArcadeScore Name="Cody" Score="1020159" />
     <ArcadeScore Name="Cody" Score="933120" />
     <ArcadeScore Name="Name" Score="428799" />
@@ -10,7 +11,6 @@
     <ArcadeScore Name="BoB" Score="99110" />
     <ArcadeScore Name="BoB" Score="88298" />
     <ArcadeScore Name="BoB" Score="84484" />
-    <ArcadeScore Name="BoB" Score="69922" />
   </ArcadeScores>
   <FreePlayTimes>
     <FreePlayTimes Name="Cody" Time="0" />
