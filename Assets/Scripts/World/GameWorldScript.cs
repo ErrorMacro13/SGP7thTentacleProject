@@ -46,7 +46,10 @@ public class GameWorldScript : MonoBehaviour
     public Texture2D QuarterSpeedTexture;
     public Texture2D StopSpeedTexture;
     public Texture2D NormalSpeedTexture;
+    public Texture2D Gauntlet;
+    public Texture2D GauntletBG;
     public GUISkin MeterSkin;
+    public Texture ManaImg;
     public AudioSource TimeSlowAfx;
     public AudioSource TimeSpeedAfx;
     public float MAXMANA = 100;
@@ -148,20 +151,26 @@ public class GameWorldScript : MonoBehaviour
     {
         return TimeOnTimer - TimeBeforeDeath;
     }
+    public Quaternion a;
     void OnGUI()
     {
         GUIStyle ManaBarStyle = new GUIStyle();
         ManaBarStyle.fontSize = 40;
-        Rect PercentBar = new Rect(50, 50, TimeGauge * 2 + 60, 45);
+        Rect PercentBar = new Rect(90, 50, TimeGauge + (TimeGauge/15), 45);
         Rect TimeSymbol = new Rect(10, 50, 40, 40);
         //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
         float mana = Mathf.Round(TimeGauge);
+        GUI.DrawTexture(new Rect(10, -21, 360, 200), GauntletBG);
         GUI.skin = MeterSkin;
+        float green = TimeGauge/100;
+        float red = 1-green;
+        GUI.color = new Color(red,green,0);
         GUI.Box(PercentBar, "");
+        GUI.color = new Color(1, 1, 1);
         //if(TimeGauge > 0.0f)
         //GUI.Box (AboveHeadBar, "");
         GUI.skin = null;
-        GUI.Box(PercentBar, mana.ToString() + "%", ManaBarStyle);
+        GUI.DrawTexture(new Rect(10, -21, 360, 200), Gauntlet);
         switch (GameTime)
         {
             case 1:
@@ -208,7 +217,9 @@ public class GameWorldScript : MonoBehaviour
     }
     public int CalcScore()
     {
-        return ((int)(64000 / (1/GetTime())) + Player.GetComponent<PlayerController>().GetScore());
+        int tempT = (int)GetTime();
+        int tempS = (int)Player.GetComponent<PlayerController>().GetScore();
+        return ((int)(64000 / (1/GetTime())) + tempS);
     }
     void SavePlayersData(PlayersData data)
     {
@@ -219,7 +230,7 @@ public class GameWorldScript : MonoBehaviour
     }
     void SavePlayersCurrentLevelAndScore(int num)
     {
-        CurrentPlayerLevel CPL = new CurrentPlayerLevel();
+        CurrentPlayerStats CPL = new CurrentPlayerStats();
         CPL.level = num;
         CPL.score = CalcScore();
         saver.SendMessage("SavePlayersCurrentLevelAndScore", CPL);

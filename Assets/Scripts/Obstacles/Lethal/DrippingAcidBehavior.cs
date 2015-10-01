@@ -6,6 +6,8 @@ public class DrippingAcidBehavior : MonoBehaviour {
     public float dripSpeed = 0.2f;
     public float FallSpeed = 2;
     private Vector3 Size;
+    public float GrowSpeed = .005f;
+    public float GrowSize = .05f;
     private float CurrGameSpeed = 1.0f;
     public GameObject endSpot;
     bool grow = true;
@@ -45,15 +47,16 @@ public class DrippingAcidBehavior : MonoBehaviour {
 	}
     void Grow()
     {
-        transform.localScale += new Vector3(.1f*dripSpeed*CurrGameSpeed, .1f*dripSpeed*CurrGameSpeed, 0);
-        if (transform.localScale.x >= .5)
+        transform.localScale += new Vector3(GrowSpeed*dripSpeed*CurrGameSpeed, GrowSpeed*dripSpeed*CurrGameSpeed, 0);
+        if (transform.localScale.x >= GrowSize)
             grow = false;
     }
     void Fall(float dt)
     {
         gameObject.transform.position += new Vector3(0, -FallSpeed * dt * CurrGameSpeed, 0);
-        print(transform.position.y <= endSpot.transform.position.y);
-        print(endSpot.transform.position.y);
-        if (transform.position.y <= endSpot.transform.position.y) ResetOverWorld();
+        if (transform.position.y <= endSpot.transform.position.y)
+        {
+            ResetOverWorld();
+        }
     }
 }

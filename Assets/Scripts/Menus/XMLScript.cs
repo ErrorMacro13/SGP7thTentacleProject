@@ -18,34 +18,33 @@ public class ArcadeScores
 {
     public ArcadeScores() { }
     public ArcadeScores(string n, float s) { name = n; score = s; }
-    [XmlAttribute("Name")]
     public string name;
-    [XmlAttribute("Score")]
     public float score;
 }
 public class FreePlayTimes
 {
     public FreePlayTimes() { }
     public FreePlayTimes(string n, float t) { name = n; time = t; }
-    [XmlAttribute("Name")]
     public string name;
-    [XmlAttribute("Time")]
     public float time;
 }
-[XmlRoot("Level")]
 public class LevelData
 {
-    public LevelData() { }
-    [XmlArray("ArcadeScores")]
-    [XmlArrayItem("ArcadeScore")]
-    public ArcadeScores[] ArcadeScores = new ArcadeScores[10];
-    public FreePlayTimes[] FreePlayTimes = new FreePlayTimes[10];
+    public LevelData() {
+        for (int i = 0; i < 10; i++)
+        {
+            Arcade_Scores[i] = new ArcadeScores();
+            Free_Play_Times[i] = new FreePlayTimes();
+        }
+    }
+    public ArcadeScores[] Arcade_Scores = new ArcadeScores[10];
+    public FreePlayTimes[] Free_Play_Times = new FreePlayTimes[10];
 }
-public class CurrentPlayerLevel
+public class CurrentPlayerStats
 {
-    public CurrentPlayerLevel() { }
+    public CurrentPlayerStats() { }
     public int level;
-    public int score;
+    public float score;
 }
 public class XMLScript : MonoBehaviour
 {
@@ -53,209 +52,255 @@ public class XMLScript : MonoBehaviour
     public Slider AFXS = null;
     public Slider MS = null;
     public Toggle FS = null;
+    public Text LevelText = null;
     public AudioSource BGMusicSource = null;
     private Settings sets = new Settings();
     private int TOTALLEVELS = 30;
-    // Use this for initialization
+    private float DefaultedGame = 0;
     void Start()
     {
-        //InitalizeAllLevelFilesToDefaults();
-        //LoadAndOrganizeLevel();
-        ApplySettingsData("XML\\Settings\\SettingsData");
+        if (PlayerPrefs.HasKey("DefaultGame")) DefaultedGame = PlayerPrefs.GetFloat("DefaultGame");
+        if (Application.loadedLevelName == "MainMenu" && DefaultedGame == 0) StartGame();
+        CurrentPlayerStats CPS = new CurrentPlayerStats();
+        CPS = LoadPlayersStats();
+        if (LevelText != null) LevelText.text = "Level "+(CPS.level+1);
+        ApplySettings();
     }
-    // Update is called once per frame
+    void StartGame()
+    {
+        PlayerPrefs.SetFloat("DefaultGame", 1);
+        DefaultSettings();
+        DefaultHighScoresFiles();
+        OrganizeLevelFiles();
+        ChangePlayersStats(0);
+    }
     void Update()
     {
 
     }
-    //save out the data to a specified path
-    public void SaveSettingsData(string path)
+
+    public void DefaultSettings()
     {
-        sets.AFXvol = AFXS.value;
-        sets.BGvol = BGS.value;
-        sets.Mastervol = MS.value;
-        sets.FullScreen = FS.isOn;
-        var serializer = new XmlSerializer(typeof(Settings));
-        using (var stream = new FileStream(path, FileMode.Create))
-        {
-            serializer.Serialize(stream, sets);
-            stream.Close();
-        }
+        PlayerPrefs.SetFloat("MasterVolume", 75);
+        PlayerPrefs.SetFloat("BackgroundVolume", 0);
+        PlayerPrefs.SetFloat("AFXVolume", 100);
+        PlayerPrefs.SetFloat("FullScreen", 0);
+        PlayerPrefs.Save();
     }
-    //load data from a specified path
-    public static Settings LoadSettingsData(string path)
+
+    public void SaveSettings()
     {
-        var serializer = new XmlSerializer(typeof(Settings));
-        using (var stream = new FileStream(path, FileMode.Open))
-        {
-            return serializer.Deserialize(stream) as Settings;
-        }
+        PlayerPrefs.SetFloat("MasterVolume", MS.value);
+        PlayerPrefs.SetFloat("BackgroundVolume", BGS.value);
+        PlayerPrefs.SetFloat("AFXVolume", AFXS.value);
+        if (FS.isOn) PlayerPrefs.SetFloat("FullScreen", 1);
+        else PlayerPrefs.SetFloat("FullScreen", 0);
+        PlayerPrefs.Save();
     }
-    public void SaveLevelData(string path, LevelData level)
-    {
-        var serializer = new XmlSerializer(typeof(LevelData));
-        using (var stream = new FileStream(path, FileMode.Create))
-        {
-            serializer.Serialize(stream, level);
-            stream.Close();
-        }
-    }
-    public LevelData LoadLevelData(string path)
-    {
-        var serializer = new XmlSerializer(typeof(LevelData));
-        using (var stream = new FileStream(path, FileMode.Open))
-        {
-            return serializer.Deserialize(stream) as LevelData;
-        }
-    }
-    //apply data from a specific path
-    //using this code inside settings will set the graphics for the sliders + toggle
-    //using this code outside settings will alter the AFX/BG sounds + FullScreen
-    public void ApplySettingsData(string path)
+
+    public Settings LoadSettings()
     {
         Settings set = new Settings();
-        set = LoadSettingsData(path);
-        if ( BGS != null && AFXS != null && FS != null && MS != null)
+        set.Mastervol = PlayerPrefs.GetFloat("MasterVolume");
+        set.BGvol = PlayerPrefs.GetFloat("BackgroundVolume");
+        set.AFXvol = PlayerPrefs.GetFloat("AFXVolume");
+        float temp = PlayerPrefs.GetFloat("FullScreen");
+        if (temp == 1) set.FullScreen = true;
+        else set.FullScreen = false;
+        return set;
+    }
+
+    public void ApplySettings()
+    {
+        Settings set = new Settings();
+        set = LoadSettings();
+        if (BGS != null && AFXS != null && FS != null && MS != null)
         {
-            print("Setting Slider Data...");
             MS.value = set.Mastervol;
             AFXS.value = set.AFXvol;
             BGS.value = set.BGvol;
             FS.isOn = set.FullScreen;
         }
         else if (Application.loadedLevelName == "MainMenu")
-            ToggleFullScreen(set.FullScreen);
+            Screen.fullScreen = set.FullScreen;
         BGMusicSource.ignoreListenerVolume = true;
         AudioListener.volume = (set.AFXvol / 100) * (set.Mastervol / 100);
         BGMusicSource.volume = (set.BGvol / 100) * (set.Mastervol / 100);
     }
-    public void ToggleFullScreen(bool toggle)
+
+    public void SaveLevel(LevelData data, float levelNum)
     {
-        Screen.fullScreen = toggle;
+        for (int i = 0; i < 10; i++)
+        {
+            string varScore = "Level" + levelNum + "ArcadeScore" + i;
+            string varScoreName = "Level" + levelNum + "ArcadeName" + i;
+            string varTime = "Level" + levelNum + "FreePTime" + i;
+            string varTimeName = "Level" + levelNum + "FreePName" + i;
+            PlayerPrefs.SetFloat(varScore, data.Arcade_Scores[i].score);
+            PlayerPrefs.SetString(varScoreName, data.Arcade_Scores[i].name);
+            PlayerPrefs.SetFloat(varTime, data.Free_Play_Times[i].time);
+            PlayerPrefs.SetString(varTimeName, data.Free_Play_Times[i].name);
+        }
+        PlayerPrefs.Save();
     }
-    public void InitalizeAllLevelFilesToDefaults()
+
+    public LevelData LoadLevel(float levelNum)
     {
-        print("beginning initalization");
+        LevelData leveldata = new LevelData();
+        //actually allocate the arrays
+        for (int i = 0; i < 10; i++)
+        {
+            string varScore = "Level" + levelNum + "ArcadeScore" + i;
+            string varScoreName = "Level" + levelNum + "ArcadeName" + i;
+            string varTime = "Level" + levelNum + "FreePTime" + i;
+            string varTimeName = "Level" + levelNum + "FreePName" + i;
+            leveldata.Arcade_Scores[i].score = PlayerPrefs.GetFloat(varScore);
+            leveldata.Arcade_Scores[i].name = PlayerPrefs.GetString(varScoreName);
+            leveldata.Free_Play_Times[i].time = PlayerPrefs.GetFloat(varTime);
+            leveldata.Free_Play_Times[i].name = PlayerPrefs.GetString(varTimeName);
+        }
+        return leveldata;
+    }
+
+    public void DefaultHighScoresFiles()
+    {
+        //initalize all levels to a random default set of values and names
+        List<string> nameArray = new List<string>();
+        nameArray.Add("bob");
+        nameArray.Add("Susan");
+        nameArray.Add("Joe");
+        nameArray.Add("Alice");
+        nameArray.Add("Mark");
+        nameArray.Add("Miranda");
+        nameArray.Add("Cody");
+        nameArray.Add("Bryce");
+        nameArray.Add("Xephos");
+        nameArray.Add("Kim");
         for (int j = 0; j < TOTALLEVELS; j++)
         {
             LevelData MyLevel = new LevelData();
             for (int i = 0; i < 10; i++)
             {
-                MyLevel.ArcadeScores[i] = new ArcadeScores("BoB", (int)Random.Range(0, 99999));
-                MyLevel.FreePlayTimes[i] = new FreePlayTimes("Jill", Random.Range(0, 200));
-                print("populated level");
+                MyLevel.Arcade_Scores[i] = new ArcadeScores(nameArray[(int)Random.Range(0, 9)], (int)Random.Range(0, 99999));
+                MyLevel.Free_Play_Times[i] = new FreePlayTimes(nameArray[(int)Random.Range(0, 9)], Random.Range(0, 200));
             }
-            string pathname = "XML\\Levels\\LevelData" + j;
-            SaveLevelData(pathname, MyLevel);
-            print("saved new file");
+            SaveLevel(MyLevel, j);
         }
     }
+
     public void AddAdditionalDefaultLevelFile(int levelNumber)
     {
+        //add an additional level set to random default scores and names
+        List<string> nameArray = new List<string>();
+        nameArray.Add("bob");
+        nameArray.Add("Susan");
+        nameArray.Add("Joe");
+        nameArray.Add("Alice");
+        nameArray.Add("Mark");
+        nameArray.Add("Miranda");
+        nameArray.Add("Cody");
+        nameArray.Add("Bryce");
+        nameArray.Add("Xephos");
+        nameArray.Add("Kim");
         LevelData MyLevel = new LevelData();
         for (int i = 0; i < 10; i++)
         {
-            MyLevel.ArcadeScores[i] = new ArcadeScores("BoB", 99999);
-            MyLevel.FreePlayTimes[i] = new FreePlayTimes("Jill", 60.3f);
+            MyLevel.Arcade_Scores[i] = new ArcadeScores(nameArray[(int)Random.Range(0, 9)], (int)Random.Range(0, 99999));
+            MyLevel.Free_Play_Times[i] = new FreePlayTimes(nameArray[(int)Random.Range(0, 9)], Random.Range(0, 99999));
         }
-        string pathname = "XML\\Levels\\LevelData" + (levelNumber - 1);
-        SaveLevelData(pathname, MyLevel);
+        SaveLevel(MyLevel, levelNumber - 1);
     }
-    public LevelData LoadAndOrganizeLevel(bool all = true, int LevelToOrg = 0)
+
+    public void OrganizeLevelFiles(bool all = true, int LevelNum = 0)
     {
+        //load in, sort and resave all level files
         if (all)
         {
             for (int i = 0; i < TOTALLEVELS; i++)
             {
-                string pathname = "XML\\Levels\\LevelData" + i;
                 LevelData level = new LevelData();
-                level = LoadLevelData(pathname);
+                level = LoadLevel(i);
                 List<ArcadeScores> scores = new List<ArcadeScores>();
                 List<FreePlayTimes> times = new List<FreePlayTimes>();
                 for (int j = 0; j < 10; j++)
                 {
-                    times.Add(level.FreePlayTimes[j]);
-                    scores.Add(level.ArcadeScores[j]);
+                    times.Add(level.Free_Play_Times[j]);
+                    scores.Add(level.Arcade_Scores[j]);
                 }
                 scores.Sort((l1, l2) => (int)(l2.score - l1.score));
                 times.Sort((l1, l2) => (int)(l1.time - l2.time));
-                level.FreePlayTimes = times.ToArray();
-                level.ArcadeScores = scores.ToArray();
-                SaveLevelData(pathname, level);
+                level.Free_Play_Times = times.ToArray();
+                level.Arcade_Scores = scores.ToArray();
+                SaveLevel(level, i);
             }
-            return new LevelData();
         }
         else
         {
-            string pathname = "XML\\Levels\\LevelData" + LevelToOrg;
             LevelData level = new LevelData();
-            level = LoadLevelData(pathname);
+            level = LoadLevel(LevelNum);
             List<ArcadeScores> scores = new List<ArcadeScores>();
             List<FreePlayTimes> times = new List<FreePlayTimes>();
             for (int j = 0; j < 10; j++)
             {
-                times.Add(level.FreePlayTimes[j]);
-                scores.Add(level.ArcadeScores[j]);
+                times.Add(level.Free_Play_Times[j]);
+                scores.Add(level.Arcade_Scores[j]);
             }
             scores.Sort((l1, l2) => (int)(l2.score - l1.score));
             times.Sort((l1, l2) => (int)(l1.time - l2.time));
-            SaveLevelData(pathname, level);
-            return new LevelData();
+            SaveLevel(level, LevelNum);
         }
     }
 
-    public void SavePlayersCurrentLevelAndScore(CurrentPlayerLevel CPL)
+    public void SavePlayersStats(CurrentPlayerStats CPS)
     {
-        string pathname = "XML\\Levels\\PlayersCurrentLevel";
-        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
-        using (var stream = new FileStream(pathname, FileMode.Create))
-        {
-            serializer.Serialize(stream, CPL);
-            stream.Close();
-        }
+        //save players level and score
+        PlayerPrefs.SetInt("PlayersLevel", CPS.level);
+        PlayerPrefs.SetFloat("PlayersScore", CPS.score);
+        PlayerPrefs.Save();
     }
-    public CurrentPlayerLevel LoadPlayersCurrentLevelAndScore()
+
+    public CurrentPlayerStats LoadPlayersStats()
     {
-        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
-        using (var stream = new FileStream("XML\\Levels\\PlayersCurrentLevel", FileMode.Open))
-        {
-            return serializer.Deserialize(stream) as CurrentPlayerLevel;
-        }
+        //load players level and score
+        CurrentPlayerStats CPS = new CurrentPlayerStats();
+        CPS.level = PlayerPrefs.GetInt("PlayersLevel");
+        CPS.score = PlayerPrefs.GetFloat("PlayersScore");
+        return CPS;
     }
+
     public void SavePlayersData(PlayersData data)
     {
-        print("saving data in mode: " + data.mode);
+        //update high scores
         switch (data.mode)
         {
             case 1: //Arcade Score
                 {
-                    LevelData tempData = LoadLevelData("XML\\Levels\\LevelData" + data.levelNumber);
+                    LevelData tempData = LoadLevel(data.levelNumber);
                     List<ArcadeScores> scores = new List<ArcadeScores>();
                     scores.Add(new ArcadeScores(data.name, data.score));
                     for (int i = 0; i < 10; i++)
                     {
-                        scores.Add(tempData.ArcadeScores[i]);
+                        scores.Add(tempData.Arcade_Scores[i]);
                     }
                     scores.Sort((l1, l2) => (int)(l2.score - l1.score));
                     scores.RemoveAt(scores.Count - 1);
-                    tempData.ArcadeScores = scores.ToArray();
-                    SaveLevelData("XML\\Levels\\LevelData" + data.levelNumber, tempData);
+                    tempData.Arcade_Scores = scores.ToArray();
+                    SaveLevel(tempData, data.levelNumber);
                     break;
                 }
             case 2: //Free Play Time
                 {
-                    print("saving time...");
-                    LevelData tempData = LoadLevelData("XML\\Levels\\LevelData" + data.levelNumber);
+                    LevelData tempData = LoadLevel(data.levelNumber);
                     List<FreePlayTimes> times = new List<FreePlayTimes>();
                     times.Add(new FreePlayTimes(data.name, data.time));
                     for (int i = 0; i < 10; i++)
                     {
-                        times.Add(tempData.FreePlayTimes[i]);
+                        times.Add(tempData.Free_Play_Times[i]);
                     }
                     times.Sort((l1, l2) => (int)(l1.time - l2.time));
                     times.RemoveAt(times.Count - 1);
-                    tempData.FreePlayTimes = times.ToArray();
-                    SaveLevelData("XML\\Levels\\LevelData" + data.levelNumber, tempData);
+                    tempData.Free_Play_Times = times.ToArray();
+                    SaveLevel(tempData, data.levelNumber);
                     break;
                 }
             default:
@@ -263,28 +308,10 @@ public class XMLScript : MonoBehaviour
         }
     }
 
-    public void DefaultPlayersCurrentLevelAndScore()
+    public void ChangePlayersStats(int level)
     {
-        CurrentPlayerLevel def = new CurrentPlayerLevel();
-        def.score = 0; def.level = 0;
-        string pathname = "XML\\Levels\\PlayersCurrentLevel";
-        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
-        using (var stream = new FileStream(pathname, FileMode.Create))
-        {
-            serializer.Serialize(stream, def);
-            stream.Close();
-        }
-    }
-    public void ChangePlayersCurrentLevel(int level)
-    {
-        CurrentPlayerLevel def = new CurrentPlayerLevel();
-        def.score = 0; def.level = level;
-        string pathname = "XML\\Levels\\PlayersCurrentLevel";
-        var serializer = new XmlSerializer(typeof(CurrentPlayerLevel));
-        using (var stream = new FileStream(pathname, FileMode.Create))
-        {
-            serializer.Serialize(stream, def);
-            stream.Close();
-        }
+        PlayerPrefs.SetInt("PlayersLevel", level);
+        PlayerPrefs.SetFloat("PlayersScore", 0);
+        PlayerPrefs.Save();
     }
 }
