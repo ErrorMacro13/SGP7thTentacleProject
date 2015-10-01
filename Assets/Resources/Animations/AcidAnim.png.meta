@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 60237faee8a75514db6fd63205fcf4f5
+timeCreated: 1443556745
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: AcidAnim_0
+    21300002: AcidAnim_1
+    21300004: AcidAnim_2
+    21300006: AcidAnim_3
+    21300008: AcidAnim_4
+    21300010: AcidAnim_5
+    21300012: AcidAnim_6
+    21300014: AcidAnim_7
+    21300016: AcidAnim_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: AcidAnim_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 26
+        width: 204
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_1
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 27
+        width: 204
+        height: 355
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_2
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 31
+        width: 204
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_3
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 31
+        width: 204
+        height: 361
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_4
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 16
+        width: 204
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_5
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 21
+        width: 204
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_6
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 21
+        width: 204
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_7
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 30
+        width: 204
+        height: 363
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: AcidAnim_8
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 27
+        width: 204
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

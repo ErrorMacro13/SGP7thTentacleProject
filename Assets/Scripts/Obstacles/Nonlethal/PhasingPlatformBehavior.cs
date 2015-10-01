@@ -12,21 +12,26 @@ public class PhasingPlatformBehavior : MonoBehaviour {
     private bool PhazeIn = false;
     private Transform origTrans;
     private float CurrGameSpeed = 1.0f;
+    private GameObject child;
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
         {
             case 1:
                 CurrGameSpeed = 0.5f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             case 2:
                 CurrGameSpeed = 0.25f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             case 3:
                 CurrGameSpeed = 0.0f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             default:
                 CurrGameSpeed = 1.0f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
         }
     }
@@ -41,6 +46,7 @@ public class PhasingPlatformBehavior : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        child = GameObject.Find("Border");
         origTrans = transform;
         DelayPhazeIn = PhazeInDelay;
         DelayPhazeOut = PhazeOutDelay;
@@ -84,6 +90,7 @@ public class PhasingPlatformBehavior : MonoBehaviour {
         {
             Color newcolor = gameObject.GetComponent<Renderer>().material.color;
             newcolor.a = 0.0f;
+            child.GetComponent<Renderer>().material.SetColor("_Color", newcolor);
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", newcolor);
             PhazeIn = true;
             PhazeOut = false;
@@ -94,6 +101,7 @@ public class PhasingPlatformBehavior : MonoBehaviour {
         {
             Color newcolor = gameObject.GetComponent<Renderer>().material.color;
             newcolor.a = 1.0f;
+            child.GetComponent<Renderer>().material.SetColor("_Color", newcolor);
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", newcolor);
             PhazeIn = false;
             PhazeOut = true;
@@ -104,14 +112,17 @@ public class PhasingPlatformBehavior : MonoBehaviour {
         {
             Color color = gameObject.GetComponent<Renderer>().material.color;
             color.a -= PhazeOutSpeed * CurrGameSpeed;
+            child.GetComponent<Renderer>().material.SetColor("_Color", color);
+            
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
         }
         else if (PhazeIn && gameObject.GetComponent<Renderer>().material.color.a < 1.0)
         {
             Color color = gameObject.GetComponent<Renderer>().material.color;
             color.a += PhazeInSpeed * CurrGameSpeed;
+            child.GetComponent<Renderer>().material.SetColor("_Color", color);
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
-
+            
         }
     }
 }

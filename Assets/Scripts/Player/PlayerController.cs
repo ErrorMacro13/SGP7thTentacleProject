@@ -25,36 +25,42 @@ public class PlayerController : MonoBehaviour
     bool isSlow = false;
     bool isSlippery = false;
     bool timeCharge = false;
-    public int score = 0;
+    public float score = 0;
     public Rigidbody2D player;
     public GameObject world;
     public GameObject saver;
     public Vector3 startPosition;
     public GameObject StartCheckPoint;
+<<<<<<< HEAD
+    private CurrentPlayerStats CPS = new CurrentPlayerStats();
+    private float health = 3;
+=======
     private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
 
     Animator anim;
 
+>>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
     // Use this for initialization
     void Start()
     {
         saver = GameObject.Find("SaveDataLoader");
-        CPL = saver.GetComponent<XMLScript>().LoadPlayersCurrentLevelAndScore();
-        score = CPL.score;
-        StartCheckPoint = GameObject.Find("CheckPoint" + (CPL.level));
+        CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
+        score = CPS.score;
+        //health = CPS.health;
+        StartCheckPoint = GameObject.Find("CheckPoint" + (CPS.level));
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
 
         anim = GetComponent<Animator>();
     }
-    public int GetScore()
+    public float GetScore()
     {
         return score;
     }
-    public int GetCurrentLevel()
+    public float GetCurrentLevel()
     {
-        return CPL.level - 1;
+        return CPS.level - 1;
     }
     // Update is called once per frame
     void Update()
@@ -173,6 +179,8 @@ public class PlayerController : MonoBehaviour
                 Death();
                 break;
             case "SlowPlayer":
+                GetComponent<ParticleSystem>().Play();
+                GetComponent<ParticleSystem>().startSpeed *= CurrGameSpeed;
                 isSlow = true;
                 break;
             case "Slippery":
@@ -184,7 +192,25 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-
+    private float CurrGameSpeed = 1.0f;
+    void SetTime(short GameSpeed)
+    {
+        switch (GameSpeed)
+        {
+            case 1:
+                CurrGameSpeed = 0.5f;
+                break;
+            case 2:
+                CurrGameSpeed = 0.25f;
+                break;
+            case 3:
+                CurrGameSpeed = 0.0f;
+                break;
+            default:
+                CurrGameSpeed = 1.0f;
+                break;
+        }
+    }
     void OnCollisionStay2D(Collision2D other)
     {
         switch (other.gameObject.tag)
@@ -216,6 +242,7 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
                 break;
             case "SlowPlayer":
+                GetComponent<ParticleSystem>().Stop();
                 isSlow = false;
                 break;
             case "Slippery":
@@ -259,11 +286,11 @@ public class PlayerController : MonoBehaviour
                 SendMessageUpwards("ResetTimer");
                 if (other.GetComponent<CheckPointScript>().EndOfLevelCheckPoint)
                 {
-                    highscores = saver.GetComponent<XMLScript>().LoadLevelData("XML\\Levels\\LevelData" + other.GetComponent<CheckPointScript>().CheckpointNumber);
+                    highscores = saver.GetComponent<XMLScript>().LoadLevel(other.GetComponent<CheckPointScript>().CheckpointNumber);
                     YS.text = world.GetComponent<GameWorldScript>().CalcScore().ToString();
                     YT.text = world.GetComponent<GameWorldScript>().GetTime().ToString();
-                    HS.text = highscores.ArcadeScores[0].score.ToString();
-                    HT.text = highscores.FreePlayTimes[0].time.ToString();
+                    HS.text = highscores.Arcade_Scores[0].score.ToString();
+                    HT.text = highscores.Free_Play_Times[0].time.ToString();
                     YST.text = "Your Score: ";
                     YTT.text = "Your Time: ";
                     HST.text = "Best Score: ";

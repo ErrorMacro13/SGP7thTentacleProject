@@ -26,10 +26,11 @@ public class CheckPointScript : MonoBehaviour
     private PlayersData data = new PlayersData();
     public GameObject[] levelObjects;
     public bool levelActive = false;
-
+    private Vector3 doorpos;
     // Use this for initialization
     void Start()
     {
+        doorpos = Door.transform.position;
         Player = GameObject.Find("Player");
         World = GameObject.Find("GameOverWorld");
         saver = GameObject.Find("SaveDataLoader");
@@ -86,5 +87,9 @@ public class CheckPointScript : MonoBehaviour
     {
         print("bouncing to world");
         World.SendMessage("SavePlayersData", data);
+    }
+    void ResetOverWorld()
+    {
+        Door.transform.position = doorpos;
     }
 }

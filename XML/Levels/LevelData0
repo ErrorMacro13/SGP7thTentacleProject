@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArcadeScores>
+<<<<<<< HEAD
+    <ArcadeScore Name="Cody" Score="1675520" />
+    <ArcadeScore Name="Cody" Score="1077760" />
+=======
     <ArcadeScore Name="Cody" Score="1404159" />
     <ArcadeScore Name="Cody" Score="1128959" />
     <ArcadeScore Name="Cody" Score="1020159" />
     <ArcadeScore Name="Cody" Score="933120" />
+>>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
     <ArcadeScore Name="Name" Score="428799" />
     <ArcadeScore Name="Name" Score="230399" />
     <ArcadeScore Name="Cody" Score="211199" />
     <ArcadeScore Name="BoB" Score="99110" />
     <ArcadeScore Name="BoB" Score="88298" />
     <ArcadeScore Name="BoB" Score="84484" />
+<<<<<<< HEAD
+    <ArcadeScore Name="BoB" Score="69922" />
+    <ArcadeScore Name="BoB" Score="48753" />
+=======
+>>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
   </ArcadeScores>
   <FreePlayTimes>
     <FreePlayTimes Name="Cody" Time="0" />
