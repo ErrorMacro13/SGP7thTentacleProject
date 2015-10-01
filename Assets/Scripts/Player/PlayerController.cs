@@ -31,15 +31,12 @@ public class PlayerController : MonoBehaviour
     public GameObject saver;
     public Vector3 startPosition;
     public GameObject StartCheckPoint;
-<<<<<<< HEAD
+
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
     private float health = 3;
-=======
-    private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
 
     Animator anim;
 
->>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
     // Use this for initialization
     void Start()
     {
@@ -242,8 +239,8 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
                 break;
             case "SlowPlayer":
-                GetComponent<ParticleSystem>().Stop();
                 isSlow = false;
+                GetComponent<ParticleSystem>().Stop();
                 break;
             case "Slippery":
                 isSlippery = false;
