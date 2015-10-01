@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <CurrentPlayerLevel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<<<<<<< HEAD
   <level>1</level>
   <score>1675520</score>
+=======
+  <level>0</level>
+  <score>0</score>
+>>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
 </CurrentPlayerLevel>

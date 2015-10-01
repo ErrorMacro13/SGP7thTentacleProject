@@ -15,7 +15,7 @@ public class RetractingSpikeBehavior : MonoBehaviour
     private Vector3 StartLoc;
 
     private bool ChangeDirection = false;
-    bool enabled = false;
+    public bool enabled = false;
 
     private float DelayEmerge;
     private float DelayRetract;

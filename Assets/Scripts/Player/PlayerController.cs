@@ -31,8 +31,15 @@ public class PlayerController : MonoBehaviour
     public GameObject saver;
     public Vector3 startPosition;
     public GameObject StartCheckPoint;
+<<<<<<< HEAD
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
     private float health = 3;
+=======
+    private CurrentPlayerLevel CPL = new CurrentPlayerLevel();
+
+    Animator anim;
+
+>>>>>>> 1096f75be1225b5b7c8c8ecdcfc77ac02cf93c21
     // Use this for initialization
     void Start()
     {
@@ -44,6 +51,8 @@ public class PlayerController : MonoBehaviour
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        anim = GetComponent<Animator>();
     }
     public float GetScore()
     {
@@ -85,6 +94,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        float move = Input.GetAxis("Horizontal");
+
+        anim.SetFloat("animSpeed", Mathf.Abs(move));
+
         if (Input.GetKey(KeyCode.D))
         {
             if (!isSlippery)
@@ -150,6 +163,7 @@ public class PlayerController : MonoBehaviour
             Jump();
             isJumping = false;
         }
+
     }
 
     void Jump()

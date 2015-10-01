@@ -11,12 +11,23 @@ public class LaserTurretBehavior : MonoBehaviour
     public float BeamWidth = 1.0f;
     public bool On = false;
 
+    float ID;
+    bool IS;
+
     public GameObject Beam;
     public GameObject LaserCatcher;
 
     // Use this for initialization
+    void ResetOverWorld()
+    {
+        On = IS;
+        InitialDelay = ID;
+    }
+
     void Start()
     {
+        IS = On;
+        ID = InitialDelay;
         Beam.transform.localPosition = LaserCatcher.transform.localPosition / 2;
         if (On)
             Beam.transform.localScale = new Vector3(Beam.transform.localPosition.x * 2 - 1, BeamWidth, 1);

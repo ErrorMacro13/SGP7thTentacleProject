@@ -5,11 +5,13 @@ public class ButtonScript : MonoBehaviour
 {
 
     public GameObject SoundManager;
-
+    public GameObject mainCamera;
     // Use this for initialization
     void Start()
     {
         SoundManager = GameObject.Find("SoundManager");
+        mainCamera = GameObject.Find("Main Camera");
+
     }
 
     // Update is called once per frame
@@ -42,6 +44,7 @@ public class ButtonScript : MonoBehaviour
     public void ChangeImages(string name)
     {
         SendMessageUpwards(name);
+
     }
     public void Quit()
     {
@@ -51,7 +54,11 @@ public class ButtonScript : MonoBehaviour
     public void OnMouseEnter()
     {
         SoundManager.SendMessage("Hovered");
+
     }
+
+
+
     public void ToggleFS()
     {
         Screen.fullScreen = !Screen.fullScreen;
@@ -59,14 +66,12 @@ public class ButtonScript : MonoBehaviour
 
     public void SettingsCanvasOff()
     {
-        
-        GameObject.Find("GameOverWorld").SendMessage("SwitchSettings");        
+        GameObject.Find("GameOverWorld").SendMessage("SwitchSettings");
     }
 
     public void InstructionsCanvasOff()
     {
-        GameObject.Find("GameOverWorld").SendMessage("SwitchInstructions");        
-
+        GameObject.Find("GameOverWorld").SendMessage("SwitchInstructions");
     }
 
     public void Unpause()
