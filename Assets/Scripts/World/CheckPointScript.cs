@@ -13,7 +13,7 @@ public class PlayersData
 }
 public class CheckPointScript : MonoBehaviour
 {
-
+    public float AimTime;
     public GameObject Door;
     public float YDown;
     public int CheckpointNumber = 0;
@@ -54,6 +54,7 @@ public class CheckPointScript : MonoBehaviour
             {
                 if (EndOfLevelCheckPoint && CheckpointNumber - 1 != -1)
                 {
+                    World.SendMessage("IsLifeAdded", AimTime);
                     World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
                     data.levelNumber = CheckpointNumber - 1;
                     data.bounceBack = this.gameObject;
