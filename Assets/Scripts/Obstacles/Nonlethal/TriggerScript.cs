@@ -21,7 +21,7 @@ public class TriggerScript : MonoBehaviour {
         {
             SendMessageUpwards("Activate");
         }
-        if (ent.tag == "Lethal")
+        if (ent.tag == "Acid")
         {
             print("ResetAcid");
             GetComponent<Animator>().SetTrigger("PlayTrigger");

@@ -54,6 +54,7 @@ public class CheckPointScript : MonoBehaviour
             {
                 if (EndOfLevelCheckPoint && CheckpointNumber - 1 != -1)
                 {
+                    print("Saving level");
                     World.SendMessage("IsLifeAdded", AimTime);
                     World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
                     data.levelNumber = CheckpointNumber - 1;
