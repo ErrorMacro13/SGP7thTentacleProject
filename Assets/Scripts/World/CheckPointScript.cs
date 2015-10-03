@@ -40,7 +40,7 @@ public class CheckPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -62,21 +62,31 @@ public class CheckPointScript : MonoBehaviour
                 }
             }
 
+            switch (name)
+            {
+                case "LoadAT":
+                    Application.LoadLevel("AdvancedTestingLevels");
+                    break;
+                case "LoadBR":
+                    Application.LoadLevel("BoilerRoomLevels");
+                    break;
+                case "LoadRD":
+                    Application.LoadLevel("R&DLevels");
+                    break;
+                case "LoadVents":
+                    Application.LoadLevel("VentilationLevels");
+                    break;
+                default:
+                    break;
+            }
+
             if (levelActive)
             {
-                print("active");
-                for (int i = 0; i < levelObjects.Length; i++)
-                {
-                    levelObjects[i].SendMessage("ToggleActive", true);
-                }
+                BroadcastMessage("ToggleActive", true);
             }
             else
             {
-                print("deactive");
-                for (int i = 0; i < levelObjects.Length; i++)
-                {
-                    levelObjects[i].SendMessage("ToggleActive", false);
-                }
+                BroadcastMessage("ToggleActive", false);
             }
         }
     }

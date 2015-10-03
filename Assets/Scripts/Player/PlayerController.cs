@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D player;
     public GameObject world;
     public GameObject saver;
+    public GameObject SM;
     public Vector3 startPosition;
     public GameObject StartCheckPoint;
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        SM = GameObject.Find("SoundManager");
         saver = GameObject.Find("SaveDataLoader");
         CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
         score = CPS.score;
@@ -47,13 +49,17 @@ public class PlayerController : MonoBehaviour
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
+
         for (int i = 0; i < 10; i++)
         {
             Lives[i].enabled = false;
         }
-        for (int i = 0; i < life; i++)
+        if (SM.GetComponent<SoundManager>().GameState == 1)
         {
-            Lives[i].enabled = true;
+            for (int i = 0; i < life; i++)
+            {
+                Lives[i].enabled = true;
+            }
         }
         anim = GetComponent<Animator>();
     }
@@ -74,21 +80,30 @@ public class PlayerController : MonoBehaviour
     }
     public void DefaultLife(int amount = 1)
     {
-        for (int i = 0; i < amount; i++)
+        if (SM.GetComponent<SoundManager>().GameState == 1)
         {
-            life++;
-            Lives[i].enabled = true;
+            for (int i = 0; i < amount; i++)
+            {
+                life++;
+                Lives[i].enabled = true;
+            }
         }
     }
     public void AddLife()
     {
-        life++;
-        Lives[life].enabled = true;
+        if (SM.GetComponent<SoundManager>().GameState == 1)
+        {
+            life++;
+            Lives[life].enabled = true;
+        }
     }
     public void LoseLife()
     {
-        life--;
-        Lives[life].enabled = false;
+        if (SM.GetComponent<SoundManager>().GameState == 1)
+        {
+            life--;
+            Lives[life].enabled = false;
+        }
     }
     // Update is called once per frame
     void Update()

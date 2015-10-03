@@ -59,7 +59,6 @@ public class SoundManager : MonoBehaviour {
     }
     void SavePlayersData(PlayersData data)
     {
-        print("adding name and mode");
         data.name = PlayerName;
         data.mode = GameState;
         data.bounceBack.SendMessage("SavePlayersData", data);

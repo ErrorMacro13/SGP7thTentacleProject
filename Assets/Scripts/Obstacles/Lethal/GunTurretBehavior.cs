@@ -94,7 +94,7 @@ public class GunTurretBehavior : MonoBehaviour
             enabled = false;
     }
 
-    void SetTime(short GameSpeed)
+    void SetTime(int GameSpeed)
     {
         switch (GameSpeed)
         {

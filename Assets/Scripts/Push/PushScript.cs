@@ -64,15 +64,19 @@ public class PushScript : MonoBehaviour {
         {
             case 1:
                 CurrGameSpeed = 0.5f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             case 2:
                 CurrGameSpeed = 0.25f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             case 3:
                 CurrGameSpeed = 0.0f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
             default:
                 CurrGameSpeed = 1.0f;
+                GetComponent<Animator>().speed = CurrGameSpeed;
                 break;
         }
     }
