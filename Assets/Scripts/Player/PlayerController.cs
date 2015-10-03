@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public GameObject StartCheckPoint;
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
     private int life = 3;
+    public int lastLevelCompleted = 0;
 
     Animator anim;
     // Use this for initialization
@@ -44,8 +45,10 @@ public class PlayerController : MonoBehaviour
         saver = GameObject.Find("SaveDataLoader");
         CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
         score = CPS.score;
+        lastLevelCompleted = CPS.level;
         //life = CPS.life;
         StartCheckPoint = GameObject.Find("CheckPoint" + (CPS.level));
+        print(CPS.level.ToString());
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
@@ -137,12 +140,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float move = Input.GetAxis("Horizontal");
-
-        anim.SetFloat("animSpeed", Mathf.Abs(move));
+        
 
         if (Input.GetKey(KeyCode.D))
         {
+            anim.SetBool("isRunning", true);
+
             if (!isSlippery)
             {
                 if (speed <= 0)
@@ -163,9 +166,13 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
             player.velocity = new Vector2(speed, player.velocity.y);
+            
+
         }
         else if (Input.GetKey(KeyCode.A))
         {
+            anim.SetBool("isRunning", true);
+
             if (!isSlippery)
             {
                 if (speed >= 0)
@@ -186,6 +193,7 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
             player.velocity = new Vector2(speed, player.velocity.y);
+
         }
         else if (isSlippery)
         {
@@ -197,8 +205,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            anim.SetBool("isRunning", false);
             speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
+
         }
 
         if (isGrounded && isJumping)
