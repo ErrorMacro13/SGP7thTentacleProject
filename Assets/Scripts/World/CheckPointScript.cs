@@ -40,7 +40,7 @@ public class CheckPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -54,30 +54,39 @@ public class CheckPointScript : MonoBehaviour
             {
                 if (EndOfLevelCheckPoint && CheckpointNumber - 1 != -1)
                 {
-                    if (SM.GetComponent<SoundManager>().GameState == 1)
-                    {
-                        World.SendMessage("IsLifeAdded", AimTime);
-                        World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
-                    }
+                    World.SendMessage("IsLifeAdded", AimTime);
+                    World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
                     data.levelNumber = CheckpointNumber - 1;
                     data.bounceBack = this.gameObject;
                     SM.SendMessage("SavePlayersData", data);
                 }
             }
 
+            switch (name)
+            {
+                case "LoadAT":
+                    Application.LoadLevel("AdvancedTestingLevels");
+                    break;
+                case "LoadBR":
+                    Application.LoadLevel("BoilerRoomLevels");
+                    break;
+                case "LoadRD":
+                    Application.LoadLevel("R&DLevels");
+                    break;
+                case "LoadVents":
+                    Application.LoadLevel("VentilationLevels");
+                    break;
+                default:
+                    break;
+            }
+
             if (levelActive)
             {
-                for (int i = 0; i < levelObjects.Length; i++)
-                {
-                    levelObjects[i].SendMessage("ToggleActive", true);
-                }
+                BroadcastMessage("ToggleActive", true);
             }
             else
             {
-                for (int i = 0; i < levelObjects.Length; i++)
-                {
-                    levelObjects[i].SendMessage("ToggleActive", false);
-                }
+                BroadcastMessage("ToggleActive", false);
             }
         }
     }
@@ -87,6 +96,7 @@ public class CheckPointScript : MonoBehaviour
     }
     void SavePlayersData(PlayersData data)
     {
+        print("bouncing to world");
         World.SendMessage("SavePlayersData", data);
     }
     void ResetOverWorld()
