@@ -140,12 +140,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float move = Input.GetAxis("Horizontal");
-
-        anim.SetFloat("animSpeed", Mathf.Abs(move));
+        
 
         if (Input.GetKey(KeyCode.D))
         {
+            anim.SetBool("isRunning", true);
+
             if (!isSlippery)
             {
                 if (speed <= 0)
@@ -166,9 +166,13 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
             player.velocity = new Vector2(speed, player.velocity.y);
+            
+
         }
         else if (Input.GetKey(KeyCode.A))
         {
+            anim.SetBool("isRunning", true);
+
             if (!isSlippery)
             {
                 if (speed >= 0)
@@ -189,6 +193,7 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
             player.velocity = new Vector2(speed, player.velocity.y);
+
         }
         else if (isSlippery)
         {
@@ -200,8 +205,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            anim.SetBool("isRunning", false);
             speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
+
         }
 
         if (isGrounded && isJumping)
