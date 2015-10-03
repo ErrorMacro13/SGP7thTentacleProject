@@ -48,8 +48,8 @@ public class GameWorldScript : MonoBehaviour
     public Texture2D NormalSpeedTexture;
     public Texture2D Gauntlet;
     public Texture2D GauntletBG;
+    public Texture2D TimerBG;
     public GUISkin MeterSkin;
-    public Texture ManaImg;
     public AudioSource TimeSlowAfx;
     public AudioSource TimeSpeedAfx;
     public float MAXMANA = 100;
@@ -160,6 +160,7 @@ public class GameWorldScript : MonoBehaviour
         Rect TimeSymbol = new Rect(10, 50, 40, 40);
         //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
         float mana = Mathf.Round(TimeGauge);
+        GUI.DrawTexture(new Rect(Screen.width - 410, 30, 500, 85), TimerBG);
         GUI.DrawTexture(new Rect(10, -21, 360, 200), GauntletBG);
         GUI.skin = MeterSkin;
         float green = TimeGauge/100;
@@ -228,10 +229,9 @@ public class GameWorldScript : MonoBehaviour
     }
     void SavePlayersData(PlayersData data)
     {
-        print("adding time and score");
         data.time = GetTime();
         data.score = CalcScore();
-        saver.SendMessage("SavePlayersData", data);
+        saver.SendMessage("SavePlayersScores", data);
     }
     void SavePlayersCurrentLevelAndScore(int num)
     {
