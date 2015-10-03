@@ -55,7 +55,8 @@ public class CheckPointScript : MonoBehaviour
                 if (EndOfLevelCheckPoint && CheckpointNumber - 1 != -1)
                 {
                     World.SendMessage("IsLifeAdded", AimTime);
-                    World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
+                    if (SM.GetComponent<SoundManager>().GameState == 1)
+                        World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
                     data.levelNumber = CheckpointNumber - 1;
                     data.bounceBack = this.gameObject;
                     SM.SendMessage("SavePlayersData", data);
