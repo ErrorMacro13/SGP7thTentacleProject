@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public GameObject StartCheckPoint;
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
     private int life = 3;
+    public int lastLevelCompleted = 0;
 
     Animator anim;
     // Use this for initialization
@@ -44,8 +45,10 @@ public class PlayerController : MonoBehaviour
         saver = GameObject.Find("SaveDataLoader");
         CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
         score = CPS.score;
+        lastLevelCompleted = CPS.level;
         //life = CPS.life;
         StartCheckPoint = GameObject.Find("CheckPoint" + (CPS.level));
+        print(CPS.level.ToString());
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
