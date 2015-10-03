@@ -7,9 +7,13 @@ public class FallingSpikeBehavior : MonoBehaviour
     public bool UseRigidPhysics = false;
     public float dropSpeed = 3;
     public float DropDistance = 2;
+    public float dropDelay = 0;
+    private float delayDrop = 0;
     float CurrGameSpeed = 1.0f;
     private Transform trans;
     private Vector3 startLoc;
+    public Sprite nonactive;
+    public Sprite active;
     void SetTime(short GameSpeed)
     {
         switch (GameSpeed)
@@ -32,6 +36,8 @@ public class FallingSpikeBehavior : MonoBehaviour
     {
         gameObject.transform.position = trans.position;
         drop = false;
+        GetComponent<SpriteRenderer>().sprite = nonactive;
+
     }
     // Use this for initialization
     void Start()
@@ -39,6 +45,8 @@ public class FallingSpikeBehavior : MonoBehaviour
         startLoc = transform.position;
         trans = gameObject.transform;
         GetComponent<Rigidbody2D>().freezeRotation = true;
+        delayDrop = dropDelay;
+        GetComponent<SpriteRenderer>().sprite = nonactive;
     }
 
     // Update is called once per frame
@@ -52,9 +60,9 @@ public class FallingSpikeBehavior : MonoBehaviour
             }
         }
         if (drop)
-        {
-            Fall(Time.deltaTime);
-        }
+            if (delayDrop <= 0)
+                Fall(Time.deltaTime);
+            else delayDrop -= Time.deltaTime;
     }
     void Fall(float dt)
     {
@@ -86,6 +94,7 @@ public class FallingSpikeBehavior : MonoBehaviour
     }
     void Activate()
     {
+        GetComponent<SpriteRenderer>().sprite = active;
         drop = true;
     }
     

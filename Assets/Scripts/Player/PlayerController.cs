@@ -96,8 +96,8 @@ public class PlayerController : MonoBehaviour
     {
         if (SM.GetComponent<SoundManager>().GameState == 1)
         {
-            life++;
             Lives[life].enabled = true;
+            life++;
         }
     }
     public void LoseLife()
