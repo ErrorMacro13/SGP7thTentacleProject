@@ -54,8 +54,11 @@ public class CheckPointScript : MonoBehaviour
             {
                 if (EndOfLevelCheckPoint && CheckpointNumber - 1 != -1)
                 {
-                    World.SendMessage("IsLifeAdded", AimTime);
-                    World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
+                    if (SM.GetComponent<SoundManager>().GameState == 1)
+                    {
+                        World.SendMessage("IsLifeAdded", AimTime);
+                        World.SendMessage("SavePlayersCurrentLevelAndScore", CheckpointNumber);
+                    }
                     data.levelNumber = CheckpointNumber - 1;
                     data.bounceBack = this.gameObject;
                     SM.SendMessage("SavePlayersData", data);
@@ -64,7 +67,6 @@ public class CheckPointScript : MonoBehaviour
 
             if (levelActive)
             {
-                print("active");
                 for (int i = 0; i < levelObjects.Length; i++)
                 {
                     levelObjects[i].SendMessage("ToggleActive", true);
@@ -72,7 +74,6 @@ public class CheckPointScript : MonoBehaviour
             }
             else
             {
-                print("deactive");
                 for (int i = 0; i < levelObjects.Length; i++)
                 {
                     levelObjects[i].SendMessage("ToggleActive", false);
@@ -86,7 +87,6 @@ public class CheckPointScript : MonoBehaviour
     }
     void SavePlayersData(PlayersData data)
     {
-        print("bouncing to world");
         World.SendMessage("SavePlayersData", data);
     }
     void ResetOverWorld()

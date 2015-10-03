@@ -268,7 +268,7 @@ public class XMLScript : MonoBehaviour
         return CPS;
     }
 
-    public void SavePlayersData(PlayersData data)
+    public void SavePlayersScores(PlayersData data)
     {
         //update high scores
         switch (data.mode)

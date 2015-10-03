@@ -113,8 +113,6 @@ public class RetractingSpikeBehavior : MonoBehaviour
                 gameObject.transform.position += new Vector3(0, RetractingSpeed * dt * CurrGameSpeed, 0);
                 if (gameObject.transform.position.y >= StartLoc.y)
                 {
-                    if (name == "RetractingSpikes")
-                        anim.GetComponent<PlayAnim>().PlayAnimation();
                     ChangeDirection = false;
                     DelayEmerge = EmergeDelay;
                 }
