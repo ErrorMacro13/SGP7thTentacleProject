@@ -11,7 +11,6 @@ public class FireBallCannonScript : MonoBehaviour {
 
     public float BallSpeed = 3.0f;
     public float LifeSpan = 5.0f;
-    public float Bouncyness = 10.0f;
     public bool Left = false;
     public float TimeBetweenShots;
     public float InitialDelay;
@@ -40,7 +39,6 @@ public class FireBallCannonScript : MonoBehaviour {
         TempBall = Instantiate(Ball, transform.Find("Barrel").transform.position, transform.rotation) as GameObject;
         TempBall.transform.parent = transform;
         TempBall.SendMessage("SetLifeSpan", LifeSpan);
-        TempBall.SendMessage("SetBounce", Bouncyness);
         TempBall.SendMessage("SetBallSpeed", BallSpeed);
         TempBall.SendMessage("SetLeft", Left);
         switch (SpeedCase)

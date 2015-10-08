@@ -8,14 +8,13 @@ public class FireBallScript : MonoBehaviour
     public bool Left = true;
     public float BallSpeed = 3.0f;
     public float LifeSpan = 5.0f;
-    public float Bouncyness = 5f;
     public float BOrigin;
+    public float BounceHeight;
     public float VertSpeed = 0f;
     public bool GoingUp = false;
     // Use this for initialization
     void Start()
     {
-        BOrigin = Bouncyness;
     }
     void ResetOverWorld()
     {
@@ -25,15 +24,24 @@ public class FireBallScript : MonoBehaviour
     void Update()
     {
         LifeSpan -= Time.deltaTime * CurrGameSpeed;
+        float percent = VertSpeed / BounceHeight;
         if (LifeSpan <= 0.0f)
             Destroy(gameObject);
         if (Left)
         {
             transform.position -= new Vector3(BallSpeed * CurrGameSpeed * Time.deltaTime, 0, 0);
+            if (GoingUp)
+                transform.rotation = Quaternion.AngleAxis(-90 - percent * 45f, Vector3.forward);
+            else
+                transform.rotation = Quaternion.AngleAxis(-90 + percent * 45f, Vector3.forward);
         }
         else
         {
             transform.position += new Vector3(BallSpeed * CurrGameSpeed * Time.deltaTime, 0, 0);
+            if (GoingUp)
+                transform.rotation = Quaternion.AngleAxis(90 + percent * 45f,Vector3.forward);
+            else
+                transform.rotation = Quaternion.AngleAxis(90 - percent * 45f, Vector3.forward);
         }
         if(GoingUp)
         {
@@ -48,11 +56,11 @@ public class FireBallScript : MonoBehaviour
         else
         {
             transform.position += new Vector3(0, CurrGameSpeed * -VertSpeed * Time.deltaTime, 0);
-            if (VertSpeed < 10.0f)
+            if (VertSpeed < BounceHeight)
             {
                 VertSpeed += Time.deltaTime * CurrGameSpeed * 4;
-                if (VertSpeed > 10.0f)
-                    VertSpeed = 10.0f;
+                if (VertSpeed > BounceHeight)
+                    VertSpeed = BounceHeight;
             }
         }
     }
@@ -64,7 +72,8 @@ public class FireBallScript : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             GoingUp = true;
-            Bouncyness = BOrigin;
+            if (VertSpeed < BounceHeight)
+                BounceHeight = VertSpeed;
         }
     }
 
@@ -74,15 +83,19 @@ public class FireBallScript : MonoBehaviour
         {
             case 1:
                 CurrGameSpeed = 0.5f;
+                GetComponent<Animator>().speed = .2f;
                 break;
             case 2:
                 CurrGameSpeed = 0.25f;
+                GetComponent<Animator>().speed = .1f;
                 break;
             case 3:
                 CurrGameSpeed = 0.0f;
+                GetComponent<Animator>().speed = .0f;
                 break;
             default:
                 CurrGameSpeed = 1.0f;
+                GetComponent<Animator>().speed = .4f;
                 break;
         }
     }
@@ -94,10 +107,6 @@ public class FireBallScript : MonoBehaviour
     void SetBallSpeed(float f)
     {
         BallSpeed = f;
-    }
-    void SetBounce(float f)
-    {
-        Bouncyness = f;
     }
     void SetLeft(bool b)
     {
