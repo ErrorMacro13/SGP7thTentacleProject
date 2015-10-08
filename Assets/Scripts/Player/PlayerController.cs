@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public Text YTT;
     public Text HST;
     public Text HTT;
-    public Image[] Lives;
     bool isFacingLeft = false;
     bool isSlow = false;
     bool isSlippery = false;
@@ -46,29 +45,18 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (!world.GetComponent<GameWorldScript>().DisableDrain) world.GetComponent<GameWorldScript>().SetEnergy(0);
         SM = GameObject.Find("SoundManager");
         saver = GameObject.Find("SaveDataLoader");
         CPS = saver.GetComponent<XMLScript>().LoadPlayersStats();
         score = CPS.score;
         lastLevelCompleted = CPS.level;
-        //life = CPS.life;
+        if(CPS.life > 0) life = CPS.life;
         StartCheckPoint = GameObject.Find("CheckPoint" + (CPS.level));
         print(CPS.level.ToString());
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
         GetComponent<Rigidbody2D>().freezeRotation = true;
-
-        for (int i = 0; i < 10; i++)
-        {
-            Lives[i].enabled = false;
-        }
-        if (SM.GetComponent<SoundManager>().GameState == 1)
-        {
-            for (int i = 0; i < life; i++)
-            {
-                Lives[i].enabled = true;
-            }
-        }
         anim = GetComponent<Animator>();
         playerBC = GetComponent<BoxCollider2D>();
         standBox = new Vector2(playerBC.size.x, playerBC.size.y);
@@ -76,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
     public void SpawnPlayerAt(int CheckPointNumber = 0)
     {
-        DefaultLife(3);
+        ChangeLives(3);
         StartCheckPoint = GameObject.Find("CheckPoint" + CheckPointNumber);
         startPosition = StartCheckPoint.transform.position;
         transform.position = startPosition;
@@ -89,14 +77,17 @@ public class PlayerController : MonoBehaviour
     {
         return CPS.level - 1;
     }
-    public void DefaultLife(int amount = 1)
+    public int GetLives()
+    {
+        return life;
+    }
+    public void ChangeLives(int amount = 1)
     {
         if (SM.GetComponent<SoundManager>().GameState == 1)
         {
             for (int i = 0; i < amount; i++)
             {
                 life++;
-                Lives[i].enabled = true;
             }
         }
     }
@@ -104,7 +95,6 @@ public class PlayerController : MonoBehaviour
     {
         if (SM.GetComponent<SoundManager>().GameState == 1)
         {
-            Lives[life].enabled = true;
             life++;
         }
     }
@@ -113,7 +103,6 @@ public class PlayerController : MonoBehaviour
         if (SM.GetComponent<SoundManager>().GameState == 1)
         {
             life--;
-            Lives[life].enabled = false;
         }
     }
     // Update is called once per frame
