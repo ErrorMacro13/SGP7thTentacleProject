@@ -19,6 +19,19 @@ public class LaserTurretBehavior : MonoBehaviour
     public GameObject Beam;
     public GameObject LaserCatcher;
 
+    public Sprite l0;
+    public Sprite l1;
+    public Sprite l2;
+    public Sprite l3;
+    public Sprite l4;
+    public Sprite l5;
+    public Sprite l6;
+    public Sprite l7;
+    public Sprite l8;
+    public Sprite l9;
+    public Sprite l10;
+    public Sprite l11;
+
     // Use this for initialization
     void ResetOverWorld()
     {
@@ -32,9 +45,14 @@ public class LaserTurretBehavior : MonoBehaviour
         ID = InitialDelay;
         Beam.transform.localPosition = LaserCatcher.transform.localPosition / 2;
         if (On)
-            Beam.transform.localScale = new Vector3(Beam.transform.localPosition.x * 2 - 1, BeamWidth, 1);
+        {
+            Beam.transform.localScale = new Vector3(Beam.transform.localPosition.x * 0.88f - 1, BeamWidth, 1);
+        }
+
         else
-            Beam.transform.localScale = new Vector3(0,0,0);
+        {
+            Beam.transform.localScale = new Vector3(0, 0, 0);
+        }
     }
 
     // Update is called once per frame
@@ -63,11 +81,41 @@ public class LaserTurretBehavior : MonoBehaviour
                 print(PEEnd.GetComponent<ParticleSystem>().playbackSpeed.ToString());
                 On = true;
                 InitialDelay = FireTime;
-                Beam.transform.localScale = new Vector3(Beam.transform.localPosition.x * 2 - 1, BeamWidth, 1);
+                Beam.transform.localScale = new Vector3(Beam.transform.localPosition.x * 0.88f - 1, BeamWidth, 1);
             }
         }
         else
+        {
             InitialDelay -= (Time.deltaTime * CurrGameSpeed);
+            if (On)
+            {
+                float percent = InitialDelay / FireTime;
+                if (percent >= 0.9f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l0;
+                else if (percent >= 0.8f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l1;
+                else if (percent >= 0.72f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l2;
+                else if (percent >= 0.64f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l3;
+                else if (percent >= 0.58f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l4;
+                else if (percent >= 0.5f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l5;
+                else if (percent >= 0.41f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l6;
+                else if (percent >= 0.33f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l7;
+                else if (percent >= 0.25f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l8;
+                else if (percent >= 0.16f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l9;
+                else if (percent >= 0.08f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l10;
+                else if (percent >= 0.0f)
+                    Beam.GetComponent<SpriteRenderer>().sprite = l11;
+            }
+        }
     }
 
     void SetTime(short GameSpeed)

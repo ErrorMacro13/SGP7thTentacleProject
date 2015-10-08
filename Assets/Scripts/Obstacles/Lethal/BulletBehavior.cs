@@ -23,7 +23,7 @@ public class BulletBehavior : MonoBehaviour
     {
         transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
         delayTime -= Time.deltaTime * CurrGameSpeed;
-        if(delayTime <= 0.0f)
+        if (delayTime <= 0.0f)
         {
             currSprite++;
             if (currSprite == sprites.Length)
@@ -73,5 +73,5 @@ public class BulletBehavior : MonoBehaviour
         }
     }
 
-    
+
 }

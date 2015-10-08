@@ -4,7 +4,9 @@ using System.Collections;
 public class PushScript : MonoBehaviour {
 
     private float CurrGameSpeed = 1.0f;
-    public float Speed = 1f;
+    public float Speed = 1f; // Hidden in waypoints Scale X
+    public float RotSpeed = 0f; // hidden in waypoints scale Z
+    public float newRot;  // Hidden in waypoints Rotation Z
     public Transform[] Waypoints;
     int currWaypoint;
     bool XPass = false;
@@ -50,6 +52,9 @@ public class PushScript : MonoBehaviour {
 
         if (YPass && XPass)
         {
+            Speed = Waypoints[currWaypoint].localScale.x;
+            RotSpeed = Waypoints[currWaypoint].localScale.z;
+            newRot = Waypoints[currWaypoint].localRotation.z;
             currWaypoint++;
             XPass = false;
             YPass = false;
