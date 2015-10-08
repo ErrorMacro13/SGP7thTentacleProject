@@ -49,14 +49,14 @@ public class CameraZoom : MonoBehaviour
                 if (Offset.x > XOffset)
                 {
                     update = true;
-                    Offset.x -= .05f;
+                    Offset.x -= .04f;
                     if (Offset.x < XOffset)
                         Offset.x = XOffset;
                 }
                 else if (Offset.x < XOffset)
                 {
                     update = true;
-                    Offset.x += .05f;
+                    Offset.x += .04f;
                     if (Offset.x > XOffset)
                         Offset.x = XOffset;
                 }
@@ -64,14 +64,14 @@ public class CameraZoom : MonoBehaviour
                 if (Offset.y > YOffset)
                 {
                     update = true;
-                    Offset.y -= .05f;
+                    Offset.y -= .04f;
                     if (Offset.y < YOffset)
                         Offset.y = YOffset;
                 }
                 else if (Offset.y < YOffset)
                 {
                     update = true;
-                    Offset.y += .05f;
+                    Offset.y += .04f;
                     if (Offset.y > YOffset)
                         Offset.y = YOffset;
                 }
@@ -88,14 +88,14 @@ public class CameraZoom : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Cam.SendMessage("VertLock", VertLocked);
             Offset.x = Cam.transform.position.x - GameObject.Find("Player").transform.position.x;
             Offset.z = -20;
             if (VertLocked)
-                Offset.y = Cam.transform.position.y;// - GameObject.Find("Player").transform.position.y;
+                Offset.y = Cam.transform.position.y;// GameObject.Find("Player").transform.position.y;
             else
                 Offset.y = Cam.transform.position.y - GameObject.Find("Player").transform.position.y;
-
-            Cam.SendMessage("VertLock", VertLocked);
+            Cam.SendMessage("RePosition", Offset);
             zooming = true;
         }
     }
