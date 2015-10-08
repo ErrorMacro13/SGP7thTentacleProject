@@ -1,0 +1,837 @@
+fileFormatVersion: 2
+guid: f9152154106fd3049a28ac02c86d8a0b
+timeCreated: 1444153761
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: fireball_0
+    21300002: fireball_1
+    21300004: fireball_2
+    21300006: fireball_3
+    21300008: fireball_4
+    21300010: fireball_5
+    21300012: fireball_6
+    21300014: fireball_7
+    21300016: fireball_8
+    21300018: fireball_9
+    21300020: fireball_10
+    21300022: fireball_11
+    21300024: fireball_12
+    21300026: fireball_13
+    21300028: fireball_14
+    21300030: fireball_15
+    21300032: fireball_16
+    21300034: fireball_17
+    21300036: fireball_18
+    21300038: fireball_19
+    21300040: fireball_20
+    21300042: fireball_21
+    21300044: fireball_22
+    21300046: fireball_23
+    21300048: fireball_24
+    21300050: fireball_25
+    21300052: fireball_26
+    21300054: fireball_27
+    21300056: fireball_28
+    21300058: fireball_29
+    21300060: fireball_30
+    21300062: fireball_31
+    21300064: fireball_32
+    21300066: fireball_33
+    21300068: fireball_34
+    21300070: fireball_35
+    21300072: fireball_36
+    21300074: fireball_37
+    21300076: fireball_38
+    21300078: fireball_39
+    21300080: fireball_40
+    21300082: fireball_41
+    21300084: fireball_42
+    21300086: fireball_43
+    21300088: fireball_44
+    21300090: fireball_45
+    21300092: fireball_46
+    21300094: fireball_47
+    21300096: fireball_48
+    21300098: fireball_49
+    21300100: fireball_50
+    21300102: fireball_51
+    21300104: fireball_52
+    21300106: fireball_53
+    21300108: fireball_54
+    21300110: fireball_55
+    21300112: fireball_56
+    21300114: fireball_57
+    21300116: fireball_58
+    21300118: fireball_59
+    21300120: fireball_60
+    21300122: fireball_61
+    21300124: fireball_62
+    21300126: fireball_63
+    21300128: fireball_64
+    21300130: fireball_65
+    21300132: fireball_66
+    21300134: fireball_67
+    21300136: fireball_68
+    21300138: fireball_69
+    21300140: fireball_70
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: fireball_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .270244569, y: .117753297}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 0
+        width: 158
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_2
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_3
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_4
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_5
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 0
+        width: 158
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_6
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_7
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 0
+        width: 160
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_8
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_9
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_10
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 0
+        width: 158
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_11
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_12
+      rect:
+        serializedVersion: 2
+        x: 1974
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .296094477, y: .119626634}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_13
+      rect:
+        serializedVersion: 2
+        x: 2141
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_14
+      rect:
+        serializedVersion: 2
+        x: 2310
+        y: 0
+        width: 163
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_15
+      rect:
+        serializedVersion: 2
+        x: 2473
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_16
+      rect:
+        serializedVersion: 2
+        x: 2638
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .283533156, y: .125246629}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_17
+      rect:
+        serializedVersion: 2
+        x: 2805
+        y: 0
+        width: 158
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_18
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_19
+      rect:
+        serializedVersion: 2
+        x: 3135
+        y: 0
+        width: 160
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_20
+      rect:
+        serializedVersion: 2
+        x: 3300
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_21
+      rect:
+        serializedVersion: 2
+        x: 3465
+        y: 0
+        width: 164
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_22
+      rect:
+        serializedVersion: 2
+        x: 3630
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_23
+      rect:
+        serializedVersion: 2
+        x: 3795
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_24
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_25
+      rect:
+        serializedVersion: 2
+        x: 4125
+        y: 0
+        width: 160
+        height: 290
+      alignment: 9
+      pivot: {x: .294140637, y: .119626634}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_26
+      rect:
+        serializedVersion: 2
+        x: 4290
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_27
+      rect:
+        serializedVersion: 2
+        x: 4455
+        y: 0
+        width: 160
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_28
+      rect:
+        serializedVersion: 2
+        x: 4620
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_29
+      rect:
+        serializedVersion: 2
+        x: 4786
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_30
+      rect:
+        serializedVersion: 2
+        x: 4950
+        y: 0
+        width: 156
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_31
+      rect:
+        serializedVersion: 2
+        x: 5115
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_32
+      rect:
+        serializedVersion: 2
+        x: 5280
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_33
+      rect:
+        serializedVersion: 2
+        x: 5445
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_34
+      rect:
+        serializedVersion: 2
+        x: 5610
+        y: 0
+        width: 161
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_35
+      rect:
+        serializedVersion: 2
+        x: 5775
+        y: 0
+        width: 156
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_36
+      rect:
+        serializedVersion: 2
+        x: 5940
+        y: 0
+        width: 155
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_37
+      rect:
+        serializedVersion: 2
+        x: 6105
+        y: 0
+        width: 156
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_38
+      rect:
+        serializedVersion: 2
+        x: 6270
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_39
+      rect:
+        serializedVersion: 2
+        x: 6435
+        y: 0
+        width: 158
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_40
+      rect:
+        serializedVersion: 2
+        x: 6600
+        y: 0
+        width: 155
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_41
+      rect:
+        serializedVersion: 2
+        x: 6765
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_42
+      rect:
+        serializedVersion: 2
+        x: 6930
+        y: 0
+        width: 155
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_43
+      rect:
+        serializedVersion: 2
+        x: 7095
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_44
+      rect:
+        serializedVersion: 2
+        x: 7260
+        y: 0
+        width: 163
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_45
+      rect:
+        serializedVersion: 2
+        x: 7425
+        y: 0
+        width: 157
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_46
+      rect:
+        serializedVersion: 2
+        x: 7590
+        y: 0
+        width: 155
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_47
+      rect:
+        serializedVersion: 2
+        x: 7755
+        y: 0
+        width: 162
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_48
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 0
+        width: 159
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_49
+      rect:
+        serializedVersion: 2
+        x: 8085
+        y: 0
+        width: 151
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_50
+      rect:
+        serializedVersion: 2
+        x: 8250
+        y: 0
+        width: 156
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_51
+      rect:
+        serializedVersion: 2
+        x: 8411
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_52
+      rect:
+        serializedVersion: 2
+        x: 8577
+        y: 0
+        width: 164
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_53
+      rect:
+        serializedVersion: 2
+        x: 8742
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_54
+      rect:
+        serializedVersion: 2
+        x: 8910
+        y: 0
+        width: 156
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_55
+      rect:
+        serializedVersion: 2
+        x: 9067
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_56
+      rect:
+        serializedVersion: 2
+        x: 9235
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_57
+      rect:
+        serializedVersion: 2
+        x: 9400
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_58
+      rect:
+        serializedVersion: 2
+        x: 9565
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_59
+      rect:
+        serializedVersion: 2
+        x: 9728
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_60
+      rect:
+        serializedVersion: 2
+        x: 9896
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_61
+      rect:
+        serializedVersion: 2
+        x: 10060
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_62
+      rect:
+        serializedVersion: 2
+        x: 10226
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_63
+      rect:
+        serializedVersion: 2
+        x: 10390
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_64
+      rect:
+        serializedVersion: 2
+        x: 10557
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_65
+      rect:
+        serializedVersion: 2
+        x: 10721
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_66
+      rect:
+        serializedVersion: 2
+        x: 10882
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_67
+      rect:
+        serializedVersion: 2
+        x: 11050
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_68
+      rect:
+        serializedVersion: 2
+        x: 11210
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_69
+      rect:
+        serializedVersion: 2
+        x: 11378
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fireball_70
+      rect:
+        serializedVersion: 2
+        x: 11545
+        y: 0
+        width: 165
+        height: 290
+      alignment: 9
+      pivot: {x: .25, y: .1215}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

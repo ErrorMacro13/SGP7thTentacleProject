@@ -149,7 +149,8 @@ public class PlayerController : MonoBehaviour
                 speed -= 0.05f;
             else if (speed < 0.0f)
                 speed += 0.05f;
-            else if (speed <= 0.05f || speed >= -0.05f)
+            
+            if (speed <= 0.05f && speed >= -0.05f)
             {
                 anim.SetBool("isSliding", false);
                 speed = 0;

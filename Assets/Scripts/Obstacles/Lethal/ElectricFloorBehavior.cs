@@ -15,10 +15,15 @@ public class ElectricFloorBehavior : MonoBehaviour
 
     public float timeBetweenStates = 3.0f;
     float timer;
+    float animSpeed = 1.0f;
 
     GameObject player;
+    Animator anim;
     void ResetOverWorld()
     {
+        anim.SetBool("isActive", false);
+        anim.SetBool("isDormant", false);
+        anim.SetBool("isCharging", false);
         isDormant = id;
         isCharging = ic;
         isActive = ia;
@@ -33,6 +38,7 @@ public class ElectricFloorBehavior : MonoBehaviour
         id = isDormant;
         timer = timeBetweenStates;
         gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -63,7 +69,7 @@ public class ElectricFloorBehavior : MonoBehaviour
         }
 
 
-
+        anim.speed = animSpeed * CurrGameSpeed;
 
 
     }
@@ -72,16 +78,22 @@ public class ElectricFloorBehavior : MonoBehaviour
     {
         if (isActive)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorActivePH", typeof(Sprite)) as Sprite;
+            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorActivePH", typeof(Sprite)) as Sprite;
+            anim.SetBool("isCharging", false);
+            anim.SetBool("isActive", true);
             gameObject.tag = "Lethal";
         }
         else if (isCharging)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorChargingPH", typeof(Sprite)) as Sprite;
+            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorChargingPH", typeof(Sprite)) as Sprite;
+            anim.SetBool("isDormant", false);
+            anim.SetBool("isCharging", true);
         }
         else if (isDormant)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
+            //gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Images/Obstacles/ElectricFloorDormantPH", typeof(Sprite)) as Sprite;
+            anim.SetBool("isActive", false);
+            anim.SetBool("isDormant", true);
             gameObject.tag = "Ground";
         }
     }

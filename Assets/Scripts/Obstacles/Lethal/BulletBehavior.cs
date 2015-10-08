@@ -5,6 +5,9 @@ public class BulletBehavior : MonoBehaviour
 {
 
     float CurrGameSpeed = 1.0f;
+    float delayTime = .25f;
+    public Sprite[] sprites;
+    int currSprite = 0;
     void ResetOverWorld()
     {
         Destroy(this.gameObject);
@@ -19,6 +22,15 @@ public class BulletBehavior : MonoBehaviour
     void FixedUpdate()
     {
         transform.localPosition += new Vector3(Time.deltaTime * 10 * CurrGameSpeed, 0, 0);
+        delayTime -= Time.deltaTime * CurrGameSpeed;
+        if(delayTime <= 0.0f)
+        {
+            currSprite++;
+            if (currSprite == sprites.Length)
+                currSprite = 0;
+            delayTime = .25f;
+            GetComponent<SpriteRenderer>().sprite = sprites[currSprite];
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
