@@ -143,6 +143,7 @@ public class PauseScript : MonoBehaviour
 
     void Unpause()
     {
+        paused = false;
         TogglePause();
         isSettings = false;
         isInstructions = false;
