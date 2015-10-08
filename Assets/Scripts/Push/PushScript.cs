@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PushScript : MonoBehaviour {
+public class PushScript : MonoBehaviour
+{
 
     private float CurrGameSpeed = 1.0f;
     public float Speed = 1f; // Hidden in waypoints Scale X
-    public float RotSpeed = 0f; // hidden in waypoints scale Z
-    public float newRot;  // Hidden in waypoints Rotation Z
+    public float RotSpeed = 0f; // hidden in waypoints Scale Y
+    public float newRot;  // Hidden in waypoints Scale Z
+    public float currRot;
+
     public Transform[] Waypoints;
     int currWaypoint;
     bool XPass = false;
@@ -52,14 +55,36 @@ public class PushScript : MonoBehaviour {
 
         if (YPass && XPass)
         {
+            print("laserupdate");
             Speed = Waypoints[currWaypoint].localScale.x;
-            RotSpeed = Waypoints[currWaypoint].localScale.z;
-            newRot = Waypoints[currWaypoint].localRotation.z;
+            RotSpeed = Waypoints[currWaypoint].localScale.y;
+            newRot = Waypoints[currWaypoint].localScale.z;
             currWaypoint++;
             XPass = false;
             YPass = false;
             if (currWaypoint >= Waypoints.Length)
                 currWaypoint = 0;
+        }
+
+        if (currRot > newRot)
+        {
+            currRot -= Time.deltaTime * CurrGameSpeed * RotSpeed;
+            transform.rotation = Quaternion.AngleAxis(270 + currRot, Vector3.forward);
+            if (currRot < newRot)
+            {
+                currRot = newRot;
+                transform.rotation = Quaternion.AngleAxis(270 + currRot, Vector3.forward);
+            }
+        }
+        else if (currRot < newRot)
+        {
+            currRot += Time.deltaTime * CurrGameSpeed * RotSpeed;
+            transform.rotation = Quaternion.AngleAxis(270 + currRot, Vector3.forward);
+            if (currRot > newRot)
+            {
+                currRot = newRot;
+                transform.rotation = Quaternion.AngleAxis(270 + currRot, Vector3.forward);
+            }
         }
     }
 
