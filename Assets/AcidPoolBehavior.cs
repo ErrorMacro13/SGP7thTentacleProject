@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour
+public class AcidPoolBehavior : MonoBehaviour
 {
     float CurrGameSpeed = 1.0f;
     float animSpeed = 1.0f;
-
     Animator anim;
 
     // Use this for initialization

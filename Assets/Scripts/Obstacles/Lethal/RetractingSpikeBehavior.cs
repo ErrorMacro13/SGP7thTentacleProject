@@ -166,8 +166,6 @@ public class RetractingSpikeBehavior : MonoBehaviour
     void GreenTrigger(float duration)
     {
         GDelay = duration;
-
-
     }
 
     void ToggleActive(bool isActive)
