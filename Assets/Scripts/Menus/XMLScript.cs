@@ -45,6 +45,7 @@ public class CurrentPlayerStats
     public CurrentPlayerStats() { }
     public int level;
     public float score;
+    public int life;
 }
 public class XMLScript : MonoBehaviour
 {
@@ -105,8 +106,9 @@ public class XMLScript : MonoBehaviour
         set.BGvol = PlayerPrefs.GetFloat("BackgroundVolume");
         set.AFXvol = PlayerPrefs.GetFloat("AFXVolume");
         float temp = PlayerPrefs.GetFloat("FullScreen");
-        if (temp == 1) set.FullScreen = true;
-        else set.FullScreen = false;
+        //if (temp == 1) set.FullScreen = true;
+        //else set.FullScreen = false;
+        set.FullScreen = false;
         return set;
     }
 
@@ -256,6 +258,7 @@ public class XMLScript : MonoBehaviour
         //save players level and score
         PlayerPrefs.SetInt("PlayersLevel", CPS.level);
         PlayerPrefs.SetFloat("PlayersScore", CPS.score);
+        PlayerPrefs.SetInt("PlayersLife", CPS.life);
         PlayerPrefs.Save();
     }
 
@@ -265,6 +268,7 @@ public class XMLScript : MonoBehaviour
         CurrentPlayerStats CPS = new CurrentPlayerStats();
         CPS.level = PlayerPrefs.GetInt("PlayersLevel");
         CPS.score = PlayerPrefs.GetFloat("PlayersScore");
+        CPS.life = PlayerPrefs.GetInt("PlayersLife");
         return CPS;
     }
 

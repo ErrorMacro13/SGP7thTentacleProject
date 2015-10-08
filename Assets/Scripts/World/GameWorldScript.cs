@@ -49,6 +49,7 @@ public class GameWorldScript : MonoBehaviour
     public Texture2D Gauntlet;
     public Texture2D GauntletBG;
     public Texture2D TimerBG;
+    public Texture2D Health;
     public GUISkin MeterSkin;
     public AudioSource TimeSlowAfx;
     public AudioSource TimeSpeedAfx;
@@ -61,6 +62,8 @@ public class GameWorldScript : MonoBehaviour
     private float TimeOnTimer;
     private float TimeBeforeDeath;
     private GameObject saver;
+    private int tempX;
+    private int tempY = 0;
     // Use this for initialization
     void Start()
     {
@@ -139,7 +142,7 @@ public class GameWorldScript : MonoBehaviour
         if (TimeGauge > MAXMANA)
             TimeGauge = MAXMANA;
     }
-    void SetEnergy(float amt)
+    public void SetEnergy(float amt)
     {
         TimeGauge = amt;
     }
@@ -196,6 +199,21 @@ public class GameWorldScript : MonoBehaviour
             TimeOnTimer = time;
         GUI.Label(Timer, (TimeOnTimer - TimeBeforeDeath).ToString(), ManaBarStyle);
         GUI.Label(TimerLabel, "Elapsed Time: ", ManaBarStyle);
+
+        for (int i = 1; i < Player.GetComponent<PlayerController>().GetLives() + 1; i++)
+        {
+            if (i > 10)
+            {
+                tempX = i - 10;
+                tempY = 1;
+            }
+            else
+            {
+                tempX = i;
+                tempY = 0;
+            }
+            GUI.DrawTexture(new Rect(Screen.width - (400 - (35 * tempX)), 107 + (35 * tempY), 32, 32), Health);
+        }
     }
     public void IsLifeAdded(float time)
     {
