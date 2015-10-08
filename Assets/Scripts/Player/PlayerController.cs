@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 350f;
     public bool isGrounded = false;
     public bool isJumping = false;
+    public bool isSliding = false;
     private LevelData highscores = new LevelData();
     public float speed = 0f;
     public float CurrJumpPenalty = 1f;
@@ -26,8 +27,10 @@ public class PlayerController : MonoBehaviour
     bool isSlow = false;
     bool isSlippery = false;
     bool timeCharge = false;
+    bool resizeBCSlide = false;
     public float score = 0;
     public Rigidbody2D player;
+    public BoxCollider2D playerBC;
     public GameObject world;
     public GameObject saver;
     public GameObject SM;
@@ -36,6 +39,8 @@ public class PlayerController : MonoBehaviour
     private CurrentPlayerStats CPS = new CurrentPlayerStats();
     private int life = 3;
     public int lastLevelCompleted = 0;
+    Vector2 standBox;
+    Vector2 slideBox;
 
     Animator anim;
     // Use this for initialization
@@ -65,6 +70,9 @@ public class PlayerController : MonoBehaviour
             }
         }
         anim = GetComponent<Animator>();
+        playerBC = GetComponent<BoxCollider2D>();
+        standBox = new Vector2(playerBC.size.x, playerBC.size.y);
+        slideBox = new Vector2(playerBC.size.y, playerBC.size.x);
     }
     public void SpawnPlayerAt(int CheckPointNumber = 0)
     {
@@ -123,7 +131,47 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.S) && isGrounded)
+        {
+            anim.SetBool("isSliding", true);
+            isSliding = true;
+            ToggleSlide(true);
+            if (isFacingLeft)
+                speed = -maxSpeed;
+            else
+                speed = maxSpeed;
+
+        }
+
+        if (Input.GetKey(KeyCode.S) && isSliding)
+        {
+            if (speed > 0.0f)
+                speed -= 0.05f;
+            else if (speed < 0.0f)
+                speed += 0.05f;
+            
+            if (speed <= 0.05f && speed >= -0.05f)
+            {
+                anim.SetBool("isSliding", false);
+                speed = 0;
+                isSliding = false;
+                ToggleSlide(false);
+            }
+        }
+        else
+        {
+            anim.SetBool("isSliding", false);
+            isSliding = false;
+            ToggleSlide(false);
+        }
+
         GetComponent<Rigidbody2D>().freezeRotation = true;
+
+        if (speed > -0.75f || speed < 0.75f)
+        {
+            anim.SetBool("isRunning", false);
+
+        }
 
         if (isSlow)
             maxSpeed = 1.5f;
@@ -140,13 +188,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
 
         if (Input.GetKey(KeyCode.D))
         {
-            anim.SetBool("isRunning", true);
 
-            if (!isSlippery)
+
+            if (!isSlippery && !isSliding)
             {
                 if (speed <= 0)
                     speed = 1;
@@ -155,25 +202,29 @@ public class PlayerController : MonoBehaviour
                 if (speed > maxSpeed)
                     speed = maxSpeed;
             }
-            else
+            else if (isSlippery)
             {
                 if (speed < maxSpeed)
                     speed += 0.1f;
             }
+
+
+
+
             if (isFacingLeft)
             {
                 isFacingLeft = !isFacingLeft;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
+
             player.velocity = new Vector2(speed, player.velocity.y);
-            
+
 
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            anim.SetBool("isRunning", true);
 
-            if (!isSlippery)
+            if (!isSlippery && !isSliding)
             {
                 if (speed >= 0)
                     speed = -1;
@@ -182,7 +233,7 @@ public class PlayerController : MonoBehaviour
                 if (speed > maxSpeed)
                     speed = -maxSpeed;
             }
-            else
+            else if (isSlippery)
             {
                 if (speed > -maxSpeed)
                     speed -= 0.1f;
@@ -205,10 +256,26 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            anim.SetBool("isRunning", false);
             speed = 0.0f;
             player.velocity = new Vector2(0, player.velocity.y);
 
+        }
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            anim.SetBool("isRunning", false);
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            anim.SetBool("isSliding", false);
+            isSliding = false;
+            ToggleSlide(false);
         }
 
         if (isGrounded && isJumping)
@@ -374,11 +441,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ToggleSlide(bool slide)
+    {
+        if (slide)
+        {
+            playerBC.size = slideBox;
+            //player.transform.Rotate(0, 0, 90);
+        }
+        else
+        {
+            playerBC.size = standBox;
+            //player.transform.Rotate(0, 0, -90);
+
+        }
+
+    }
+
     void Death()
     {
         LoseLife();
         isSlow = false;
         timeCharge = false;
+        playerBC.size = standBox;
         if (life == 0)
         {
             switch (Application.loadedLevelName)
@@ -404,6 +488,9 @@ public class PlayerController : MonoBehaviour
         world.BroadcastMessage("SetEnergy", 0.0f);
         world.BroadcastMessage("ZeroTimer");
         world.BroadcastMessage("ResetWorld");
+        anim.SetBool("isSliding", false);
+        anim.SetBool("isRunning", false);
+
     }
 
     void Die(string DeathCase)
