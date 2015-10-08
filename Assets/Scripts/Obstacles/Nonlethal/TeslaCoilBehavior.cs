@@ -5,6 +5,8 @@ public class TeslaCoilBehavior : MonoBehaviour {
 
     public float TimeBeforeRecharge = .5f;
     float countdown;
+    public GameObject anim;
+    public GameObject anim2;
 	// Use this for initialization
 	void Start () {
         countdown = TimeBeforeRecharge;
@@ -19,6 +21,8 @@ public class TeslaCoilBehavior : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            anim.SendMessage("Hide");
+            anim2.SendMessage("Show", other);
             if (countdown > 0)
                 countdown -= Time.deltaTime;
             else
@@ -26,6 +30,14 @@ public class TeslaCoilBehavior : MonoBehaviour {
                 countdown = TimeBeforeRecharge;
                 SendMessageUpwards("Refill", 1.0f);
             }
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            anim.SendMessage("Show");
+            anim2.SendMessage("Hide");
         }
     }
 }

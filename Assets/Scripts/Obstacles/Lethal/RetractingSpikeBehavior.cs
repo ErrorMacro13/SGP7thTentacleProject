@@ -8,10 +8,9 @@ public class RetractingSpikeBehavior : MonoBehaviour
     public float EmergeDelay;
     public float RDelay;
     public float GDelay;
-    public GameObject anim;
     public bool RetractingHorizontal;
     public bool RetractingVertical;
-
+    public GameObject anim;
     private Vector3 StartLoc;
 
     private bool ChangeDirection = false;
@@ -65,6 +64,21 @@ public class RetractingSpikeBehavior : MonoBehaviour
                     if (ChangeDirection)
                     {
                         DelayEmerge -= Time.deltaTime;
+                        if (DelayEmerge < 0)
+                            DelayEmerge = 0;
+
+                        float percent = (DelayEmerge / EmergeDelay);
+
+                        if ((percent >= 0 && percent <= .1) || (percent >= .9 && percent <= 1))
+                            anim.GetComponent<RetractingFloorScript>().ChangeImage(0);
+                        else if ((percent >= .1 && percent <= .2) || (percent >= .8 && percent <= .9))
+                            anim.GetComponent<RetractingFloorScript>().ChangeImage(1);
+                        else if ((percent >= .2 && percent <= .3) || (percent >= .7 && percent <= .8))
+                            anim.GetComponent<RetractingFloorScript>().ChangeImage(2);
+                        else if ((percent >= .3 && percent <= .4) || (percent >= .6 && percent <= .7))
+                            anim.GetComponent<RetractingFloorScript>().ChangeImage(3);
+                        else if ((percent >= .4 && percent <= .5) || (percent >= .5 && percent <= .6))
+                            anim.GetComponent<RetractingFloorScript>().ChangeImage(4);
                     }
                     else
                     {
@@ -77,6 +91,7 @@ public class RetractingSpikeBehavior : MonoBehaviour
                     if (ChangeDirection)
                     {
                         DelayEmerge -= Time.deltaTime;
+                        
                     }
                     else
                     {
