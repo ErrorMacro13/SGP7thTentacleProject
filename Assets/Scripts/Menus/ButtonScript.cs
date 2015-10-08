@@ -6,12 +6,13 @@ public class ButtonScript : MonoBehaviour
 
     public GameObject SoundManager;
     public GameObject mainCamera;
+    public GameObject levelScroll;
     // Use this for initialization
     void Start()
     {
         SoundManager = GameObject.Find("SoundManager");
         mainCamera = GameObject.Find("Main Camera");
-
+        levelScroll = GameObject.Find("LevelScroll");
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class ButtonScript : MonoBehaviour
         print("hovered cursor");
         SoundManager.SendMessage("Hovered");
         mainCamera.SendMessage("Hovered", true);
+        
     }
 
     public void OnMouseExit()
@@ -64,7 +66,15 @@ public class ButtonScript : MonoBehaviour
         mainCamera.SendMessage("Hovered", false);
     }
 
+    public void LevelSelect(int level)
+    {
+        levelScroll.SendMessage("LevelHover", level);
+    }
 
+    public void LevelUnlock()
+    {
+        levelScroll.SendMessage("Unlock");
+    }
 
     public void ToggleFS()
     {
