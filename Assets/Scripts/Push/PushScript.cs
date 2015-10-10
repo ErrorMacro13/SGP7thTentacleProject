@@ -9,6 +9,7 @@ public class PushScript : MonoBehaviour
     public float RotSpeed = 0f; // hidden in waypoints Scale Y
     public float newRot;  // Hidden in waypoints Scale Z
     public float currRot;
+    public float spin = 1;
 
     public Transform[] Waypoints;
     int currWaypoint;
@@ -23,6 +24,9 @@ public class PushScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (name == "LevelPush2")
+        transform.Rotate(Vector3.back * Time.deltaTime * CurrGameSpeed * spin);
+
         if (transform.position.x > Waypoints[currWaypoint].position.x && !XPass)
         {
             transform.position -= new Vector3(Speed * CurrGameSpeed * Time.deltaTime, 0, 0);

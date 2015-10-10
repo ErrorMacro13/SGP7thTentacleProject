@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioSource slide;
+    public AudioSource jump;
+    public AudioSource death;
+
     public float maxSpeed = 5f;
     public float jumpForce = 350f;
     public bool isGrounded = false;
@@ -124,6 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isSliding", true);
             isSliding = true;
+            slide.Play();
             ToggleSlide(true);
             if (isFacingLeft)
                 speed = -maxSpeed;
@@ -277,6 +282,8 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        jump.Play();
+        anim.SetBool("isJumping", true);
         player.AddForce(new Vector2(0f, jumpForce));
     }
 
@@ -288,16 +295,25 @@ public class PlayerController : MonoBehaviour
                 Death();
                 break;
             case "SlowPlayer":
+                anim.SetBool("isJumping", false);
+                GetComponent<ParticleSystem>().startColor = new Color(0, 0, 0);
                 GetComponent<ParticleSystem>().Play();
                 GetComponent<ParticleSystem>().startSpeed *= CurrGameSpeed;
                 isSlow = true;
                 break;
             case "Slippery":
+                anim.SetBool("isJumping", false);
+                GetComponent<ParticleSystem>().startColor = new Color(175, 238, 238);
+                GetComponent<ParticleSystem>().Play();
+                GetComponent<ParticleSystem>().startSpeed *= CurrGameSpeed;
                 isSlippery = true;
                 isGrounded = true;
                 break;
             case "ChargeTimelock":
                 timeCharge = true;
+                break;
+            case "Ground":
+                anim.SetBool("isJumping", false);
                 break;
         }
     }
@@ -355,6 +371,7 @@ public class PlayerController : MonoBehaviour
                 isSlow = false;
                 break;
             case "Slippery":
+                GetComponent<ParticleSystem>().Stop();
                 isSlippery = false;
                 isGrounded = false;
                 break;
@@ -448,6 +465,7 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
+        death.Play();
         LoseLife();
         isSlow = false;
         timeCharge = false;

@@ -10,7 +10,8 @@ public class CameraBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        VertLocked = true;
+        RePosition(new Vector3(3.75f, Player.transform.position.y + 3, -20));
     }
 
     // Update is called once per frame
