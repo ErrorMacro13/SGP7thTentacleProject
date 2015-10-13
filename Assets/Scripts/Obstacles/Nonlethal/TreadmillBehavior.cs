@@ -50,7 +50,7 @@ public class TreadmillBehavior : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            rotators[i].transform.Rotate(0, 0, rotateSpeed * CurrGameSpeed * Time.timeScale);
+            rotators[i].transform.Rotate(0, 0, rotateSpeed * CurrGameSpeed * Time.deltaTime);
         }
     }
 
