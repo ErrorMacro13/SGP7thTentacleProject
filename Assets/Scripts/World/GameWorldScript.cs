@@ -62,12 +62,15 @@ public class GameWorldScript : MonoBehaviour
     private float TimeOnTimer;
     private float TimeBeforeDeath;
     private GameObject saver;
+    private GameObject soundManager;
     private int tempX;
     private int tempY = 0;
+    private float LastCheckPointTime;
     // Use this for initialization
     void Start()
     {
         saver = GameObject.Find("SaveDataLoader");
+        soundManager = GameObject.Find("SoundManager");
     }
     // Update is called once per frame
     void Update()
@@ -160,7 +163,7 @@ public class GameWorldScript : MonoBehaviour
         GUIStyle ManaBarStyle = new GUIStyle();
         ManaBarStyle.fontSize = 40;
         Rect PercentBar = new Rect(90, 50, TimeGauge + (TimeGauge/15), 45);
-        Rect TimeSymbol = new Rect(10, 50, 40, 40);
+        Rect TimeSymbol = new Rect(268, 32, 40, 40);
         //Rect AboveHeadBar = new Rect(420, 180, TimeGauge + 5, 5);
         float mana = Mathf.Round(TimeGauge);
         GUI.DrawTexture(new Rect(Screen.width - 410, 30, 500, 85), TimerBG);
@@ -199,24 +202,27 @@ public class GameWorldScript : MonoBehaviour
             TimeOnTimer = time;
         GUI.Label(Timer, (TimeOnTimer - TimeBeforeDeath).ToString(), ManaBarStyle);
         GUI.Label(TimerLabel, "Elapsed Time: ", ManaBarStyle);
-
-        for (int i = 1; i < Player.GetComponent<PlayerController>().GetLives() + 1; i++)
+        if (soundManager.GetComponent<SoundManager>().GameState == 1)
         {
-            if (i > 10)
+            for (int i = 1; i < Player.GetComponent<PlayerController>().GetLives() + 1; i++)
             {
-                tempX = i - 10;
-                tempY = 1;
+                if (i > 10)
+                {
+                    tempX = i - 10;
+                    tempY = 1;
+                }
+                else
+                {
+                    tempX = i;
+                    tempY = 0;
+                }
+                GUI.DrawTexture(new Rect(Screen.width - (400 - (35 * tempX)), 107 + (35 * tempY), 32, 32), Health);
             }
-            else
-            {
-                tempX = i;
-                tempY = 0;
-            }
-            GUI.DrawTexture(new Rect(Screen.width - (400 - (35 * tempX)), 107 + (35 * tempY), 32, 32), Health);
         }
     }
     public void IsLifeAdded(float time)
     {
+        LastCheckPointTime = time;
         if (GetTime() < time) Player.GetComponent<PlayerController>().AddLife();
         else return;
     }
@@ -241,9 +247,10 @@ public class GameWorldScript : MonoBehaviour
     }
     public int CalcScore()
     {
-        int tempT = (int)GetTime();
-        int tempS = (int)Player.GetComponent<PlayerController>().GetScore();
-        return ((int)(64000 / (1/GetTime())) + tempS);
+        int TimeComponent = (int)GetTime() - (int)LastCheckPointTime;
+        int ScoreComponent = (int)Player.GetComponent<PlayerController>().GetScore();
+        int LifeComponent = (int)Player.GetComponent<PlayerController>().GetLives();
+        return ScoreComponent + 64 * TimeComponent + LifeComponent * 200;
     }
     void SavePlayersData(PlayersData data)
     {

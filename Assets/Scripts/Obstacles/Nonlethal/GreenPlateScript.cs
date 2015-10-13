@@ -21,12 +21,14 @@ public class GreenPlateScript : MonoBehaviour {
         transform.localScale = origTrans.localScale;
         tempduration = duration;
         GetComponent<SpriteRenderer>().sprite = NonactiveImg;
+        BroadcastMessage("Deactivate");
     }
 	// Update is called once per frame
 	void Update () {
         if (tempduration <= 0)
         {
             GetComponent<SpriteRenderer>().sprite = NonactiveImg;
+            BroadcastMessage("Deactivate");
             tempduration = duration;
         }
         else tempduration -= Time.deltaTime;
@@ -39,6 +41,7 @@ public class GreenPlateScript : MonoBehaviour {
             targets[i].BroadcastMessage("GreenTrigger", duration);
         }
         GetComponent<SpriteRenderer>().sprite = ActivatedImg;
+        BroadcastMessage("Activate");
         transform.localScale = new Vector3(1.0f,.5f,1.0f);
     }
     void OnTriggerExit2D(Collider2D ent)
