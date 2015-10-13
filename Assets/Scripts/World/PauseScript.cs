@@ -107,6 +107,7 @@ public class PauseScript : MonoBehaviour
     {
         mainPause = !mainPause;
         isSettings = !isSettings;
+        mainCanvas.enabled = !mainCanvas.enabled;
         settingsCanvas.enabled = !settingsCanvas.enabled;
     }
 
@@ -114,6 +115,7 @@ public class PauseScript : MonoBehaviour
     {
         mainPause = !mainPause;
         isInstructions = !isInstructions;
+        mainCanvas.enabled = !mainCanvas.enabled;
         instructionsCanvas.enabled = !instructionsCanvas.enabled;
         instructionsCanvas.GetComponentInChildren<InstructionArrayScript>().enabled = !instructionsCanvas.GetComponentInChildren<InstructionArrayScript>().enabled;
 
