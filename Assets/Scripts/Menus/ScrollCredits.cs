@@ -11,7 +11,7 @@ public class ScrollCredits : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (transform.position.y < 1300f)
-            transform.position += new Vector3(0,1.0f,0);
+            transform.position += new Vector3(0,Time.deltaTime,0);
         
 	}
 }

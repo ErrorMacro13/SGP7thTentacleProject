@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpinningBladeBehavior : MonoBehaviour {
+public class SpinningBladeBehavior : MonoBehaviour
+{
     float CurrGameSpeed = 1.0f;
-    float rotateSpeed = 10.0f;
-
-	// Use this for initialization
-	void Start () {
+    public float rotateSpeed = 10.0f;
+    public bool Clockwise = false;
+    // Use this for initialization
+    void Start()
+    {
         //GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.25f);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        transform.Rotate(0, 0, rotateSpeed * CurrGameSpeed * Time.timeScale);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!Clockwise)
+            transform.Rotate(0, 0, rotateSpeed * CurrGameSpeed * Time.timeScale);
+        else
+            transform.Rotate(0, 0, -rotateSpeed * CurrGameSpeed * Time.timeScale);
+
 
         if (CurrGameSpeed < 0.25f)
         {
@@ -24,7 +31,7 @@ public class SpinningBladeBehavior : MonoBehaviour {
             tag = "Lethal";
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         }
-	}
+    }
 
     void SetTime(short GameSpeed)
     {

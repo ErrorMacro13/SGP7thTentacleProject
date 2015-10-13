@@ -4,13 +4,12 @@ using System.Collections;
 public class FireBallScript : MonoBehaviour
 {
 
-    public float CurrGameSpeed = 1.0f;
+    float CurrGameSpeed = 1.0f;
     public bool Left = true;
     public float BallSpeed = 3.0f;
     public float LifeSpan = 5.0f;
-    public float BOrigin;
     public float BounceHeight;
-    public float VertSpeed = 0f;
+    float VertSpeed = 0f;
     public bool GoingUp = false;
     // Use this for initialization
     void Start()
@@ -111,5 +110,9 @@ public class FireBallScript : MonoBehaviour
     void SetLeft(bool b)
     {
         Left = b;
+    }
+    void SetBounce(float f)
+    {
+        BounceHeight = f;
     }
 }
