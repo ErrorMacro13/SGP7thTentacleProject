@@ -126,6 +126,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && isGrounded)
         {
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isJumping", false);
             anim.SetBool("isSliding", true);
             isSliding = true;
             slide.Play();
@@ -283,6 +285,8 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         jump.Play();
+        anim.SetBool("isRunning", false);
+        anim.SetBool("isSliding", false);
         anim.SetBool("isJumping", true);
         player.AddForce(new Vector2(0f, jumpForce));
     }
@@ -291,6 +295,9 @@ public class PlayerController : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
+            case "Ground":
+                anim.SetBool("isJumping", false);
+                break;
             case "Lethal":
                 Death();
                 break;
@@ -311,9 +318,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "ChargeTimelock":
                 timeCharge = true;
-                break;
-            case "Ground":
-                anim.SetBool("isJumping", false);
                 break;
         }
     }

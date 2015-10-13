@@ -81,14 +81,21 @@ public class ButtonScript : MonoBehaviour
         Screen.fullScreen = !Screen.fullScreen;
     }
 
-    public void SettingsCanvasOff()
+    public void ToggleSettingsCanvas()
     {
         GameObject.Find("GameOverWorld").SendMessage("SwitchSettings");
     }
 
-    public void InstructionsCanvasOff()
+    public void ToggleInstructionsCanvas()
     {
         GameObject.Find("GameOverWorld").SendMessage("SwitchInstructions");
+    }
+
+    public void MainMenu()
+    {
+        Application.LoadLevel("MainMenu");
+        GameObject.Find("GameOverWorld").SendMessage("Unpause");
+
     }
 
     public void Unpause()
